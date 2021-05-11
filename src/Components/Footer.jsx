@@ -1,4 +1,11 @@
+import React, { useState } from 'react';
+import BasketCounter from './BasketCounter';
+import ShoppingCart from '../Assets/Images/shoppingCart.png';
+
 const Footer = () => {
+
+    //TODO: connect state to redux value of itemsInBasket instead of fixed value
+    const [itemsInBasket] = useState(1);
 
     const style = {
         footer: {
@@ -15,19 +22,30 @@ const Footer = () => {
         },
         shoppingcartButton: {
             marginRight: 25,
-            background: "yellow"
+        },
+        buttonImage: {
+            color: "black",
+            width: 40,
+            height: 40
         },
         buttonGeneral: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             width: 60,
             height: 60,
             borderRadius: 15,
-            border: "1px solid black"
+            border: "1px solid black",
+            background: "white"
         }
     }
 
     return (
         <footer style={style.footer}>
-            <div style={{...style.shoppingcartButton, ...style.buttonGeneral}}></div>
+            <div style={{ ...style.shoppingcartButton, ...style.buttonGeneral }}>
+                <img style={style.buttonImage} src={ShoppingCart} />
+                {itemsInBasket > 0 ? <BasketCounter /> : null}
+            </div>
         </footer>
     )
 }
