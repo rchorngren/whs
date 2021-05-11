@@ -6,6 +6,7 @@ const Footer = () => {
 
     //TODO: connect state to redux value of itemsInBasket instead of fixed value
     const [itemsInBasket] = useState(1);
+    const [buttonIsClicked, setButtonIsClicked] = useState(false);
 
     const style = {
         footer: {
@@ -24,9 +25,12 @@ const Footer = () => {
             marginRight: 25,
         },
         buttonImage: {
-            color: "black",
             width: 40,
             height: 40
+        },
+        buttonImageClicked: {
+            width: 35,
+            height: 35
         },
         buttonGeneral: {
             display: "flex",
@@ -40,10 +44,23 @@ const Footer = () => {
         }
     }
 
+    function animationOnClick() {
+        setTimeout(() => {
+            setButtonIsClicked(false);
+        }, 100);
+        setTimeout(() => {
+            //TODO: Execute button function
+            console.log('navigating...');
+        }, 250);
+    }
+
     return (
         <footer style={style.footer}>
             <div style={{ ...style.shoppingcartButton, ...style.buttonGeneral }}>
-                <img style={style.buttonImage} src={ShoppingCart} />
+                <img
+                    style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
+                    src={ShoppingCart}
+                    onClick={() => {setButtonIsClicked(true); animationOnClick()}} />
                 {itemsInBasket > 0 ? <BasketCounter /> : null}
             </div>
         </footer>
