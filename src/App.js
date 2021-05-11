@@ -1,7 +1,6 @@
 import logo from './logo.png';
 import './App.css';
 import CounterRedux from './Components/CounterRedux';
-import { useEffect } from 'react';
 
 function App() {
 
