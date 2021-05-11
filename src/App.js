@@ -1,14 +1,8 @@
 import logo from './logo.png';
 import './App.css';
 import CounterRedux from './Components/CounterRedux';
-import { getGenre } from "./Features/repository";
 
 function App() {
-  let test = getGenre();
-  setTimeout(() => {
-    console.log(test);
-  }, 3000);
-
 
   return (
     <div className="App">
