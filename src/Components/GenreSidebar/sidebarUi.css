@@ -6,6 +6,11 @@
     padding-top: 30px;
   }
   
+  #genresText {
+      padding: 15px 0 0 0;
+      color: white;
+      font-size: 23px;
+  }
   .genreItems {
     padding: 0 0 10px 0;
     font-size: 18px;
@@ -15,10 +20,11 @@
   .genreSidebar {
     background: rgb(44, 44, 44);
     width: 170px;
-    height: 100vh;
+    height: 812px;
     border: 1px solid white;
+    border-radius: 0 10px 10px 0;
   }
   
   .genreItemsContainer {
-    padding-top: 50px;
+    padding-top: 25px;
   }
