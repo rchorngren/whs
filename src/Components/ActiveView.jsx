@@ -10,6 +10,8 @@ const ActiveView = () => {
         content = 'checkout component goes here';
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = 'profile component goes here';
+    } else if (activeView === ACTIVEVIEW.LOGIN) {
+        content = 'login component goes here';
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = 'genre menu component goes here';
     } else {
