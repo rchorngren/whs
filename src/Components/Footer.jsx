@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { actions } from '../Features/activeView';
 import BasketCounter from './BasketCounter';
 import ShoppingCart from '../Assets/Images/shoppingCart.png';
+
 
 const Footer = () => {
 
@@ -8,6 +11,8 @@ const Footer = () => {
     const [itemsInBasket] = useState(1);
     const [buttonIsClicked, setButtonIsClicked] = useState(false);
 
+    const dispatch = useDispatch();
+    
     const style = {
         footer: {
             display: "flex",
@@ -45,13 +50,12 @@ const Footer = () => {
     }
 
     //Resets the styling first and then triggers the function of the button
-    function animationOnClick() {
+    function animationOnClick(dispatch) {
         setTimeout(() => {
             setButtonIsClicked(false);
         }, 100);
         setTimeout(() => {
-            //TODO: Execute button function
-            console.log('navigating...');
+            dispatch(actions.checkout());
         }, 250);
     }
 
@@ -61,7 +65,7 @@ const Footer = () => {
                 <img
                     style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
                     src={ShoppingCart}
-                    onClick={() => {setButtonIsClicked(true); animationOnClick()}} />
+                    onClick={() => {setButtonIsClicked(true); animationOnClick(dispatch)}} />
                 {itemsInBasket > 0 ? <BasketCounter /> : null}
             </div>
         </footer>

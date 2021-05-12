@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { actions } from '../Features/activeView';
 import ProfileIcon from '../Assets/Images/profileIcon.png';
 
 const Header = () => {
 
     const [buttonIsClicked, setButtonIsClicked] = useState(false);
+
+    const dispatch = useDispatch();
 
     const style = {
         header: {
@@ -57,13 +61,18 @@ const Header = () => {
         }
     }
 
-    function animationOnClick() {
+    //Resets the styling first and then triggers the function of the button
+    function animationOnClick(dispatch, clickedButton) {
         setTimeout(() => {
             setButtonIsClicked(false);
         }, 100);
         setTimeout(() => {
-            //TODO: Execute button function
-            console.log('navigating...');
+            if (clickedButton === 'profileClicked') {
+                dispatch(actions.profile());
+            } else {
+                dispatch(actions.menu());
+            }
+            
         }, 250);
     }
 
@@ -84,7 +93,7 @@ const Header = () => {
                 <img
                 style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
                 src={ProfileIcon}
-                onClick={() => {setButtonIsClicked(true); animationOnClick()}}/>
+                onClick={() => {setButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked')}}/>
             </div>
         </header>
     )
