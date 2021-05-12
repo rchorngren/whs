@@ -6,6 +6,7 @@ import ProfileIcon from '../Assets/Images/profileIcon.png';
 const Header = () => {
 
     const [buttonIsClicked, setButtonIsClicked] = useState(false);
+    const [userLoggedIn] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -20,12 +21,18 @@ const Header = () => {
             background: "#C4C4C4"
         },
         menuButton: {
+            marginLeft: 25,
             display: "flex",
             flexDirection: "column",
-            marginLeft: 25,
+            background: "white"
         },
         profileButton: {
             marginRight: 25,
+            background: "white"
+        },
+        profileButtonLoggedIn: {
+            marginRight: 25,
+            background: '#548F25'
         },
         menuContainer: {
             display: "flex",
@@ -57,7 +64,6 @@ const Header = () => {
             height: 60,
             borderRadius: 15,
             border: "1px solid black",
-            background: "white"
         }
     }
 
@@ -68,11 +74,16 @@ const Header = () => {
         }, 100);
         setTimeout(() => {
             if (clickedButton === 'profileClicked') {
-                dispatch(actions.profile());
+                if (userLoggedIn) {
+                    dispatch(actions.profile());
+                } else {
+                    dispatch(actions.login());
+                }
+
             } else {
                 dispatch(actions.menu());
             }
-            
+
         }, 250);
     }
 
@@ -88,12 +99,22 @@ const Header = () => {
             </div>
 
             <h2>WHS</h2>
-            
-            <div style={{ ...style.profileButton, ...style.buttonGeneral }}>
+
+            {/* <div style={{ ...style.profileButton, ...style.buttonGeneral }}> */}
+            <div style={userLoggedIn ? (
+                {...style.profileButtonLoggedIn, ...style.buttonGeneral}
+            ) : (
+                {...style.profileButton, ...style.buttonGeneral}
+            )}>
+            {/* style={userLoggedIn ? (
+                        buttonIsClicked ? style.buttonImageClicked : style.buttonImage
+                        ) : (
+                        buttonIsClicked ? style.buttonImageClicked : style.buttonImage
+                    )} */}
                 <img
-                style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
-                src={ProfileIcon}
-                onClick={() => {setButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked')}}/>
+                    style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
+                    src={ProfileIcon}
+                    onClick={() => { setButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }} />
             </div>
         </header>
     )
