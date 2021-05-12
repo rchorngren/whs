@@ -30,7 +30,7 @@ const Footer = () => {
         },
         buttonImageClicked: {
             width: 35,
-            height: 35
+            height: 35,
         },
         buttonGeneral: {
             display: "flex",
@@ -41,9 +41,10 @@ const Footer = () => {
             borderRadius: 15,
             border: "1px solid black",
             background: "white"
-        }
+        },
     }
 
+    //Resets the styling first and then triggers the function of the button
     function animationOnClick() {
         setTimeout(() => {
             setButtonIsClicked(false);
