@@ -1,6 +1,9 @@
+import React, { useState } from 'react';
 import ProfileIcon from '../Assets/Images/profileIcon.png';
 
 const Header = () => {
+
+    const [buttonIsClicked, setButtonIsClicked] = useState(false);
 
     const style = {
         header: {
@@ -35,9 +38,12 @@ const Header = () => {
             background: "black"
         },
         buttonImage: {
-            color: "black",
             width: 40,
             height: 40
+        },
+        buttonImageClicked: {
+            width: 35,
+            height: 35
         },
         buttonGeneral: {
             display: "flex",
@@ -49,6 +55,16 @@ const Header = () => {
             border: "1px solid black",
             background: "white"
         }
+    }
+
+    function animationOnClick() {
+        setTimeout(() => {
+            setButtonIsClicked(false);
+        }, 100);
+        setTimeout(() => {
+            //TODO: Execute button function
+            console.log('navigating...');
+        }, 250);
     }
 
 
@@ -65,7 +81,10 @@ const Header = () => {
             <h2>WHS</h2>
             
             <div style={{ ...style.profileButton, ...style.buttonGeneral }}>
-                <img style={style.buttonImage} src={ProfileIcon} />
+                <img
+                style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
+                src={ProfileIcon}
+                onClick={() => {setButtonIsClicked(true); animationOnClick()}}/>
             </div>
         </header>
     )
