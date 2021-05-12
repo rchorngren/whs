@@ -3,13 +3,14 @@
     color: black;
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
   }
   
   #genresText {
-      padding: 15px 0 0 0;
+      padding: 15px 0 40px 0;
       color: white;
       font-size: 23px;
+      border-bottom: 1px solid white;
+      border-radius: 10px 0;
   }
   .genreItems {
     padding: 0 0 10px 0;
@@ -26,5 +27,5 @@
   }
   
   .genreItemsContainer {
-    padding-top: 25px;
+    padding-top: 15px;
   }
