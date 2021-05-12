@@ -101,13 +101,19 @@ const Header = () => {
         }, 100);
         setTimeout(() => {
             if (clickedButton === 'profileClicked') {
+                setMenuButtonIsClicked(false);
                 if (userLoggedIn) {
                     dispatch(actions.profile());
                 } else {
                     dispatch(actions.login());
                 }
             } else {
-                dispatch(actions.menu());
+                if (menuButtonIsClicked) {
+                    setMenuButtonIsClicked(!menuButtonIsClicked);
+                    dispatch(actions.empty());
+                } else {
+                    dispatch(actions.menu());
+                }
             }
 
         }, 250);
@@ -116,10 +122,10 @@ const Header = () => {
 
     return (
         <header style={style.header}>
-            <div style={{ ...style.menuButton, ...style.buttonGeneral }}>
-                <div
-                    style={style.menuContainer}
-                    onClick={() => { setMenuButtonIsClicked(true); animationOnClick(dispatch, 'menuClicked') }} >
+            <div
+                style={{ ...style.menuButton, ...style.buttonGeneral }}
+                onClick={() => { setMenuButtonIsClicked(true); animationOnClick(dispatch, 'menuClicked') }}>
+                <div style={style.menuContainer}>
                     {menuOpen ? (
                         //when menu is open
                         <div>
@@ -141,17 +147,18 @@ const Header = () => {
 
             <h2>WHS</h2>
 
-            <div style={userLoggedIn ? (
-                //styling if user is logged in
-                { ...style.profileButtonLoggedIn, ...style.buttonGeneral }
-            ) : (
-                //styling if user is not logged in
-                { ...style.profileButton, ...style.buttonGeneral }
-            )}>
+            <div
+                style={userLoggedIn ? (
+                    //styling if user is logged in
+                    { ...style.profileButtonLoggedIn, ...style.buttonGeneral }
+                ) : (
+                    //styling if user is not logged in
+                    { ...style.profileButton, ...style.buttonGeneral }
+                )}
+                onClick={() => { setProfileButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }}>
                 <img
                     style={profileButtonIsClicked ? style.buttonImageClicked : style.buttonImage}
-                    src={ProfileIcon}
-                    onClick={() => { setProfileButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }} />
+                    src={ProfileIcon} />
             </div>
         </header>
     )

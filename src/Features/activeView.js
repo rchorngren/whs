@@ -1,11 +1,13 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
 
+const empty = createAction('empty');
 const checkout = createAction('checkout view');
 const profile = createAction('profile view');
 const login = createAction('login view');
 const menu = createAction('menu view');
 
 const actions = {
+    empty,
     checkout,
     profile,
     login,
@@ -25,6 +27,10 @@ const initialState = {
 }
 
 const reducer = createReducer(initialState, {
+    [empty]: (state, action) => ({
+        ...state,
+        activeView: ACTIVEVIEW.DEFAULT
+    }),
     [checkout]: (state, action) => ({
         ...state,
         activeView: ACTIVEVIEW.CHECKOUT

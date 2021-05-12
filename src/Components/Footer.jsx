@@ -12,7 +12,7 @@ const Footer = () => {
     const [buttonIsClicked, setButtonIsClicked] = useState(false);
 
     const dispatch = useDispatch();
-    
+
     const style = {
         footer: {
             display: "flex",
@@ -61,11 +61,12 @@ const Footer = () => {
 
     return (
         <footer style={style.footer}>
-            <div style={{ ...style.shoppingcartButton, ...style.buttonGeneral }}>
+            <div
+                style={{ ...style.shoppingcartButton, ...style.buttonGeneral }}
+                onClick={() => { setButtonIsClicked(true); animationOnClick(dispatch) }}>
                 <img
                     style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
-                    src={ShoppingCart}
-                    onClick={() => {setButtonIsClicked(true); animationOnClick(dispatch)}} />
+                    src={ShoppingCart} />
                 {itemsInBasket > 0 ? <BasketCounter /> : null}
             </div>
         </footer>
