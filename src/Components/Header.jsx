@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../Features/activeView';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, ACTIVEVIEW } from '../Features/activeView';
 import ProfileIcon from '../Assets/Images/profileIcon.png';
 
 const Header = () => {
 
-    const [buttonIsClicked, setButtonIsClicked] = useState(false);
+    const [profileButtonIsClicked, setProfileButtonIsClicked] = useState(false);
+    const [menuButtonIsClicked, setMenuButtonIsClicked] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     //TODO: connect redux based state to see if user is loggedin or not
     const [userLoggedIn] = useState(false);
+
+    const activeView = useSelector(state => state.activeView.activeView);
+
+    useEffect(() => {
+        if (activeView === ACTIVEVIEW.MENU) {
+            setMenuOpen(true);
+        } else {
+            setMenuOpen(false);
+        }
+    }, [activeView]);
 
     const dispatch = useDispatch();
 
@@ -49,6 +61,20 @@ const Header = () => {
             marginTop: 5,
             background: "black"
         },
+        menuRowOpenA: {
+            height: 7,
+            width: 50,
+            marginTop: 5,
+            transform: "rotate(45deg)",
+            background: "black"
+        },
+        menuRowOpenB: {
+            height: 7,
+            width: 50,
+            marginTop: -7.5,
+            transform: "rotate(135deg)",
+            background: "black"
+        },
         buttonImage: {
             width: 40,
             height: 40
@@ -71,7 +97,7 @@ const Header = () => {
     //Resets the styling first and then triggers the function of the button
     function animationOnClick(dispatch, clickedButton) {
         setTimeout(() => {
-            setButtonIsClicked(false);
+            setProfileButtonIsClicked(false);
         }, 100);
         setTimeout(() => {
             if (clickedButton === 'profileClicked') {
@@ -91,11 +117,26 @@ const Header = () => {
     return (
         <header style={style.header}>
             <div style={{ ...style.menuButton, ...style.buttonGeneral }}>
-                <div style={style.menuContainer}>
-                    <div style={style.menuRow} />
-                    <div style={style.menuRow} />
-                    <div style={style.menuRow} />
+                <div
+                    style={style.menuContainer}
+                    onClick={() => { setMenuButtonIsClicked(true); animationOnClick(dispatch, 'menuClicked') }} >
+                    {menuOpen ? (
+                        //when menu is open
+                        <div>
+                            <div style={style.menuRowOpenA} />
+                            <div style={style.menuRowOpenB} />
+                        </div>
+
+                    ) : (
+                        //when menu is closed
+                        <div>
+                            <div style={style.menuRow} />
+                            <div style={style.menuRow} />
+                            <div style={style.menuRow} />
+                        </div>
+                    )}
                 </div>
+
             </div>
 
             <h2>WHS</h2>
@@ -108,9 +149,9 @@ const Header = () => {
                 { ...style.profileButton, ...style.buttonGeneral }
             )}>
                 <img
-                    style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
+                    style={profileButtonIsClicked ? style.buttonImageClicked : style.buttonImage}
                     src={ProfileIcon}
-                    onClick={() => { setButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }} />
+                    onClick={() => { setProfileButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }} />
             </div>
         </header>
     )
