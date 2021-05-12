@@ -3,7 +3,7 @@ import { ACTIVEVIEW } from '../Features/activeView';
 
 
 const ActiveView = () => {
-    const activeView = useSelector(state => state.activeView.activeView)
+    const activeView = useSelector(state => state.activeView.activeView);
     let content = null;
 
     if (activeView === ACTIVEVIEW.CHECKOUT) {
