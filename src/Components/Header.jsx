@@ -6,6 +6,7 @@ import ProfileIcon from '../Assets/Images/profileIcon.png';
 const Header = () => {
 
     const [buttonIsClicked, setButtonIsClicked] = useState(false);
+    //TODO: connect redux based state to see if user is loggedin or not
     const [userLoggedIn] = useState(false);
 
     const dispatch = useDispatch();
@@ -79,7 +80,6 @@ const Header = () => {
                 } else {
                     dispatch(actions.login());
                 }
-
             } else {
                 dispatch(actions.menu());
             }
@@ -100,17 +100,13 @@ const Header = () => {
 
             <h2>WHS</h2>
 
-            {/* <div style={{ ...style.profileButton, ...style.buttonGeneral }}> */}
             <div style={userLoggedIn ? (
-                {...style.profileButtonLoggedIn, ...style.buttonGeneral}
+                //styling if user is logged in
+                { ...style.profileButtonLoggedIn, ...style.buttonGeneral }
             ) : (
-                {...style.profileButton, ...style.buttonGeneral}
+                //styling if user is not logged in
+                { ...style.profileButton, ...style.buttonGeneral }
             )}>
-            {/* style={userLoggedIn ? (
-                        buttonIsClicked ? style.buttonImageClicked : style.buttonImage
-                        ) : (
-                        buttonIsClicked ? style.buttonImageClicked : style.buttonImage
-                    )} */}
                 <img
                     style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
                     src={ProfileIcon}
