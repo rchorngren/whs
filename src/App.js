@@ -36,6 +36,7 @@ function App() {
         <ActiveView />
       </main>
       <Footer />
+
       <GenreMeny/>
     </div>
   );
