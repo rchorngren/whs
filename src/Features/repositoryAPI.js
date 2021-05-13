@@ -4,21 +4,19 @@
 /*  A collenction  of useful functionen used to get data from movie APIs.             */
 /**************************************************************************************/
 import { actions as genresListOfAction } from './genresListOf';
+
 const url1 = 'https://api.themoviedb.org/3/';
 const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-U';
 
 /**************************************************************************************/
 /*                             getGenre() - Async                                     */
 /*                                                                                    */
-/*  Returns a list of genre from themoviedb.org as JSON                               */
+/*  Returns a list of genre from themoviedb.org as JSON - called at start of app.     */
 /*  JSON format: {"genres": [{ "id": Int, "name": String}]}                           */
 /*                                                                                    */
-/*  Usage:                                                                            */
-/*        import { getGenre } from "./Features/repositoryAPI";                        */
-/*        ...                                                                         */
-/*        let myArray = '';                                                           */
-/*        getGenre(dispatch).then((resp) => { myArray = JSON.parse(resp) });          */
-/*        ...                                                                         */
+/*                                                                                    */
+/*  Usage: See Global states (variables)                                              */
+/*                                                                                    */
 /**************************************************************************************/
 export async function getGenre(dispatch) {
   dispatch(genresListOfAction.isFetching());
@@ -34,7 +32,7 @@ export async function getGenre(dispatch) {
 }
 
 /**************************************************************************************/
-/*                             getGenreList() - Async                                 */
+/*                          getGenreMovieList() - Async                               */
 /*                                                                                    */
 /*  Returns a list of movies (20/page) matching a genre from themoviedb.org as JSON   */
 /*  JSON format: {"page": Int, "total_pages": Int, "total_results": Int,              */
@@ -57,18 +55,18 @@ export async function getGenre(dispatch) {
 /*               }                                                                    */
 /*  Usage:                                                                            */
 /*                                                                                    */
-/* import { getGenreList } from "./Features/repositoryAPI";                           */
+/* import { getGenreMovieList } from "./Features/repositoryAPI";                      */
 /* ...                                                                                */
 /* let myArray = '';                                                                  */
 /* let genreId = 27;                                                                  */
 /* let currentPage = 1;                                                               */
-/* getGenreList(genreId, currentPage).then((resp) => { myArray = JSON.parse(resp) }); */
+/* getGenreMovieList(genreId, currentPage).then((r) => { myArray = JSON.parse(r) });  */
+/* let content = <div> myArray.genres[i].title </div>                                 */
 /* ...                                                                                */
 /**************************************************************************************/
-export async function getGenreList(genreId, page) {
+export async function getGenreMovieList(genreId, page) {
   let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&page=' + page;
   try {
-    console.log(url1 + 'discover/movie?' + apiKey1Lang + options);
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
     let data = await resp.json();
 
@@ -81,9 +79,12 @@ export async function getGenreList(genreId, page) {
 }
 
 /**************************************************************************************/
-/*                             getGenreList() - Async                                 */
+/*                            getSortedFlix() - Async                                 */
 /*                                                                                    */
-/*  Returns a list of movies (20/page) matching a genre from themoviedb.org as JSON   */
+/*  Returns a list of movies (20/page) matching a searchcriteria from db as JSON      */
+/*  NOTE: First page of this sorted lists (20 movies) already exist as                */
+/*        Global states (variables).                                                  */
+/*                                                                                    */
 /*  JSON format: {"page": Int, "total_pages": Int, "total_results": Int,              */
 /*                  "results": [                                                      */
 /*                      "id": Int,                                                    */
@@ -104,19 +105,47 @@ export async function getGenreList(genreId, page) {
 /*               }                                                                    */
 /*  Usage:                                                                            */
 /*                                                                                    */
-/* import { getGenreList } from "./Features/repositoryAPI";                           */
+/* import { getSortedFlix } from "./Features/repositoryAPI";                          */
 /* ...                                                                                */
 /* let myArray = '';                                                                  */
-/* let genreId = 27;                                                                  */
-/* let currentPage = 1;                                                               */
-/* getGenreList(genreId, currentPage).then((resp) => { myArray = JSON.parse(resp) }); */
+/* let dispatch = null;                                                               */
+/* let search = 'popularity'; //'popularity' is defalt, other: 'recommended' or 'new' */
+/* let currPage = 1;                                                                  */
+/* getSortedFlix(search, currPage).then((resp) => { myArray = JSON.parse(resp) });    */
+/* let content = <div> myArray.genres[i].title </div>                                 */
 /* ...                                                                                */
 /**************************************************************************************/
-export async function getSortedFlix(dispatch, page) {
-  let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&page=' + page;
+export async function getSortedFlix(search, page) {
+  let options = '';
+
+  if (search.toLowerCase() === 'recommended') {
+    options = '&sort_by=vote_average.desc&page=' + page;
+  } else if (search.toLowerCase() === 'new') {
+    options = '&sort_by=release_date.desc&page=' + page;
+  } else {
+    options = '&sort_by=popularity.desc&page=' + page;
+  }
   try {
-    console.log(url1 + 'discover/movie?' + apiKey1Lang + options);
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
+    let data = await resp.json();
+
+    return JSON.stringify(data);
+  }
+  catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+/**************************************************************************************/
+/*                              getFromDb() - Async                                   */
+/*                                                                                    */
+/*  Send API question with parameter 'url' and return JSON                            */
+/*                                                                                    */
+/**************************************************************************************/
+async function getFromDb(url) {
+  try {
+    let resp = await fetch(url);
     let data = await resp.json();
 
     return JSON.stringify(data);

@@ -3,7 +3,7 @@ import './App.css';
 import CounterRedux from './Components/CounterRedux';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { STATUS } from './Features/genresListOf';
+import { STATUS as GENSTATUS } from './Features/genresListOf';
 import { getGenre } from "./Features/repositoryAPI";
 
 function App() {
@@ -12,13 +12,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === STATUS.NORMAL) {
+    if (status === GENSTATUS.NORMAL) {
       getGenre(dispatch);
     }
   }, [dispatch])
-  if (status === STATUS.SUCCESS) {
-    console.log('list: ' + list.genres[0].name)
-  }
 
   return (
     <div className="App">

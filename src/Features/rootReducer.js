@@ -4,7 +4,7 @@ import { reducer as genresListOfReducer} from './genresListOf';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
-    genresListOf: genresListOfReducer
+    genresListOf: genresListOfReducer,
 });
 
 export { rootReducer };
