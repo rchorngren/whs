@@ -29,7 +29,8 @@ const Header = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            height: 95,
+            // height: 95,
+            height: "10vh",
             borderBottom: "1px solid black",
             background: "#C4C4C4"
         },
@@ -115,7 +116,6 @@ const Header = () => {
                     dispatch(actions.menu());
                 }
             }
-
         }, 250);
     }
 
@@ -158,7 +158,7 @@ const Header = () => {
                 onClick={() => { setProfileButtonIsClicked(true); animationOnClick(dispatch, 'profileClicked') }}>
                 <img
                     style={profileButtonIsClicked ? style.buttonImageClicked : style.buttonImage}
-                    src={ProfileIcon} />
+                    src={ProfileIcon} alt="" />
             </div>
         </header>
     )

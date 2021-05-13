@@ -21,7 +21,8 @@ const Footer = () => {
             alignItems: "center",
             position: "fixed",
             bottom: 0,
-            height: 95,
+            // height: 95,
+            height: "10vh",
             width: "100%",
             borderTop: "1px solid black",
             background: "#C4C4C4"
@@ -66,7 +67,7 @@ const Footer = () => {
                 onClick={() => { setButtonIsClicked(true); animationOnClick(dispatch) }}>
                 <img
                     style={buttonIsClicked ? style.buttonImageClicked : style.buttonImage}
-                    src={ShoppingCart} />
+                    src={ShoppingCart} alt="" />
                 {itemsInBasket > 0 ? <BasketCounter /> : null}
             </div>
         </footer>
