@@ -9,7 +9,7 @@ const GenreMenu = () => {
     }
 
    //creates a div for each item in array
-   const genreList = placeholder.map((item) => (
+   const genreSidebarList = placeholder.map((item) => (
         <div className='genreItems' onClick={() => test(item)}>{item}</div>
    ))
 
@@ -17,7 +17,7 @@ const GenreMenu = () => {
         <div className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
             <div className='genreItemsContainer'>
-                {genreList}
+                {genreSidebarList}
             </div>
 
         </div>
