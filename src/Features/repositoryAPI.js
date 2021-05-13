@@ -82,8 +82,6 @@ export async function getGenreMovieList(genreId, page) {
 /*                            getSortedFlix() - Async                                 */
 /*                                                                                    */
 /*  Returns a list of movies (20/page) matching a searchcriteria from db as JSON      */
-/*  NOTE: First page of this sorted lists (20 movies) already exist as                */
-/*        Global states (variables).                                                  */
 /*                                                                                    */
 /*  JSON format: {"page": Int, "total_pages": Int, "total_results": Int,              */
 /*                  "results": [                                                      */
