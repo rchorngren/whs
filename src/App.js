@@ -8,7 +8,6 @@ import { getGenre } from "./Features/repositoryAPI";
 
 function App() {
   const status = useSelector(state => state.genresListOf.status);
-  const list = JSON.parse(useSelector(state => state.genresListOf.list));
   const dispatch = useDispatch();
 
   useEffect(() => {
