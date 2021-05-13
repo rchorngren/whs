@@ -1,0 +1,24 @@
+
+.genreList {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+  }
+  
+  .genreItems {
+    padding: 0 0 10px 0;
+    font-size: 18px;
+    color: white;
+  }
+  
+  .genreSidebar {
+    background: rgb(44, 44, 44);
+    width: 170px;
+    height: 100vh;
+    border: 1px solid white;
+  }
+  
+  .genreItemsContainer {
+    padding-top: 50px;
+  }
