@@ -21,7 +21,6 @@ const Footer = () => {
             alignItems: "center",
             position: "fixed",
             bottom: 0,
-            // height: 95,
             height: "10vh",
             width: "100%",
             borderTop: "1px solid black",

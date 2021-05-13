@@ -30,6 +30,7 @@ const ActiveView = () => {
         }
     }
 
+    //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = 'checkout component goes here';
     } else if (activeView === ACTIVEVIEW.PROFILE) {
@@ -46,16 +47,16 @@ const ActiveView = () => {
         content = lastView;
     }
 
+    //separate useEffect when closing side menu to avoid loop
     useEffect(() => {
         if (menuActive) {
             setMenuActive(false);
         }
     }, [menuActive]);
 
+    //saving current active component so it displays when side menu closes
     useEffect(() => {
-        console.log('activeView: ', activeView);
-        if (activeView === (ACTIVEVIEW.MENU || ACTIVEVIEW.DEFAULT)) {
-        } else {
+        if (activeView !== (ACTIVEVIEW.MENU || ACTIVEVIEW.DEFAULT)) {
             setLastView(content);
         }
     }, [activeView]);
