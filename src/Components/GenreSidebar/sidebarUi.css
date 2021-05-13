@@ -24,6 +24,7 @@
     height: 812px;
     border: 1px solid white;
     border-radius: 0 10px 10px 0;
+    position: fixed;
   }
   
   .genreItemsContainer {
