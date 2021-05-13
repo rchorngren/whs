@@ -1,10 +1,12 @@
 import logo from './logo.png';
 import './App.css';
-import CounterRedux from './Components/CounterRedux';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STATUS as GENSTATUS } from './Features/genresListOf';
 import { getGenre } from "./Features/repositoryAPI";
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import ActiveView from './Components/ActiveView';
 
 function App() {
   const status = useSelector(state => state.genresListOf.status);
@@ -18,14 +20,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        WHS
-      </header>
+      <Header />
       <main>
-        <CounterRedux />
-        <CounterRedux />
-        <CounterRedux />
+        <ActiveView />
       </main>
+      <Footer />
     </div>
   );
 }
