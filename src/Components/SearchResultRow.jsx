@@ -1,21 +1,34 @@
 import React from 'react'
 
-function SearchResultRow() {
+const SearchResultRow = (props) => {
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <img alt="movie poster" width="120" src="https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg" />
-                    </td>
-                    <td>
-                        <h3>Black Panther</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor vitae lacus ac aliquet. Praesent orci sapien, elementum eget tempor a, finibus nec purus.</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <>
+            {props.movie.map((movie, index) =>
+                   <table key={movie.imdbID} style={{
+                       background: '#000',
+                       color: '#fff',
+                       width: '100%',
+                       display: 'block'
+                   }}>
+                   <tbody>
+                       <tr>
+                           <td>
+                               <img alt="movie poster" width="120" src={movie.Poster} style={{
+                                   paddingRight: '16'
+                               }}/>
+                           </td>
+                           <td style={{
+                               textAlign: "left"
+                           }}>
+                               <h3>{movie.Title}</h3>
+                                <p>{movie.Plot}</p>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+               )}
+        </>
     )
 }
 
-export default SearchResultRow
+export default SearchResultRow;
