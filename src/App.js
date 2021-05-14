@@ -8,6 +8,9 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
 
+
+// git checkout -b [branch name]
+
 function App() {
   const status = useSelector(state => state.genresListOf.status);
   const dispatch = useDispatch();
