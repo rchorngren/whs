@@ -8,6 +8,7 @@ import LoadingAnim from './Components/LoadingAnim';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
+import db from './firebase.config'; // eslint-disable-line
 
 import './Components/GenreSidebar/sidebarUi.css';
 
