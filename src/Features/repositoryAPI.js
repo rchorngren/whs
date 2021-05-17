@@ -208,7 +208,7 @@ export async function getSortedFlix(search, page) {
 /**************************************************************************************/
 export async function getUpcommingFlix(page) {
   let option = '';
-  if (!isNaN(page)){
+  if (!isNaN(page)) {
     option = '&page=' + page;
   }
 
@@ -287,6 +287,88 @@ export async function searchFlix(search, multi, page) {
   }
 
   if (parametersOk) {
+    try {
+      let resp = await fetch(url1 + options);
+      let data = await resp.json();
+
+      return JSON.stringify(data);
+    }
+    catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+}
+
+/**************************************************************************************/
+/*                           getFlixDetail() - Async                                  */
+/*  Parameters: (id Int)                                                              */
+/*         id: The tmdb id for that perticular movie.                                 */
+/*                                                                                    */
+/*  Returns a detail list of a movie matching the id from themoviedb.org as JSON      */
+/*                                                                                    */
+/*  JSON format: {"page": Int, "total_pages": Int, "total_results": Int,              */
+/*                  "results": [                                                      */
+/*                      "id": Int,                                                    */
+/*                      "imdb_id": String,      (ex "tt0133093")                      */
+/*                      "title": String,                                              */
+/*                      "original_title": String,                                     */
+/*                      "original_language": String,                                  */
+/*                      "overview": String,                                           */
+/*                      "poster_path": String,                                        */
+/*                      "release_date": Date,                                         */
+/*                      "status": String,                                             */
+/*                      "popularity": Int,                                            */
+/*                      "vote_average": Float,                                        */
+/*                      "vote_count": Int,                                            */
+/*                      "video": Bool,                                                */
+/*                      "adult": Bool,                                                */
+/*                      "backdrop_path": String,                                      */
+/*                      "budget": Int,                                                */
+/*                      "revenue": Int,                                               */
+/*                      "homepage": String,                                           */
+/*                      "runtime": Int,                                               */
+/*                      "tagline": String,                                            */
+/*                      "genre_ids": [Int, Int, Int]                                  */
+/*                      "belongs_to_collection": [                                    */
+/*                          "id": Int,                                                */
+/*                          "name": String,                                           */
+/*                          "poster_path": String,                                    */
+/*                          "backdrop_path": String                                   */
+/*                       ]                                                            */
+/*                      "production_companies": [                                     */
+/*                          "id": Int,                                                */
+/*                          "name": String,                                           */
+/*                          "logo_path": String,                                      */
+/*                          "origin_country": String                                  */
+/*                       ]                                                            */
+/*                      "production_countries": [                                     */
+/*                          "iso_3166_1": String,                                     */
+/*                          "name": String                                            */
+/*                       ]                                                            */
+/*                      "spoken_languages": [                                         */
+/*                          "english_name": String,                                   */
+/*                          "iso_3166_1": String,                                     */
+/*                          "name": String                                            */
+/*                       ]                                                            */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*                                                                                    */
+/*  Usage:                                                                            */
+/*                                                                                    */
+/* import { getFlixDetail } from "./Features/repositoryAPI";                          */
+/* ...                                                                                */
+/* let myArray = '';                                                                  */
+/* let id = 603;                                                                      */
+/* getFlixDetail(id).then((resp) => { myArray = JSON.parse(resp) });                  */
+/* let content = <div> myArray.title </div>                                           */
+/* ...                                                                                */
+/**************************************************************************************/
+export async function getFlixDetail(id) {
+  if (!isNaN(id)) {
+
+    let options = 'movie/' + id + '?' + apiKey1Lang;
+
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
