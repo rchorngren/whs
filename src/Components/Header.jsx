@@ -8,8 +8,9 @@ const Header = () => {
     const [profileButtonIsClicked, setProfileButtonIsClicked] = useState(false);
     const [menuButtonIsClicked, setMenuButtonIsClicked] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    //TODO: connect redux based state to see if user is loggedin or not
-    const [userLoggedIn] = useState(false);
+    
+    const loggedIn = useSelector(state => state.loggedinUser.loggedinUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(loggedIn);
 
     const activeView = useSelector(state => state.activeView.activeView);
 
@@ -20,6 +21,10 @@ const Header = () => {
             setMenuOpen(false);
         }
     }, [activeView]);
+
+    useEffect(() => {
+        setUserLoggedIn(loggedIn);
+    }, [loggedIn]);
 
     const dispatch = useDispatch();
 
