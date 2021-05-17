@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     if (status === GENSTATUS.NORMAL) {
       getGenre(dispatch);
+
     }
   }, [dispatch])
 

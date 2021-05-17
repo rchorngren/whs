@@ -1,25 +1,31 @@
+
+import { useState } from 'react';
 import React from 'react-redux';
+import { useSelector } from 'react-redux';
+import { STATUS } from '../../Features/genresListOf';
 
 const GenreMenu = () => {
 
-   let placeholder = ['Action','Schi-fi','Thriller']
+    const status = useSelector(state => state.genresListOf.status);
+    const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
-   const test = (item) => {
-    console.log(item)
+    let content = null;
+    let genreArray = [];
+    if(status === STATUS.SUCCESS) {
+        console.log(genreList);
+        
+        for(let i = 0; i < genreList.genres.length; i++) {
+            genreArray.push(<div className='genreItems'>{genreList.genres[i].name}</div>)
+        } 
     }
 
-   //creates a div for each item in array
-   const genreSidebarList = placeholder.map((item) => (
-        <div className='genreItems' onClick={() => test(item)}>{item}</div>
-   ))
 
-    return(
+    return (
         <div className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
             <div className='genreItemsContainer'>
-                {genreSidebarList}
+                {genreArray}
             </div>
-
         </div>
     )
 }
