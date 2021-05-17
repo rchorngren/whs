@@ -9,7 +9,6 @@ const GenreMenu = () => {
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
-    let content = null;
     let genreArray = [];
     if(status === STATUS.SUCCESS) {
         console.log(genreList);
