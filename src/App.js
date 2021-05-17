@@ -19,11 +19,6 @@ function App() {
   const status = useSelector(state => state.genresListOf.status);
   const dispatch = useDispatch();
 
-  // Run once
-  useEffect(() => {
-
-  }, []);
-
   useEffect(() => {
     if (status === GENSTATUS.NORMAL) {
       getImgUrl();

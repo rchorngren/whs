@@ -172,6 +172,59 @@ export async function getSortedFlix(search, page) {
 }
 
 /**************************************************************************************/
+/*                          getUpcommingFlix() - Async                                */
+/*                                                                                    */
+/*  Returns a list of movies (20/page) to be released next month from db as JSON      */
+/*  Parameters: (page Int)                                                            */
+/*         page: the number of the page                                               */
+/*                                                                                    */
+/*  JSON format: {"dates": {maximum: Date, minimum: Date}, "page": Int,               */
+/*                  "results": [                                                      */
+/*                      "id": Int,                                                    */
+/*                      "title": String,                                              */
+/*                      "original_title": String,                                     */
+/*                      "original_language": String,                                  */
+/*                      "overview": String,                                           */
+/*                      "poster_path": String,                                        */
+/*                      "release_date": Date,                                         */
+/*                      "popularity": Int,                                            */
+/*                      "vote_average": Float,                                        */
+/*                      "vote_count": Int,                                            */
+/*                      "video": Bool,                                                */
+/*                      "adult": Bool,                                                */
+/*                      "backdrop_path": String,                                      */
+/*                      "genre_ids": [Int, Int, Int]                                  */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*  Usage:                                                                            */
+/*                                                                                    */
+/* import { getUpcommingFlix } from "./Features/repositoryAPI";                       */
+/* ...                                                                                */
+/* let myArray = '';                                                                  */
+/* let currPage = 1;                                                                  */
+/* getUpcommingFlix(currPage).then((resp) => { myArray = JSON.parse(resp) });         */
+/* let content = <div> myArray.results[i].title </div>                                */
+/* ...                                                                                */
+/**************************************************************************************/
+export async function getUpcommingFlix(page) {
+  let option = '';
+  if (!isNaN(page)){
+    option = '&page=' + page;
+  }
+
+  try {
+    let resp = await fetch(url1 + 'movie/upcoming?' + apiKey1Lang + option);
+    let data = await resp.json();
+
+    return JSON.stringify(data);
+  }
+  catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+/**************************************************************************************/
 /*                             searchFlix() - Async                                   */
 /*  Parameters: (search String, multi Bool, page Int)                                 */
 /*         search: the string to search for                                           */
