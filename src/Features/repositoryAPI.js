@@ -9,6 +9,38 @@ const url1 = 'https://api.themoviedb.org/3/';
 const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-U';
 
 /**************************************************************************************/
+/*                             getImgUrl() - Async                                    */
+/*                                                                                    */
+/*  Sets Session variables for Url to Poster and background images:                   */
+/*  backgroundSmall: Small sized background images                                    */
+/*  backgroundMedium: Medium sized background images                                  */
+/*  backgroundLarge: Large sized background images                                    */
+/*                                                                                    */
+/*  posterSmall: Small sized posters                                                  */
+/*  posterMedium: Medium sized posters                                                */
+/*  posterLarge: large sized posters                                                  */
+/*                                                                                    */
+/*  Usage:                                                                            */
+/*     let myPosterUrl = sessionStorage.posterLarge + posterName;                     */
+/*                                                                                    */
+/**************************************************************************************/
+export async function getImgUrl() {
+  try {
+    let resp = await fetch(url1 + 'configuration?' + apiKey1Lang);
+    let data = await resp.json();
+    sessionStorage.setItem('backgroundSmall', data.images.secure_base_url + data.images.backdrop_sizes[0]);
+    sessionStorage.setItem('backgroundMedium', data.images.secure_base_url + data.images.backdrop_sizes[1]);
+    sessionStorage.setItem('backgroundLarge', data.images.secure_base_url + data.images.backdrop_sizes[2]);
+    sessionStorage.setItem('posterSmall', data.images.secure_base_url + data.images.poster_sizes[0]);
+    sessionStorage.setItem('posterMedium', data.images.secure_base_url + data.images.poster_sizes[3]);
+    sessionStorage.setItem('posterLarge', data.images.secure_base_url + data.images.poster_sizes[5]);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+/**************************************************************************************/
 /*                             getGenre() - Async                                     */
 /*                                                                                    */
 /*  Returns a list of genre from themoviedb.org as JSON - called at start of app.     */

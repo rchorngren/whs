@@ -6,8 +6,12 @@
 /*                                                                                    */
 /*  Usage:                                                                            */
 /*        import { useSelector } from 'react-redux';                                  */
+/*        import { STATUS } from '../Features/genresListOf';                          */
 /*        ...                                                                         */
-/*        const myArray = JSON.parse(useSelector(state => state.genresListOf.list));  */
+/*        let myArray = null;                                                         */
+/*        if (status === STATUS.SUCCESS) {                                            */
+/*           myArray = JSON.parse(useSelector(state => state.genresListOf.list));     */
+/*        }                                                                           */
 /*        let content = <div> myArray.genres[i].name </div>                           */
 /*        ...                                                                         */
 /**************************************************************************************/
