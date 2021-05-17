@@ -22,7 +22,9 @@
     background: rgb(44, 44, 44);
     width: 170px;
     height: 812px;
-    border: 1px solid white;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
     border-radius: 0 10px 10px 0;
     position: fixed;
 
