@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import db from '../firebase.config';
+import firebase from 'firebase';
 
 const LoginRegistration = () => {
-    const [firebaseData, setFirebaseData] = useState([]);
     const [showLogin, setShowLogin] = useState(true);
+    const [userName, setUsername] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
 
     const style = {
         loginComponent: {
@@ -12,13 +14,10 @@ const LoginRegistration = () => {
             width: '100vw'
         },
         loginContainer: {
-            // display: 'flex',
-            // flexDirection: 'column',
-            // justifyContent: 'center',
             marginLeft: 'auto',
             marginRight: 'auto',
             marginTop: '5vh',
-            height: '60vh',
+            height: '40vh',
             width: '80vw',
             maxWidth: '800px',
             borderRadius: '15px',
@@ -34,49 +33,101 @@ const LoginRegistration = () => {
         loginButton: {
             height: '25px',
             width: '40vw',
+            marginTop: '41px',
             marginLeft: 'auto',
             marginRight: 'auto',
             border: '1px solid black',
             borderRadius: '10px',
             cursor: 'pointer',
+            userSelect: 'none',
+            background: '#548F25'
+        },
+        registerButton: {
+            height: '25px',
+            width: '40vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            border: '1px solid black',
+            borderRadius: '10px',
+            cursor: 'pointer',
+            userSelect: 'none',
             background: '#548F25'
         },
         newCustomerText: {
             marginTop: '20px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            userSelect: 'none'
         }
     }
 
-    const getDataFromFirestore = async () => {
-        console.log('running getDataFromFirestore');
-        const response = db.collection('Test');
-        const data = await response.get();
-        data.docs.forEach(item => {
-            setFirebaseData([...firebaseData, item.data()]);
-
-        });
+    function toggleLogin() {
+        setUsername(userName);
+        setUserPassword(userPassword);
+        setUserPasswordConfirm(userPasswordConfirm);
+        setShowLogin(!showLogin);
     }
 
-    useEffect(() => {
-        // getDataFromFirestore();
+    function loginUser() {
+        if (!userName || !userPassword) {
+            console.log('not all fields are filled in');
+        } else {
+            firebase.auth().signInWithEmailAndPassword(userName, userPassword)
+                .then((userCredential) => {
+                    console.log('logged in as: ', userCredential);
+                    //TODO: set user as logged in and set user data to redux
+                })
+                .catch((error) => {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log('there was an error during signing in: ', errorCode, ' , ', errorMessage);
+                })
+        }
 
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }
+
+    function registerUser() {
+        if (userPassword === userPasswordConfirm) {
+            firebase.auth().createUserWithEmailAndPassword(userName, userPassword)
+                .then((userCredential) => {
+                    let user = userCredential.user;
+                    console.log('registration complete: ', user);
+                    //TODO: set user as logged in and set user data to redux
+                })
+                .catch((error) => {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log('there was an error during registration: ', errorCode, ' , ', errorMessage);
+                });
+
+        } else {
+            console.log('password does not match');
+        }
+    }
 
     return (
         <div style={style.loginComponent}>
             {showLogin ? (
                 <div style={style.loginContainer}>
                     <h3>Login</h3>
-                    <input type='text' style={style.textInput} placeholder="Username" />
-                    <input type='password' style={style.textInput} placeholder="Password" />
-                    <div style={style.loginButton}>Login</div>
-                    <div style={style.newCustomerText} onClick={() => { setShowLogin(!showLogin) }}>
+                    <input type='text' style={style.textInput} placeholder="E-mail" value={userName} onInput={e => setUsername(e.target.value)} />
+                    <input type='password' style={style.textInput} placeholder="Password" value={userPassword} onInput={e => setUserPassword(e.target.value)} />
+                    <div style={style.loginButton} onClick={() => loginUser()}>Login</div>
+                    <div style={style.newCustomerText} onClick={() => toggleLogin()}>
                         Not yet a customer? <br />
                         Click here to sign up
                     </div>
                 </div>
             ) : (
-                null
+                <div style={style.loginContainer}>
+                    <h3>Registration</h3>
+                    <input type='text' style={style.textInput} placeholder="E-mail" value={userName} onInput={e => setUsername(e.target.value)} />
+                    <input type='password' style={style.textInput} placeholder="Password" value={userPassword} onInput={e => setUserPassword(e.target.value)} />
+                    <input type='password' style={style.textInput} placeholder="Confirm password" value={userPasswordConfirm} onInput={e => setUserPasswordConfirm(e.target.value)} />
+                    <div style={style.registerButton} onClick={() => registerUser()}>Register</div>
+                    <div style={style.newCustomerText} onClick={() => toggleLogin()}>
+                        Back to login
+                    </div>
+                </div>
             )}
 
 
