@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase';
-import { actions, LOGGEDINUSER } from '../Features/loggedinUser';
+import { actions } from '../Features/loggedinUser';
 
 const LoginRegistration = () => {
     const [showLogin, setShowLogin] = useState(true);
@@ -81,8 +81,7 @@ const LoginRegistration = () => {
             firebase.auth().signInWithEmailAndPassword(userName, userPassword)
                 .then((userCredential) => {
                     console.log('logged in as: ', userCredential);
-                    //TODO: set user as logged in and set user data to redux or sessionStorage
-                    window.sessionStorage.setItem('currentUser', userCredential);
+                    localStorage.setItem('currentUser', JSON.stringify(userCredential));
                     dispatch(actions.loggedin());
                 })
                 .catch((error) => {
@@ -100,7 +99,9 @@ const LoginRegistration = () => {
                 .then((userCredential) => {
                     let user = userCredential.user;
                     console.log('registration complete: ', user);
-                    //TODO: set user as logged in and set user data to redux
+                    console.log('userCredential: ', userCredential);
+                    localStorage.setItem('currentUser', JSON.stringify(userCredential));
+                    dispatch(actions.loggedin());
                 })
                 .catch((error) => {
                     let errorCode = error.code;

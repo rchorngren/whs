@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../Features/activeView';
 import GenreMenu from './GenreSidebar/GenreMenu';
+import { actions as loggedInActions } from '../Features/loggedinUser';
+
 import LoginRegistration from './LoginRegistration';
 
 
@@ -10,6 +12,10 @@ const ActiveView = () => {
     const [lastView, setLastView] = useState(null);
     const activeView = useSelector(state => state.activeView.activeView);
     let content = null;
+
+    const currentUserUnparsed = localStorage.getItem('currentUser');
+    const currentUser = JSON.parse(currentUserUnparsed);
+    const dispatch = useDispatch();
 
     const style = {
         openMenu: {
@@ -37,7 +43,9 @@ const ActiveView = () => {
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = 'checkout component goes here';
     } else if (activeView === ACTIVEVIEW.PROFILE) {
-        content = 'profile component goes here';
+        // content = 'profile component goes here';
+        //TODO: remove temporary button
+        content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.MENU) {
@@ -63,6 +71,14 @@ const ActiveView = () => {
             setLastView(content);
         }
     }, [activeView]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    //checks localstorage for previous loggedin user
+    useEffect(() => {
+            if(currentUser && currentUser.operationType === 'signIn') {
+                dispatch(loggedInActions.loggedin());
+            }
+
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
