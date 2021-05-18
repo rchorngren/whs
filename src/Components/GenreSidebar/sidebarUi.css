@@ -20,13 +20,14 @@
   
   .genreSidebar {
     background: rgb(44, 44, 44);
-    width: 170px;
-    height: 812px;
+    /* width: 170px; */
+    height: 80vh;
     border-bottom: 1px solid white;
     border-top: 1px solid white;
     border-right: 1px solid white;
     border-radius: 0 10px 10px 0;
-    position: fixed;
+    overflow: scroll;
+    /* position: fixed; */
 
     /*display: none;*/
   }

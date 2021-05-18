@@ -9,8 +9,6 @@ import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
 
 import './Components/GenreSidebar/sidebarUi.css';
-import CounterRedux from './Components/CounterRedux';
-import GenreMeny from './Components/GenreSidebar/GenreMenu';
 
 // git checkout -b [branch name]
 // git add .  läga till allt redigerat
@@ -30,15 +28,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-
-      </header>
+      <Header />
       <main>
         <ActiveView />
       </main>
       <Footer />
-
-      <GenreMeny/>
     </div>
   );
 }

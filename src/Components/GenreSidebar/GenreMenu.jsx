@@ -14,7 +14,7 @@ const GenreMenu = () => {
         console.log(genreList);
         
         for(let i = 0; i < genreList.genres.length; i++) {
-            genreArray.push(<div className='genreItems'>{genreList.genres[i].name}</div>)
+            genreArray.push(<div className='genreItems' key={i}>{genreList.genres[i].name}</div>)
         } 
     }
 

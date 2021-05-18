@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../Features/activeView';
+import GenreMenu from './GenreSidebar/GenreMenu';
 
 
 const ActiveView = () => {
@@ -64,7 +65,8 @@ const ActiveView = () => {
     return (
         <div>
             <div style={menuActive ? style.openMenu : style.closedMenu}>
-                Menu component goes here
+                {/* Menu component goes here */}
+                <GenreMenu/>
             </div>
             {content}
         </div>
