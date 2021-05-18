@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STATUS as GENSTATUS } from './Features/genresListOf';
 import { getGenre, getImgUrl } from "./Features/repositoryAPI";
+import LoadingAnim from './Components/LoadingAnim';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
@@ -33,6 +34,7 @@ function App() {
       <div className="center">
         <Header />
         <main>
+          <LoadingAnim />
           <ActiveView />
         </main>
         <Footer />

@@ -14,7 +14,7 @@ const BasketCounter = () => {
             width: 35,
             borderRadius: 50,
             border: "1px solid black",
-            position: "fixed",
+            position: "absolute",
             bottom: 5,
             right: 10,
             color: "white",
