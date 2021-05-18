@@ -19,10 +19,12 @@ const Footer = () => {
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",
-            position: "fixed",
+            position: "absolute",
             bottom: 0,
             height: "10vh",
             width: "100%",
+            maxWidth: "1000px",
+            minWidth: "375px",
             borderTop: "1px solid black",
             background: "#C4C4C4"
         },
