@@ -21,11 +21,15 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <main>
-        <ActiveView />
-      </main>
-      <Footer />
+      <div className="left-side"></div>
+      <div className="center">
+        <Header />
+        <main>
+          <ActiveView />
+        </main>
+        <Footer />
+      </div>
+      <div className="right-side"></div>
     </div>
   );
 }
