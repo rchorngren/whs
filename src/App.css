@@ -1,5 +1,30 @@
 .App {
-  text-align: center;
+  height: 100vh;
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr minmax(375px, 1000px) 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px;
+  justify-content: center;
+
+}
+
+.left-side {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  background-image: linear-gradient(to bottom right,#000000, #555555);
+}
+
+.center {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  background-color: transparent;
+}
+
+.right-side {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  background-image: linear-gradient(to bottom right,#000000, #555555);
 }
 
 .App-logo {
