@@ -1,0 +1,37 @@
+
+.genreList {
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #genresText {
+      padding: 15px 0 40px 0;
+      color: white;
+      font-size: 23px;
+      border-bottom: 1px solid white;
+      border-radius: 10px 0;
+  }
+  .genreItems {
+    padding: 0 0 5px 0;
+    font-size: 18px;
+    color: white;
+  }
+  
+  .genreSidebar {
+    background: rgb(44, 44, 44);
+    /* width: 170px; */
+    height: 80vh;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-radius: 0 10px 10px 0;
+    overflow: scroll;
+    /* position: fixed; */
+
+    /*display: none;*/
+  }
+  
+  .genreItemsContainer {
+    padding-top: 15px;
+  }

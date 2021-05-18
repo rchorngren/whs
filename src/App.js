@@ -8,6 +8,13 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
 
+import './Components/GenreSidebar/sidebarUi.css';
+
+// git checkout -b [branch name]
+// git add .  läga till allt redigerat
+// git commit -m "commit namn"
+// git push
+
 function App() {
   const status = useSelector(state => state.genresListOf.status);
   const dispatch = useDispatch();
@@ -15,6 +22,7 @@ function App() {
   useEffect(() => {
     if (status === GENSTATUS.NORMAL) {
       getGenre(dispatch);
+
     }
   }, [dispatch])
 
