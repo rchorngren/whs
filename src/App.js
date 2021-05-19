@@ -1,3 +1,4 @@
+// import logo from './logo.png';
 import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import LoadingAnim from './Components/LoadingAnim';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ActiveView from './Components/ActiveView';
+import db from './firebase.config'; // eslint-disable-line
 
 import './Components/GenreSidebar/sidebarUi.css';
 
@@ -25,7 +27,7 @@ function App() {
       getGenre(dispatch);
 
     }
-  }, [dispatch]);
+  }, [dispatch]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">

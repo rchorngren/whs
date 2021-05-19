@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../Features/activeView';
 import GenreMenu from './GenreSidebar/GenreMenu';
+import { actions as loggedInActions } from '../Features/loggedinUser';
+
+import LoginRegistration from './LoginRegistration';
 
 
 const ActiveView = () => {
@@ -10,16 +13,23 @@ const ActiveView = () => {
     const activeView = useSelector(state => state.activeView.activeView);
     let content = null;
 
+    const currentUserUnparsed = localStorage.getItem('currentUser');
+    const currentUser = JSON.parse(currentUserUnparsed);
+    const dispatch = useDispatch();
+
     const style = {
         openMenu: {
             position: "fixed",
-            minWidth: "80vw",
+            // right: '10vh',
+            minWidth: "50vw",
             maxWidth: "100vw",
-            height: "80vh",
+            height: "calc(80vh - 2px)",
             background: 'gray',
             zIndex: 10,
-            transition: "slide 3s forwards",
-            left: 0
+            borderRight: '1px solid black',
+            borderRadius: '0px 10px 10px 0px',
+            // transition: "slide 3s forwards",
+            // left: '10vw'
         },
         closedMenu: {
             position: "fixed",
@@ -35,9 +45,11 @@ const ActiveView = () => {
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = 'checkout component goes here';
     } else if (activeView === ACTIVEVIEW.PROFILE) {
-        content = 'profile component goes here';
+        // content = 'profile component goes here';
+        //TODO: remove temporary button
+        content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
     } else if (activeView === ACTIVEVIEW.LOGIN) {
-        content = 'login component goes here';
+        content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
         if (!menuActive) {
@@ -60,7 +72,15 @@ const ActiveView = () => {
         if (activeView !== (ACTIVEVIEW.MENU || ACTIVEVIEW.DEFAULT)) {
             setLastView(content);
         }
-    }, [activeView]);
+    }, [activeView]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    //checks localstorage for previous loggedin user
+    useEffect(() => {
+            if(currentUser && currentUser.operationType === 'signIn') {
+                dispatch(loggedInActions.loggedin());
+            }
+
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

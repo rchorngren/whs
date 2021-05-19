@@ -6,6 +6,7 @@
   grid-template-rows: 1fr;
   gap: 0px;
   justify-content: center;
+  
 
 }
 
@@ -19,6 +20,8 @@
   grid-column: 2;
   grid-row: 1 / -1;
   background-color: transparent;
+  text-align: center;
+  background-color: black;
 }
 
 .right-side {

@@ -1,4 +1,3 @@
-import logo from './logo.png';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './loadingAnim.css';
