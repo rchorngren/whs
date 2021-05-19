@@ -1,5 +1,4 @@
 .App {
-<<<<<<< HEAD
   height: 100vh;
   display: grid;
   position: relative;
@@ -7,6 +6,7 @@
   grid-template-rows: 1fr;
   gap: 0px;
   justify-content: center;
+  
 
 }
 
@@ -20,16 +20,14 @@
   grid-column: 2;
   grid-row: 1 / -1;
   background-color: transparent;
+  text-align: center;
+  background-color: black;
 }
 
 .right-side {
   grid-column: 3;
   grid-row: 1 / -1;
   background-image: linear-gradient(to bottom right,#000000, #555555);
-=======
-  text-align: center;
-  background-color: black;
->>>>>>> 5176c20... rebased on main
 }
 
 .App-logo {
