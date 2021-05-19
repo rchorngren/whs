@@ -18,6 +18,8 @@ const SearchResultRow = (props) => {
     try {
         if (props.movie.results) {
             return (
+                <>
+                {props.movie.results.map((movie, index) => 
                 <table style={{
                     background: '#000',
                     color: '#fff',
@@ -36,6 +38,8 @@ const SearchResultRow = (props) => {
                         </tr>
                     </tbody>
                 </table>
+                )}
+                </>
             )
         } else {
             return (
