@@ -20,12 +20,15 @@ const GenreMenu = () => {
 
 
     return (
-        <div className='genreSidebar'>
+
+        <div  className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
-            <div className='genreItemsContainer'>
-                {genreArray}
-            </div>
-        </div>
+                <div className='sidebarScroll'>
+                    <div className='genreItemsContainer'>
+                        {genreArray}
+                    </div>
+                </div>               
+        </div>  
     )
 }
 

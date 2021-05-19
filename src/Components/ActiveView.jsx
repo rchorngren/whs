@@ -34,7 +34,7 @@ const ActiveView = () => {
         closedMenu: {
             position: "fixed",
             width: 0,
-            height: "80vh",
+            //height: "80vh",
             overflow: "hidden",
             left: 0,
             zIndex: 10
