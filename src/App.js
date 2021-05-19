@@ -1,4 +1,3 @@
-import logo from './logo.png';
 import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
