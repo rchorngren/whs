@@ -4,6 +4,8 @@ import { actions, ACTIVEVIEW } from '../Features/activeView';
 import ProfileIcon from '../Assets/Images/profileIcon.png';
 import SearchBar from './SearchBar';
 import SearchResultRow from './SearchResultRow';
+import { searchFlix } from '../Features/repositoryAPI';
+
 
 const Header = () => {
 
@@ -128,24 +130,25 @@ const Header = () => {
 
 
     //searchfunction
-    const [movie, setMovieData] = useState([])
+    const [movie, setMovieData] = useState([]);
     const [searchTerm, SetSearchTerm] = useState([]);
-
-    const findMovie = async (searchTerm) => {
-
-        const url = 'http://www.omdbapi.com/?s=' + searchTerm +'&apikey=fbdcb121';
+    let multi = false
+    let currPage = 1;
+    let search = searchTerm;
     
-        const response = await fetch(url);
-        const responseJson = await response.json()
-        
-        if (responseJson.Search) {
-          setMovieData(responseJson.Search);
-        }
-      }
-    
+
       useEffect(() => {
-          findMovie(searchTerm);
+        searchFlix(search, multi, currPage).then((r) => {
+            if(search.length < 2) {
+                // console.log('no data')
+            } else {
+                setMovieData(JSON.parse(r))
+                console.log(movie)
+            }  
+        })
+        
       }, [searchTerm])
+
 
     return (
         <>
@@ -191,7 +194,8 @@ const Header = () => {
                     src={ProfileIcon} alt="" />
             </div>
         </header>
-        <SearchResultRow movie={movie} />
+        {<SearchResultRow movie={movie} />}
+      
         </>
     )
 }
