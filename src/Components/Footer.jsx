@@ -47,6 +47,7 @@ const Footer = () => {
             height: 60,
             borderRadius: 15,
             border: "1px solid black",
+            cursor: 'pointer',
             background: "white"
         },
     }
