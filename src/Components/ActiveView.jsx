@@ -21,12 +21,13 @@ const ActiveView = () => {
         openMenu: {
             position: "fixed",
             // right: '10vh',
-            minWidth: "50vh",
+            minWidth: "50vw",
             maxWidth: "100vw",
             height: "calc(80vh - 2px)",
             background: 'gray',
             zIndex: 10,
             borderRight: '1px solid black',
+            borderRadius: '0px 10px 10px 0px',
             // transition: "slide 3s forwards",
             // left: '10vw'
         },

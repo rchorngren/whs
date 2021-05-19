@@ -17,21 +17,23 @@
     font-size: 18px;
     color: white;
   }
-  
+
   .genreSidebar {
     background: rgb(44, 44, 44);
-    /* width: 170px; */
-    height: 80vh;
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+    height: calc(80vh - 2px);
+    /* border-bottom: 1px solid white; */
+    /* border-top: 1px solid white; */
     border-right: 1px solid white;
     border-radius: 0 10px 10px 0;
-    overflow: scroll;
-    /* position: fixed; */
-
-    /*display: none;*/
+    overflow-y: scroll;
   }
-  
+
+  .genreSidebar::-webkit-scrollbar {
+    display: none; /* hide scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
   .genreItemsContainer {
     padding-top: 15px;
   }

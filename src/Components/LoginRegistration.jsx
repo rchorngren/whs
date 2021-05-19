@@ -18,7 +18,7 @@ const LoginRegistration = () => {
         loginComponent: {
             display: 'flex',
             height: '80vh',
-            width: '100vw'
+            // width: '100vw'
         },
         loginContainer: {
             marginLeft: 'auto',
