@@ -90,6 +90,7 @@ const Header = () => {
             width: 60,
             height: 60,
             borderRadius: 15,
+            cursor: 'pointer',
             border: "1px solid black",
         }
     }

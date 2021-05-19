@@ -1,4 +1,4 @@
-import logo from './logo.png';
+// import logo from './logo.png';
 import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ function App() {
       getGenre(dispatch);
 
     }
-  }, [dispatch]);
+  }, [dispatch]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">

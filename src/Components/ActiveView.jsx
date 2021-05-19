@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../Features/activeView';
 import GenreMenu from './GenreSidebar/GenreMenu';
+import LoginRegistration from './LoginRegistration';
 
 
 const ActiveView = () => {
@@ -13,11 +14,12 @@ const ActiveView = () => {
     const style = {
         openMenu: {
             position: "fixed",
-            minWidth: "80vw",
+            minWidth: "75vw",
             maxWidth: "100vw",
-            height: "80vh",
+            height: "calc(80vh - 2px)",
             background: 'gray',
             zIndex: 10,
+            borderRight: '1px solid black',
             transition: "slide 3s forwards",
             left: 0
         },
@@ -37,7 +39,7 @@ const ActiveView = () => {
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = 'profile component goes here';
     } else if (activeView === ACTIVEVIEW.LOGIN) {
-        content = 'login component goes here';
+        content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
         if (!menuActive) {
@@ -60,7 +62,7 @@ const ActiveView = () => {
         if (activeView !== (ACTIVEVIEW.MENU || ACTIVEVIEW.DEFAULT)) {
             setLastView(content);
         }
-    }, [activeView]);
+    }, [activeView]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
