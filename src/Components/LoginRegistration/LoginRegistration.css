@@ -3,52 +3,56 @@
     height: 80vh;
 }
 
-.loginContainer {
+.login-registration-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5vh;
-    height: 40vh;
+    align-self: center;
+    height: 50vh;
     width: 80vw;
     max-width: 800px;
-    border-radius: 15px;
-    background: gray;
+    border: 2px solid white;
+    font-weight: 700;
+    font-size: 30px;
+    color: white;
+    background: black;
+}
+
+.call-to-action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    width: 165px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #F890E7;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: black;
+    background: white;
 }
 
 .textInput {
-    height: 25px;
-    width: 40vw;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    text-align: center
-}
-
-.loginButton {
-    height: 25px;
-    width: 40vw;
-    margin-top: 41px;
+    height: 62px;
+    width: 235px;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid black;
+    margin-top: 17px;
+    text-align: center;
     border-radius: 10px;
-    cursor: pointer;
-    user-select: none;
-    background: #548F25
-}
-
-.registerButton {
-    height: 25px;
-    width: 40vw;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-    user-select: none;
-    background: #548F25
+    border: 3px solid #0BD3D3;
 }
 
 .newCustomerText {
     margin-top: 20px;
     cursor: pointer;
-    user-select: none
+    user-select: none;
+    font-size: 16px;
+    font-weight: 700;
 }
