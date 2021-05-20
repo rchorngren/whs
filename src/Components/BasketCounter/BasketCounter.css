@@ -1,0 +1,15 @@
+.basketCounter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    border: 1px solid black;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: white;
+    font-weight: bold;
+    background: #548F25
+}

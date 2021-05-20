@@ -9,23 +9,27 @@ const GenreMenu = () => {
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
-    let genreArray = [];
+    let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         console.log(genreList);
-        
-        for(let i = 0; i < genreList.genres.length; i++) {
-            genreArray.push(<div className='genreItems' key={i}>{genreList.genres[i].name}</div>)
-        } 
+
+        genreListMap = genreList.genres.map((genre) => (
+            <div className='genreItems' key={genre.name} onClick={() => { console.log(genre.name) }}>{genre.name}</div>
+
+        ))
+        console.log(genreListMap)
     }
 
-
     return (
-        <div className='genreSidebar'>
+
+        <div  className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
-            <div className='genreItemsContainer'>
-                {genreArray}
-            </div>
-        </div>
+                <div className='sidebarScroll'>
+                    <div className='genreItemsContainer'>
+                        {genreListMap}
+                    </div>
+                </div>               
+        </div>  
     )
 }
 

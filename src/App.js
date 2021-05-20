@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { STATUS as GENSTATUS } from './Features/genresListOf';
 import { getGenre, getImgUrl } from "./Features/repositoryAPI";
 import LoadingAnim from './Components/LoadingAnim';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import ActiveView from './Components/ActiveView';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
+import ActiveView from './Components/ActiveView/ActiveView';
 import db from './firebase.config'; // eslint-disable-line
 
 import './Components/GenreSidebar/sidebarUi.css';
