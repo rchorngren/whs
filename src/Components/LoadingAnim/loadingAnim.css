@@ -1,11 +1,22 @@
-.loading {
+.not-loading {
     display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .whs-logo {
-        animation: whs-logo-spin infinite 20s linear;
-    }
+.loading {
+    display: block;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.loading img{
+    position: absolute;
+    width: 20%;
+    top: 25%;
+    left: 40%;
+    animation: whs-logo-spin infinite 3s linear;
 }
 
 @keyframes whs-logo-spin {
