@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './BasketCounter.css';
 
 const BasketCounter = () => {
 
@@ -24,7 +25,8 @@ const BasketCounter = () => {
     }
 
     return (
-        <div style={style.counter}>
+        // <div style={style.counter}>
+        <div className="basketCounter">
             {itemsInBasket}
         </div>
     )
