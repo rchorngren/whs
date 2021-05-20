@@ -1,0 +1,10 @@
+.bar{
+    width: 97%;
+    height: 30px;
+    background-color:lightsteelblue;
+    color: #fff;
+}
+
+.bar::placeholder{
+    color: #fff;
+}

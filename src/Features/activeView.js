@@ -5,13 +5,15 @@ const checkout = createAction('checkout view');
 const profile = createAction('profile view');
 const login = createAction('login view');
 const menu = createAction('menu view');
+const search = createAction('search view')
 
 const actions = {
     empty,
     checkout,
     profile,
     login,
-    menu
+    menu,
+    search
 }
 
 const ACTIVEVIEW = {
@@ -19,7 +21,8 @@ const ACTIVEVIEW = {
     CHECKOUT: 'checkout',
     PROFILE: 'profile',
     LOGIN: 'login',
-    MENU: 'menu'
+    MENU: 'menu',
+    SEARCH: 'search'
 }
 
 const initialState = {
@@ -47,6 +50,10 @@ const reducer = createReducer(initialState, {
         ...state,
         activeView: ACTIVEVIEW.MENU
     }),
+    [search]: (state, action) => ({
+        ...state,
+        activeView: ACTIVEVIEW.SEARCH
+    })
 });
 
 export { actions, reducer, ACTIVEVIEW };
