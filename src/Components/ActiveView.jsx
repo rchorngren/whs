@@ -21,8 +21,8 @@ const ActiveView = () => {
         openMenu: {
             position: "fixed",
             // right: '10vh',
-            minWidth: "50vw",
-            maxWidth: "100vw",
+            // minWidth: "60vw",
+            // maxWidth: "100vw",
             height: "calc(80vh - 2px)",
             background: 'gray',
             zIndex: 10,
@@ -34,7 +34,7 @@ const ActiveView = () => {
         closedMenu: {
             position: "fixed",
             width: 0,
-            height: "80vh",
+            //height: "80vh",
             overflow: "hidden",
             left: 0,
             zIndex: 10
