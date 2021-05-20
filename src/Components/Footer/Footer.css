@@ -1,0 +1,40 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    height: 10vh;
+    width: 100%;
+    max-width: 1000px;
+    min-width: 375px;
+    border-top: 1px solid black;
+    background: #C4C4C4;
+}
+
+.shoppingcartButton {
+    margin-right: 25px;
+}
+
+.buttonImage {
+    width: 40px;
+    height: 40px;
+}
+
+.buttonImageClicked {
+    width: 35px;
+    height: 35px;
+}
+
+.buttonGeneral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    border: 1px solid black;
+    cursor: 'pointer';
+    background: white;
+}

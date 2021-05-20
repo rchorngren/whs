@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ACTIVEVIEW } from '../Features/activeView';
-import GenreMenu from './GenreSidebar/GenreMenu';
-import { actions as loggedInActions } from '../Features/loggedinUser';
-
-import LoginRegistration from './LoginRegistration';
+import { ACTIVEVIEW } from '../../Features/activeView';
+import GenreMenu from '../GenreSidebar/GenreMenu';
+import { actions as loggedInActions } from '../../Features/loggedinUser';
+import LoginRegistration from '../LoginRegistration/LoginRegistration';
+import './ActiveView.css';
 
 
 const ActiveView = () => {
@@ -16,30 +16,6 @@ const ActiveView = () => {
     const currentUserUnparsed = localStorage.getItem('currentUser');
     const currentUser = JSON.parse(currentUserUnparsed);
     const dispatch = useDispatch();
-
-    const style = {
-        openMenu: {
-            position: "fixed",
-            // right: '10vh',
-            // minWidth: "60vw",
-            // maxWidth: "100vw",
-            height: "calc(80vh - 2px)",
-            background: 'gray',
-            zIndex: 10,
-            borderRight: '1px solid black',
-            borderRadius: '0px 10px 10px 0px',
-            // transition: "slide 3s forwards",
-            // left: '10vw'
-        },
-        closedMenu: {
-            position: "fixed",
-            width: 0,
-            //height: "80vh",
-            overflow: "hidden",
-            left: 0,
-            zIndex: 10
-        }
-    }
 
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
@@ -84,7 +60,7 @@ const ActiveView = () => {
 
     return (
         <div>
-            <div style={menuActive ? style.openMenu : style.closedMenu}>
+            <div className={menuActive ? "openMenu" : "closedMenu"}>
                 {/* Menu component goes here */}
                 <GenreMenu/>
             </div>
