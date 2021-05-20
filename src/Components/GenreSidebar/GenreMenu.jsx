@@ -9,15 +9,16 @@ const GenreMenu = () => {
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
-    let genreArray = [];
+    let testMapping = [];
     if(status === STATUS.SUCCESS) {
         console.log(genreList);
-        
-        for(let i = 0; i < genreList.genres.length; i++) {
-            genreArray.push(<div className='genreItems' key={i}>{genreList.genres[i].name}</div>)
-        } 
-    }
 
+        testMapping = genreList.genres.map((genre) => (
+            <div className='genreItems' key={genre.name} onClick={() => { console.log(genre.name) }}>{genre.name}</div>
+
+        ))
+        console.log(testMapping)
+    }
 
     return (
 
@@ -25,7 +26,7 @@ const GenreMenu = () => {
             <h3 id='genresText'>Genres</h3>
                 <div className='sidebarScroll'>
                     <div className='genreItemsContainer'>
-                        {genreArray}
+                        {testMapping}
                     </div>
                 </div>               
         </div>  
