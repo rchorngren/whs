@@ -1,0 +1,19 @@
+.results {
+    color: #fff;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #fff;
+}
+.results img {
+    width: 100px;
+}
+
+.results h3 {
+    font-size: 20px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.results p {
+    font-size: 12px;
+}

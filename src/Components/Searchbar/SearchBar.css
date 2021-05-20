@@ -1,8 +1,13 @@
 .bar{
+    font-size: 24px;
+    display: block;
     width: 97%;
     height: 30px;
     background-color:lightsteelblue;
     color: #fff;
+    padding-left: 16px;
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 
 .bar::placeholder{

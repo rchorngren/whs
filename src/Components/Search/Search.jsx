@@ -31,7 +31,7 @@ function Search() {
             <SearchBar searchTerm={searchTerm} SetSearchTerm={SetSearchTerm} /> 
         </div>
         <div>
-        <SearchResultRow movie={movie} />
+            <SearchResultRow movie={movie} />
         </div>
         
         </>

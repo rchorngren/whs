@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import './SearchResultRow.css'
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
@@ -20,12 +21,7 @@ const SearchResultRow = (props) => {
             return (
                 <>
                 {props.movie.results.map((movie, index) => 
-                <table style={{
-                    background: '#000',
-                    color: '#fff',
-                    width: '100%',
-                    display: 'block'
-                }}>
+                <table className="results">
                     <tbody>
                         <tr>
                             <td>
