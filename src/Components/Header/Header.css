@@ -22,7 +22,7 @@
 
 .profileButtonLoggedIn {
     margin-right: 25px;
-    background: '#548F25';
+    background: #548F25 !important;
 }
 
 .menuContainer {
