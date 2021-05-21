@@ -3,7 +3,6 @@ import './SearchResultRow.css'
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
-    let index = 0;
     useEffect(() => {
        try {
            if (props.movie.results) {
@@ -29,7 +28,7 @@ const SearchResultRow = (props) => {
                             </td>
                             <td style={{textAlign: 'left'}}>
                                 <h3>{props.movie.results[index].title}</h3>
-                              <p>{props.movie.results[index].overview}</p>
+                                <p>{props.movie.results[index].overview}</p>
                             </td>
                         </tr>
                     </tbody>
@@ -37,12 +36,12 @@ const SearchResultRow = (props) => {
                 )}
                 </>
             )
-        } else {
-            return (
-                <>
-                </>
-            )
         }
+        return (
+            <>
+            </>
+        )
+        
     } catch (e) {
         console.log(e)
     }

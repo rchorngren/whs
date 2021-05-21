@@ -26,15 +26,10 @@ function Search() {
       }, [searchTerm])
 
     return (
-        <>
         <div>
             <SearchBar searchTerm={searchTerm} SetSearchTerm={SetSearchTerm} /> 
-        </div>
-        <div>
             <SearchResultRow movie={movie} />
         </div>
-        
-        </>
     )
 }
 
