@@ -7,7 +7,7 @@ import LoadingAnim from './Components/LoadingAnim/LoadingAnim';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import ActiveView from './Components/ActiveView/ActiveView';
-import { actions } from './Features/loadingAnim';
+import HomePage from './Components/HomePage/HomePage';
 import db from './firebase.config'; // eslint-disable-line
 
 import './Components/GenreSidebar/sidebarUi.css';
@@ -21,15 +21,6 @@ function App() {
   const status = useSelector(state => state.genresListOf.status);
   const dispatch = useDispatch();
   
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(actions.loading());
-      setTimeout(() => {
-        dispatch(actions.notLoading());
-      }, 1100)
-    }, 5000) // eslint-disable-next-line
-  }, []); 
-
   useEffect(() => {
     if (status === GENSTATUS.NORMAL) {
       getImgUrl();
@@ -45,6 +36,7 @@ function App() {
         <Header />
         <main>
           <LoadingAnim />
+          <HomePage />
           <ActiveView />
         </main>
         <Footer />
