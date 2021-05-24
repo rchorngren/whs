@@ -66,7 +66,10 @@ const Header = () => {
 
             </div>
 
-            <h2>WHS</h2>
+            <div style={{marginRight: '-10px'}}>
+                <h2>WHS</h2>
+            </div>
+
 
             <div
                 className="shoppingcartButton buttonGeneral"
