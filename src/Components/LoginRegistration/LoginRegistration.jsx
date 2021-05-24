@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import firebase from 'firebase';
 import { actions } from '../../Features/loggedinUser';
 import './LoginRegistration.css';
@@ -11,11 +11,9 @@ const LoginRegistration = () => {
     const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
     const [registrationComplete, setRegistrationComplete] = useState(false);
 
-    const loggedin = useSelector(state => state.loggedinUser);
-
     const dispatch = useDispatch();
-    console.log('loggedin: ', loggedin);
 
+    //maintains the values of input fields when toggling between login and registration
     function toggleLogin() {
         setUsername(userName);
         setUserPassword(userPassword);
@@ -64,6 +62,7 @@ const LoginRegistration = () => {
         }
     }
 
+    //html for login window
     function loginView() {
         return (
             <div className="login-registration-container">
@@ -80,6 +79,7 @@ const LoginRegistration = () => {
         )
     }
 
+    //html for registration window
     function registrationView() {
         return (
             <div className="login-registration-container">
@@ -97,6 +97,7 @@ const LoginRegistration = () => {
         )
     }
 
+    //html for successful registration
     function registrationDoneView() {
         return (
             <div className="login-registration-container">
