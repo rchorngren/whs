@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/activeView';
-import BasketCounter from '../BasketCounter/BasketCounter';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import HomeIcon from '../../Assets/Images/homeIcon.svg';
 import ProfileIcon from '../../Assets/Images/profileIcon.png';
@@ -10,13 +9,8 @@ import './Footer.css';
 
 const Footer = () => {
 
-    //TODO: connect state to redux value of itemsInBasket instead of fixed value
-    const [itemsInBasket] = useState(1);
-    // const [buttonIsClicked, setButtonIsClicked] = useState(false);
-
     const loggedIn = useSelector(state => state.loggedinUser.loggedinUser);
     const [userLoggedIn, setUserLoggedIn] = useState(loggedIn);
-
     const [homeButtonIsClicked, setHomeButtonIsClicked] = useState(false);
     const [pendingButtonIsClicked, setPendingButtonIsClicked] = useState(false);
     const [searchButtonIsClicked, setSearchButtonIsClicked] = useState(false);
@@ -40,10 +34,13 @@ const Footer = () => {
         setTimeout(() => {
             if (clickedButton === 'homeButton') {
                 //dispatch home
+                dispatch(actions.empty());
             } else if (clickedButton === 'pendingButton') {
                 // dispatch whatever goes here
+                dispatch(actions.empty());
             } else if (clickedButton === 'searchButton') {
                 //dispatch search
+                dispatch(actions.empty());
             } else if (clickedButton === 'profileButton') {
                 if(loggedIn) {
                     dispatch(actions.profile());
@@ -69,13 +66,13 @@ const Footer = () => {
                     src={HomeIcon} alt="" />
             </div>
 
-            <div
+            {/* <div
                 className="buttonGeneral"
                 onClick={() => { setPendingButtonIsClicked(true); animationOnClick(dispatch, 'pendingButton') }}>
                 <img
                     className={pendingButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
                     src={ShoppingCart} alt="" />
-            </div>
+            </div> */}
 
             <div
                 className="buttonGeneral"

@@ -24,5 +24,16 @@
 }
 
 .profileButtonLoggedIn {
-    background: #548F25;
+    background: rgb(11,211,211);
+    background: linear-gradient(135deg, rgba(11,211,211,1) 0%, rgba(11,211,211,1) 0%, rgba(248,144,231,1) 100%);
+}
+
+.buttonGeneral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    cursor: pointer;
 }
