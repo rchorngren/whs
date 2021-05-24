@@ -91,26 +91,40 @@ export async function getGenre(dispatch) {
 /*                  ]                                                                 */
 /*               }                                                                    */
 /*  Usage: 
-import { getGenreMovieList } from "../../Features/repositoryAPI";    
-import { useDispatch, useSelector } from 'react-redux';                            
-import { STATUS } from '../../Features/loadingAnim';                               
 
-const status = useSelector(state => state.loadingAnim.status);
-const [currPage, setCurrPage] = useState(1);                                                                 
-const [genreMovieList, setGenreMovieList] = useState([]);
-const [content, setContent] = useState('');
-const dispatch = useDispatch();
-let genreId = 20;
+import { getGenreMovieList } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-useEffect(() => {                                                                  
-  getGenreMovieList(dispatch, genreId, currPage).then((resp) => { setGenreMovieList(JSON.parse(resp)) });                                         
-}, []);
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [genreMovieList, setGenreMovieList] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let genreId = 28;
 
-useEffect(() => {
-  if (status === STATUS.FINISHED) {
-    setContent(genreMovieList.results[0].title);
-  } // eslint-disable-next-line
-}, [genreMovieList]);
+    useEffect(() => {
+        getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
+            setGenreMovieList(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(genreMovieList.results[0].title);
+        } // eslint-disable-next-line 
+    }, [genreMovieList]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
 
 ***************************************************************************************/
 export async function getGenreMovieList(dispatch, genreId, page) {
@@ -162,25 +176,39 @@ export async function getGenreMovieList(dispatch, genreId, page) {
 /*               }                                                                    */
 /*  Usage:                                                                            
 
-import { getSortedFlix } from "../../Features/repositoryAPI";    
-import { useDispatch, useSelector } from 'react-redux';                            
-import { STATUS } from '../../Features/loadingAnim';                               
+import { getSortedFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-const status = useSelector(state => state.loadingAnim.status);
-const [currPage, setCurrPage] = useState(1);                                                                 
-const [sortedFlix, setSortedFlix] = useState([]);
-const [content, setContent] = useState('');
-const dispatch = useDispatch();
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [sortedFlix, setSortedFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let searchStr = 'recommended'; 
 
-useEffect(() => {                                                                  
-  getSortedFlix(dispatch, currPage).then((resp) => { setSortedFlix(JSON.parse(resp)) });                                         
-}, []);
+    useEffect(() => {
+        getSortedFlix(dispatch, searchStr, currPage).then((resp) => {
+            setSortedFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
 
-useEffect(() => {
-  if (status === STATUS.FINISHED) {
-    setContent(sortedFlix.results[0].title);
-  } // eslint-disable-next-line
-}, [sortedFlix]);
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(sortedFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [sortedFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
 
 ***************************************************************************************/
 export async function getSortedFlix(dispatch, search, page) {
@@ -236,25 +264,38 @@ export async function getSortedFlix(dispatch, search, page) {
 /*               }                                                                    */
 /*  Usage:
 
-import { getUpcommingFlix } from "../../Features/repositoryAPI";    
-import { useDispatch, useSelector } from 'react-redux';                            
-import { STATUS } from '../../Features/loadingAnim';                               
+import { getUpcommingFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-const status = useSelector(state => state.loadingAnim.status);
-const [currPage, setCurrPage] = useState(1);                                                                 
-const [upcommingFlix, setUpcommingFlix] = useState([]);
-const [content, setContent] = useState('');
-const dispatch = useDispatch();
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [upcommingFlix, setUpcommingFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
 
-useEffect(() => {                                                                  
-  getUpcommingFlix(dispatch, currPage).then((resp) => { getUpcommingFlix(JSON.parse(resp)) });                                         
-}, []);
+    useEffect(() => {
+        getUpcommingFlix(dispatch, currPage).then((resp) => {
+            setUpcommingFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
 
-useEffect(() => {
-  if (status === STATUS.FINISHED) {
-    setContent(upcommingFlix.results[0].title);
-  } // eslint-disable-next-line
-}, [upcommingFlix]);
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(upcommingFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [upcommingFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
 
 ***************************************************************************************/
 export async function getUpcommingFlix(dispatch, page) {
@@ -268,11 +309,10 @@ export async function getUpcommingFlix(dispatch, page) {
   try {
     let resp = await fetch(url1 + 'movie/upcoming?' + apiKey1Lang + option);
     let data = await resp.json();
-    let temp = await JSON.stringify(data);
 
     dispatch(loadAnimAction.decrease());
     dispatch(loadAnimAction.wait());
-    return temp;
+    return JSON.stringify(data);
   }
   catch (error) {
     dispatch(loadAnimAction.fail());
@@ -283,7 +323,7 @@ export async function getUpcommingFlix(dispatch, page) {
 
 /**************************************************************************************/
 /*                             searchFlix() - Async                                   */
-/*  Parameters: (search String, multi Bool, page Int)                                 */
+/*  Parameters: (dispatch, search String, multi Bool, page Int)                       */
 /*         search: the string to search for                                           */
 /*         multi: if false it will only search for movies                             */
 /*                if true it will search for movies, tv shows and actors              */
@@ -310,22 +350,47 @@ export async function getUpcommingFlix(dispatch, page) {
 /*                      "genre_ids": [Int, Int, Int]                                  */
 /*                  ]                                                                 */
 /*               }                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/*                                                                                    */
-/* import { searchFlix } from "./Features/repositoryAPI";                             */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let search = 'star wars';                                                          */
-/* let multi = false;                                                                 */
-/* let currPage = 1;                                                                  */
-/* searchFlix(search, multi, currPage).then((r) => { myArray = JSON.parse(r) });      */
-/* let content = <div> myArray.results[i].title </div>                                */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function searchFlix(search, multi, page) {
+/*  Usage:
+
+import { searchFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [foundFlix, setFoundFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let searchStr = 'Rocky'; 
+
+    useEffect(() => {
+        searchFlix(dispatch, searchStr, false, currPage).then((resp) => {
+            setFoundFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(foundFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [foundFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function searchFlix(dispatch, search, multi, page) {
   let parametersOk = true;
   let options = 'search/multi?' + apiKey1Lang;
+  dispatch(loadAnimAction.increase());
 
   if (!multi) {
     options = 'search/movie?' + apiKey1Lang;
@@ -348,9 +413,12 @@ export async function searchFlix(search, multi, page) {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
 
+      dispatch(loadAnimAction.decrease());
+      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {
+      dispatch(loadAnimAction.fail());
       console.log(error);
       return false;
     }
@@ -359,7 +427,7 @@ export async function searchFlix(search, multi, page) {
 
 /**************************************************************************************/
 /*                           getFlixDetail() - Async                                  */
-/*  Parameters: (id Int)                                                              */
+/*  Parameters: (dispatch, id Int)                                                    */
 /*         id: The tmdb id for that perticular movie.                                 */
 /*                                                                                    */
 /*  Returns a detail list of a movie matching the id from themoviedb.org as JSON      */
@@ -411,28 +479,46 @@ export async function searchFlix(search, multi, page) {
 /*                  ]                                                                 */
 /*               }                                                                    */
 /*                                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/* import { getFlixDetail } from "./Features/repositoryAPI";                          */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let id = 603;                                                                      */
-/* getFlixDetail(id).then((resp) => { myArray = JSON.parse(resp) });                  */
-/* let content = <div> myArray.title </div>                                           */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function getFlixDetail(id) {
+/*  Usage:
+
+import { getFlixDetail } from "../../Features/repositoryAPI";    
+import { useDispatch, useSelector } from 'react-redux';                            
+import { STATUS } from '../../Features/loadingAnim';                               
+
+const status = useSelector(state => state.loadingAnim.status);
+const [currPage, setCurrPage] = useState(1);                                                                 
+const [flixDetail, setFlixDetail] = useState([]);
+const [content, setContent] = useState('');
+const dispatch = useDispatch();
+let id = 603;
+
+useEffect(() => {                                                                  
+  getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });                                         
+}, []);
+
+useEffect(() => {
+  if (status === STATUS.FINISHED) {
+    setContent(flixDetail.results[0].title);
+  } // eslint-disable-next-line
+}, [searchFlix]);
+
+***************************************************************************************/
+export async function getFlixDetail(dispatch, id) {
   if (!isNaN(id)) {
 
     let options = 'movie/' + id + '?' + apiKey1Lang;
+    dispatch(loadAnimAction.increase());
 
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
 
+      dispatch(loadAnimAction.decrease());
+      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {
+      dispatch(loadAnimAction.fail());
       console.log(error);
       return false;
     }
