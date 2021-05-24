@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, ACTIVEVIEW } from '../../Features/activeView';
-import ProfileIcon from '../../Assets/Images/profileIcon.png';
+// import ProfileIcon from '../../Assets/Images/profileIcon.png';
+import BasketCounter from '../BasketCounter/BasketCounter';
+import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
 
 const Header = () => {
-
-    const [profileButtonIsClicked, setProfileButtonIsClicked] = useState(false);
+    const [itemsInBasket] = useState(1);
+    const [shoppingCartButtonIsClicked, setShoppingCartButtonIsClicked] = useState(false);
     const [menuButtonIsClicked, setMenuButtonIsClicked] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     
@@ -23,25 +25,20 @@ const Header = () => {
         }
     }, [activeView]);
 
-    useEffect(() => {
-        setUserLoggedIn(loggedIn);
-    }, [loggedIn]);
+    // useEffect(() => {
+    //     setUserLoggedIn(loggedIn);
+    // }, [loggedIn]);
 
     const dispatch = useDispatch();
 
-    //Resets the styling first and then triggers the function of the button
     function animationOnClick(dispatch, clickedButton) {
         setTimeout(() => {
-            setProfileButtonIsClicked(false);
+            setShoppingCartButtonIsClicked(false);
         }, 100);
         setTimeout(() => {
-            if (clickedButton === 'profileClicked') {
+            if (clickedButton === 'baskedClicked') {
                 setMenuButtonIsClicked(false);
-                if (userLoggedIn) {
-                    dispatch(actions.profile());
-                } else {
-                    dispatch(actions.login());
-                }
+                dispatch(actions.checkout());
             } else {
                 if (menuButtonIsClicked) {
                     setMenuButtonIsClicked(!menuButtonIsClicked);
@@ -52,6 +49,31 @@ const Header = () => {
             }
         }, 250);
     }
+
+    //Resets the styling first and then triggers the function of the button
+    // function animationOnClick(dispatch, clickedButton) {
+    //     setTimeout(() => {
+    //         setProfileButtonIsClicked(false);
+    //     }, 100);
+    //     setTimeout(() => {
+    //         if (clickedButton === 'baskedClicked') {
+    //             setMenuButtonIsClicked(false);
+    //             if (userLoggedIn) {
+    //                 // dispatch(actions.profile());
+    //                 dispatch(actions.checkout());
+    //             } else {
+    //                 dispatch(actions.login());
+    //             }
+    //         } else {
+    //             if (menuButtonIsClicked) {
+    //                 setMenuButtonIsClicked(!menuButtonIsClicked);
+    //                 dispatch(actions.empty());
+    //             } else {
+    //                 dispatch(actions.menu());
+    //             }
+    //         }
+    //     }, 250);
+    // }
 
 
     return (
@@ -81,7 +103,7 @@ const Header = () => {
 
             <h2>WHS</h2>
 
-            <div
+            {/* <div
                 className={userLoggedIn ? (
                     //styling if user is logged in
                     "profileButtonLoggedIn buttonGeneral"
@@ -93,6 +115,14 @@ const Header = () => {
                 <img
                     className={profileButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
                     src={ProfileIcon} alt="" />
+            </div> */}
+            <div
+                className="shoppingcartButton buttonGeneral"
+                onClick={() => { setShoppingCartButtonIsClicked(true); animationOnClick(dispatch, 'baskedClicked') }}>
+                <img
+                    className={shoppingCartButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
+                    src={ShoppingCart} alt="" />
+                {/* {itemsInBasket > 0 ? <BasketCounter /> : null} */}
             </div>
         </header>
     )

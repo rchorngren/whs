@@ -1,7 +1,7 @@
 .footer {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
     position: absolute;
     bottom: 0;
@@ -9,12 +9,8 @@
     width: 100%;
     max-width: 1000px;
     min-width: 375px;
-    border-top: 1px solid black;
-    background: #C4C4C4;
-}
-
-.shoppingcartButton {
-    margin-right: 25px;
+    border-top: 4px solid #F890E7;
+    background: #FFFFFF;
 }
 
 .buttonImage {
@@ -27,14 +23,6 @@
     height: 35px;
 }
 
-.buttonGeneral {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
-    border: 1px solid black;
-    cursor: 'pointer';
-    background: white;
+.profileButtonLoggedIn {
+    background: #548F25;
 }

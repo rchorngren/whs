@@ -1,38 +1,104 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/activeView';
 import BasketCounter from '../BasketCounter/BasketCounter';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
+import HomeIcon from '../../Assets/Images/homeIcon.svg';
+import ProfileIcon from '../../Assets/Images/profileIcon.png';
+import SearchIcon from '../../Assets/Images/searchIcon.svg';
 import './Footer.css';
 
 const Footer = () => {
 
     //TODO: connect state to redux value of itemsInBasket instead of fixed value
     const [itemsInBasket] = useState(1);
-    const [buttonIsClicked, setButtonIsClicked] = useState(false);
+    // const [buttonIsClicked, setButtonIsClicked] = useState(false);
+
+    const loggedIn = useSelector(state => state.loggedinUser.loggedinUser);
+    const [userLoggedIn, setUserLoggedIn] = useState(loggedIn);
+
+    const [homeButtonIsClicked, setHomeButtonIsClicked] = useState(false);
+    const [pendingButtonIsClicked, setPendingButtonIsClicked] = useState(false);
+    const [searchButtonIsClicked, setSearchButtonIsClicked] = useState(false);
+    const [profileButtonIsClicked, setProfileButtonIsClicked] = useState(false);
 
     const dispatch = useDispatch();
 
     //Resets the styling first and then triggers the function of the button
-    function animationOnClick(dispatch) {
+    function animationOnClick(dispatch, clickedButton) {
         setTimeout(() => {
-            setButtonIsClicked(false);
+            if (clickedButton === 'homeButton') {
+                setHomeButtonIsClicked(false);    
+            } else if (clickedButton === 'pendingButton') {
+                setPendingButtonIsClicked(false);
+            } else if (clickedButton === 'searchButton') {
+                setSearchButtonIsClicked(false);
+            } else if (clickedButton === 'profileButton') {
+                setProfileButtonIsClicked(false);
+            }
         }, 100);
         setTimeout(() => {
-            dispatch(actions.checkout());
+            if (clickedButton === 'homeButton') {
+                //dispatch home
+            } else if (clickedButton === 'pendingButton') {
+                // dispatch whatever goes here
+            } else if (clickedButton === 'searchButton') {
+                //dispatch search
+            } else if (clickedButton === 'profileButton') {
+                if(loggedIn) {
+                    dispatch(actions.profile());
+                } else {
+                    dispatch(actions.login());
+                }
+            }
         }, 250);
     }
+    
+    useEffect(() => {
+        setUserLoggedIn(loggedIn);
+    }, [loggedIn]);
 
     return (
         <footer className="footer">
+
             <div
-                className="shoppingcartButton buttonGeneral"
-                onClick={() => { setButtonIsClicked(true); animationOnClick(dispatch) }}>
+                className="buttonGeneral"
+                onClick={() => { setHomeButtonIsClicked(true); animationOnClick(dispatch, 'homeButton') }}>
                 <img
-                    className={buttonIsClicked ? "buttonImageClicked" : "buttonImage"}
-                    src={ShoppingCart} alt="" />
-                {itemsInBasket > 0 ? <BasketCounter /> : null}
+                    className={homeButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
+                    src={HomeIcon} alt="" />
             </div>
+
+            <div
+                className="buttonGeneral"
+                onClick={() => { setPendingButtonIsClicked(true); animationOnClick(dispatch, 'pendingButton') }}>
+                <img
+                    className={pendingButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
+                    src={ShoppingCart} alt="" />
+            </div>
+
+            <div
+                className="buttonGeneral"
+                onClick={() => { setSearchButtonIsClicked(true); animationOnClick(dispatch, 'searchButton') }}>
+                <img
+                    className={searchButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
+                    src={SearchIcon} alt="" />
+            </div>
+
+            <div
+                className={userLoggedIn ? (
+                    //styling if user is logged in
+                    "profileButtonLoggedIn buttonGeneral"
+                ) : (
+                    //styling if user is not logged in
+                    "buttonGeneral"
+                )}
+                onClick={() => { setProfileButtonIsClicked(true); animationOnClick(dispatch, 'profileButton') }}>
+                <img
+                    className={profileButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
+                    src={ProfileIcon} alt="" />
+            </div>
+
         </footer>
     )
 }
