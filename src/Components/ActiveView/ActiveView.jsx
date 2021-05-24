@@ -4,6 +4,7 @@ import { ACTIVEVIEW } from '../../Features/activeView';
 import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
+import Profile from '../Profile/Profile';
 import './ActiveView.css';
 import Search from '../Search/Search';
 
@@ -22,9 +23,9 @@ const ActiveView = () => {
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = 'checkout component goes here';
     } else if (activeView === ACTIVEVIEW.PROFILE) {
-        // content = 'profile component goes here';
+        content = <Profile />
         //TODO: remove temporary button
-        content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
+        // content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.MENU) {

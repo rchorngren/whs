@@ -1,0 +1,92 @@
+.profile-component {
+    display: flex;
+    height: 80vh;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* justify-content: flex-start; */
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    height: 60vh;
+    width: 80vw;
+    max-width: 800px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 30px;
+    color: white;
+    background: #0BD3D3;
+}
+
+.tab-container {
+    display: flex;
+    height: 50px;
+}
+
+.tab-left {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: #0BD3D3;
+    border-radius: 10px 0 0 0;
+    border: 1px solid red;
+}
+
+.tab-right {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background: #0BD3D3;
+    border-radius: 0 10px 0 0;
+    border: 1px solid red;
+}
+
+.text-input {
+    height: 62px;
+    width: 235px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 17px;
+    text-align: center;
+    border-radius: 10px;
+    border: 3px solid #0BD3D3;
+}
+
+.call-to-action-button-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    width: 165px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: black;
+    background: white;
+}
+
+.save-button{
+    background: #0CB9B9;
+}
+
+.logout-button {
+    background: #F890E7;
+}
