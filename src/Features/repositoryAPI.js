@@ -4,6 +4,7 @@
 /*  A collenction  of useful functionen used to get data from movie APIs.             */
 /**************************************************************************************/
 import { actions as genresListOfAction } from './genresListOf';
+import { actions as loadAnimAction } from './loadingAnim';
 
 const url1 = 'https://api.themoviedb.org/3/';
 const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-U';
@@ -67,7 +68,11 @@ export async function getGenre(dispatch) {
 /*                          getGenreMovieList() - Async                               */
 /*                                                                                    */
 /*  Returns a list of movies (20/page) matching a genre from themoviedb.org as JSON   */
-/*  JSON format: {"page": Int, "total_pages": Int, "total_results": Int,              */
+/*  Parameters: (dispatch, search String, multi Bool, page Int)                       */
+/*         search String: the string to search fo                                      */
+/*         page: the number of the page                                               */
+/*                                                                                    */
+/*  JSON format: {dispatch, "page": Int, "total_pages": Int, "total_results": Int,    */
 /*                  "results": [                                                      */
 /*                      "id": Int,                                                    */
 /*                      "title": String,                                              */
@@ -85,27 +90,58 @@ export async function getGenre(dispatch) {
 /*                      "genre_ids": [Int, Int, Int]                                  */
 /*                  ]                                                                 */
 /*               }                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/* import { getGenreMovieList } from "./Features/repositoryAPI";                      */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let genreId = 27;                                                                  */
-/* let currentPage = 1;                                                               */
-/* getGenreMovieList(genreId, currentPage).then((r) => { myArray = JSON.parse(r) });  */
-/* let content = <div> myArray.genres[i].title </div>                                 */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function getGenreMovieList(genreId, page) {
+/*  Usage: 
+
+import { getGenreMovieList } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [genreMovieList, setGenreMovieList] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let genreId = 28;
+
+    useEffect(() => {
+        getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
+            setGenreMovieList(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(genreMovieList.results[0].title);
+        } // eslint-disable-next-line 
+    }, [genreMovieList]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getGenreMovieList(dispatch, genreId, page) {
   let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&page=' + page;
+  dispatch(loadAnimAction.increase());
+
   try {
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
     let data = await resp.json();
 
+    dispatch(loadAnimAction.decrease());
+    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
     console.log(error);
+    dispatch(loadAnimAction.fail());
     return false;
   }
 }
@@ -114,7 +150,7 @@ export async function getGenreMovieList(genreId, page) {
 /*                            getSortedFlix() - Async                                 */
 /*                                                                                    */
 /*  Returns a list of movies (20/page) matching a searchcriteria from db as JSON      */
-/*  Parameters: (search String, multi Bool, page Int)                                 */
+/*  Parameters: (dispatch, search String, multi Bool, page Int)                       */
 /*         search: 'popularity' = get most popular movies                             */
 /*                 'recommended' = get movies with highest vote                       */
 /*                 'new' = get newest movies                                          */
@@ -138,19 +174,46 @@ export async function getGenreMovieList(genreId, page) {
 /*                      "genre_ids": [Int, Int, Int]                                  */
 /*                  ]                                                                 */
 /*               }                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/* import { getSortedFlix } from "./Features/repositoryAPI";                          */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let search = 'popularity'; //'popularity' is defalt, other: 'recommended' or 'new' */
-/* let currPage = 1;                                                                  */
-/* getSortedFlix(search, currPage).then((resp) => { myArray = JSON.parse(resp) });    */
-/* let content = <div> myArray.results[i].title </div>                                */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function getSortedFlix(search, page) {
+/*  Usage:                                                                            
+
+import { getSortedFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [sortedFlix, setSortedFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let searchStr = 'recommended'; 
+
+    useEffect(() => {
+        getSortedFlix(dispatch, searchStr, currPage).then((resp) => {
+            setSortedFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(sortedFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [sortedFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getSortedFlix(dispatch, search, page) {
   let options = '';
+  dispatch(loadAnimAction.increase());
 
   if (search.toLowerCase() === 'recommended') {
     options = '&sort_by=vote_average.desc&page=' + page;
@@ -163,9 +226,12 @@ export async function getSortedFlix(search, page) {
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
     let data = await resp.json();
 
+    dispatch(loadAnimAction.decrease());
+    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
+    dispatch(loadAnimAction.fail());
     console.log(error);
     return false;
   }
@@ -175,7 +241,7 @@ export async function getSortedFlix(search, page) {
 /*                          getUpcommingFlix() - Async                                */
 /*                                                                                    */
 /*  Returns a list of movies (20/page) to be released next month from db as JSON      */
-/*  Parameters: (page Int)                                                            */
+/*  Parameters: (dispatch, page Int)                                                  */
 /*         page: the number of the page                                               */
 /*                                                                                    */
 /*  JSON format: {"dates": {maximum: Date, minimum: Date}, "page": Int,               */
@@ -196,18 +262,46 @@ export async function getSortedFlix(search, page) {
 /*                      "genre_ids": [Int, Int, Int]                                  */
 /*                  ]                                                                 */
 /*               }                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/* import { getUpcommingFlix } from "./Features/repositoryAPI";                       */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let currPage = 1;                                                                  */
-/* getUpcommingFlix(currPage).then((resp) => { myArray = JSON.parse(resp) });         */
-/* let content = <div> myArray.results[i].title </div>                                */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function getUpcommingFlix(page) {
+/*  Usage:
+
+import { getUpcommingFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [upcommingFlix, setUpcommingFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getUpcommingFlix(dispatch, currPage).then((resp) => {
+            setUpcommingFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(upcommingFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [upcommingFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getUpcommingFlix(dispatch, page) {
   let option = '';
+  dispatch(loadAnimAction.increase());
+
   if (!isNaN(page)) {
     option = '&page=' + page;
   }
@@ -216,9 +310,12 @@ export async function getUpcommingFlix(page) {
     let resp = await fetch(url1 + 'movie/upcoming?' + apiKey1Lang + option);
     let data = await resp.json();
 
+    dispatch(loadAnimAction.decrease());
+    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
+    dispatch(loadAnimAction.fail());
     console.log(error);
     return false;
   }
@@ -226,7 +323,7 @@ export async function getUpcommingFlix(page) {
 
 /**************************************************************************************/
 /*                             searchFlix() - Async                                   */
-/*  Parameters: (search String, multi Bool, page Int)                                 */
+/*  Parameters: (dispatch, search String, multi Bool, page Int)                       */
 /*         search: the string to search for                                           */
 /*         multi: if false it will only search for movies                             */
 /*                if true it will search for movies, tv shows and actors              */
@@ -253,22 +350,47 @@ export async function getUpcommingFlix(page) {
 /*                      "genre_ids": [Int, Int, Int]                                  */
 /*                  ]                                                                 */
 /*               }                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/*                                                                                    */
-/* import { searchFlix } from "./Features/repositoryAPI";                             */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let search = 'star wars';                                                          */
-/* let multi = false;                                                                 */
-/* let currPage = 1;                                                                  */
-/* searchFlix(search, multi, currPage).then((r) => { myArray = JSON.parse(r) });      */
-/* let content = <div> myArray.results[i].title </div>                                */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function searchFlix(search, multi, page) {
+/*  Usage:
+
+import { searchFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+    const status = useSelector(state => state.loadingAnim.status);
+    const [currPage, setCurrPage] = useState(1);
+    const [foundFlix, setFoundFlix] = useState([]);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch();
+    let searchStr = 'Rocky'; 
+
+    useEffect(() => {
+        searchFlix(dispatch, searchStr, false, currPage).then((resp) => {
+            setFoundFlix(JSON.parse(resp));
+        }); // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        if (status === STATUS.FINISHED) {
+            setContent(foundFlix.results[0].title);
+        } // eslint-disable-next-line 
+    }, [foundFlix]);
+
+    return (
+        <div>
+            {content}
+        </div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function searchFlix(dispatch, search, multi, page) {
   let parametersOk = true;
   let options = 'search/multi?' + apiKey1Lang;
+  dispatch(loadAnimAction.increase());
 
   if (!multi) {
     options = 'search/movie?' + apiKey1Lang;
@@ -291,9 +413,12 @@ export async function searchFlix(search, multi, page) {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
 
+      dispatch(loadAnimAction.decrease());
+      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {
+      dispatch(loadAnimAction.fail());
       console.log(error);
       return false;
     }
@@ -302,7 +427,7 @@ export async function searchFlix(search, multi, page) {
 
 /**************************************************************************************/
 /*                           getFlixDetail() - Async                                  */
-/*  Parameters: (id Int)                                                              */
+/*  Parameters: (dispatch, id Int)                                                    */
 /*         id: The tmdb id for that perticular movie.                                 */
 /*                                                                                    */
 /*  Returns a detail list of a movie matching the id from themoviedb.org as JSON      */
@@ -354,28 +479,46 @@ export async function searchFlix(search, multi, page) {
 /*                  ]                                                                 */
 /*               }                                                                    */
 /*                                                                                    */
-/*  Usage:                                                                            */
-/*                                                                                    */
-/* import { getFlixDetail } from "./Features/repositoryAPI";                          */
-/* ...                                                                                */
-/* let myArray = '';                                                                  */
-/* let id = 603;                                                                      */
-/* getFlixDetail(id).then((resp) => { myArray = JSON.parse(resp) });                  */
-/* let content = <div> myArray.title </div>                                           */
-/* ...                                                                                */
-/**************************************************************************************/
-export async function getFlixDetail(id) {
+/*  Usage:
+
+import { getFlixDetail } from "../../Features/repositoryAPI";    
+import { useDispatch, useSelector } from 'react-redux';                            
+import { STATUS } from '../../Features/loadingAnim';                               
+
+const status = useSelector(state => state.loadingAnim.status);
+const [currPage, setCurrPage] = useState(1);                                                                 
+const [flixDetail, setFlixDetail] = useState([]);
+const [content, setContent] = useState('');
+const dispatch = useDispatch();
+let id = 603;
+
+useEffect(() => {                                                                  
+  getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });                                         
+}, []);
+
+useEffect(() => {
+  if (status === STATUS.FINISHED) {
+    setContent(flixDetail.results[0].title);
+  } // eslint-disable-next-line
+}, [searchFlix]);
+
+***************************************************************************************/
+export async function getFlixDetail(dispatch, id) {
   if (!isNaN(id)) {
 
     let options = 'movie/' + id + '?' + apiKey1Lang;
+    dispatch(loadAnimAction.increase());
 
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
 
+      dispatch(loadAnimAction.decrease());
+      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {
+      dispatch(loadAnimAction.fail());
       console.log(error);
       return false;
     }

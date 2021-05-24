@@ -1,10 +1,9 @@
-// import logo from './logo.png';
 import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STATUS as GENSTATUS } from './Features/genresListOf';
 import { getGenre, getImgUrl } from "./Features/repositoryAPI";
-import LoadingAnim from './Components/LoadingAnim';
+import LoadingAnim from './Components/LoadingAnim/LoadingAnim';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import ActiveView from './Components/ActiveView/ActiveView';
@@ -20,7 +19,7 @@ import './Components/GenreSidebar/sidebarUi.css';
 function App() {
   const status = useSelector(state => state.genresListOf.status);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (status === GENSTATUS.NORMAL) {
       getImgUrl();
