@@ -128,7 +128,7 @@ export default Test;
 
 ***************************************************************************************/
 export async function getGenreMovieList(dispatch, genreId, page) {
-  let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&page=' + page;
+  let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&vote_count.gte=3000&page=' + page;
   dispatch(loadAnimAction.increase());
 
   try {
@@ -212,16 +212,18 @@ export default Test;
 
 ***************************************************************************************/
 export async function getSortedFlix(dispatch, search, page) {
-  let options = '';
+  let date = formatDate(Date());
+  let options = '&release_date.lte=' + date;
   dispatch(loadAnimAction.increase());
 
   if (search.toLowerCase() === 'recommended') {
-    options = '&sort_by=vote_average.desc&page=' + page;
+    options += '&sort_by=vote_average.desc&vote_count.gte=3000&page=' + page;
   } else if (search.toLowerCase() === 'new') {
-    options = '&sort_by=release_date.desc&page=' + page;
+    options += '&sort_by=release_date.desc&page=' + page;
   } else {
-    options = '&sort_by=popularity.desc&page=' + page;
+    options += '&sort_by=popularity.desc&page=' + page;
   }
+  console.log(options);
   try {
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
     let data = await resp.json();
@@ -525,3 +527,19 @@ export async function getFlixDetail(dispatch, id) {
   }
 }
 
+/**************************************************************************************/
+/*                     returns a date in YYYY-MM-DD forma                             */
+/**************************************************************************************/
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}

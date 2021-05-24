@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { STATUS } from '../../Features/loadingAnim';
-import './homePage.css';
-import { useEffect, useState } from 'react';
 import { getSortedFlix, getUpcommingFlix } from "../../Features/repositoryAPI";
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import './homePage.css';
 
 // Under construction!
 
@@ -23,42 +23,14 @@ const HomePage = () => {
     }, [dispatch]);
 
     useEffect(() => {
+        console.log(status);
         if (status === STATUS.FINISHED) {
-            console.log(popularFlix);
-            console.log(recommendedFlix);
-            console.log(newFlix);
-            console.log(upcommingFlix);
-            console.log(status);
-            setContent('Fully Loaded - ');
-        } // eslint-disable-next-line
-    }, [status]);
-
-    // useEffect(() => {
-    //     console.log(status);
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('popular ' + popularFlix.results[0].title);
-    //     }
-    // }, [popularFlix]);
-
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('recommend ' + recommendedFlix);
-    //     }
-    // }, [recommendedFlix]);
-
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('hej ' + newFlix.results[0].title);
-    //     }
-    // }, [newFlix]);
-
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('hej ' + upcommingFlix.results[0].title);
-    //     }
-    // }, [upcommingFlix]);
-
-
+            console.log('popular ' + popularFlix.results[0].title);
+            console.log('recommend ' + recommendedFlix);
+            console.log('newFlix ' + newFlix.results[0].title);
+            console.log('upcommingFlix ' + upcommingFlix.results[0].title);
+        }
+    }, [popularFlix, recommendedFlix, newFlix, upcommingFlix]);
 
     return (
         <div>Hej {content}</div>
