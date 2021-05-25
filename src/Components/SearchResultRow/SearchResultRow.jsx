@@ -3,22 +3,13 @@ import './SearchResultRow.css'
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
-    // useEffect(() => {
-    //    try {
-    //        if (props.movie.results) {
-    //            console.log(props.movie.results)
-    //        } else {
-    //            console.log('no data in movie')
-    //        }
-    //    } catch (e) {
-    //        console.log(e)
-    //    }
-    // })
+ 
 
     try {
         if (props.movie.results) {
             return (
                 <>
+                <div>
                 {props.movie.results.map((movie, index) => 
                 <table className="results" key={index}>
                     <tbody>
@@ -34,6 +25,7 @@ const SearchResultRow = (props) => {
                     </tbody>
                 </table>
                 )}
+                </div>
                 </>
             )
         }

@@ -40,7 +40,7 @@ const Footer = () => {
                 dispatch(actions.empty());
             } else if (clickedButton === 'searchButton') {
                 //dispatch search
-                dispatch(actions.empty());
+                dispatch(actions.search());
             } else if (clickedButton === 'profileButton') {
                 if(loggedIn) {
                     dispatch(actions.profile());

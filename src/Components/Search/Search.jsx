@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from '../Searchbar/SearchBar'
 import SearchResultRow from '../SearchResultRow/SearchResultRow'
 import { searchFlix } from '../../Features/repositoryAPI';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Search() {
 
@@ -11,10 +12,11 @@ function Search() {
     let multi = false
     let currPage = 1;
     let search = searchTerm;
+    const dispatch = useDispatch();
     
 
       useEffect(() => {
-        searchFlix(search, multi, currPage).then((r) => {
+        searchFlix(dispatch, search, multi, currPage).then((r) => {
             if(search.length < 2) {
                 // console.log('no data')
             } else {
