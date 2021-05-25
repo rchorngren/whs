@@ -3,7 +3,7 @@
     width: 100%;
     display: inline-block;
     border: 1px solid #fff;
-    
+    background-color: black;
 }
 .results img {
     width: 100px;
@@ -20,4 +20,9 @@
     font-size: 12px;
     text-align: left;
     padding-left: 16px;
+}
+
+.search-result-component {
+    overflow: scroll;
+    height: 75vh;
 }

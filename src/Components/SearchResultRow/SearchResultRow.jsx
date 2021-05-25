@@ -8,8 +8,7 @@ const SearchResultRow = (props) => {
     try {
         if (props.movie.results) {
             return (
-                <>
-                <div>
+                <div className="search-result-component">
                 {props.movie.results.map((movie, index) => 
                 <table className="results" key={index}>
                     <tbody>
@@ -26,7 +25,6 @@ const SearchResultRow = (props) => {
                 </table>
                 )}
                 </div>
-                </>
             )
         }
         return (

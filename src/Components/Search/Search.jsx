@@ -3,6 +3,7 @@ import SearchBar from '../Searchbar/SearchBar'
 import SearchResultRow from '../SearchResultRow/SearchResultRow'
 import { searchFlix } from '../../Features/repositoryAPI';
 import { useDispatch, useSelector } from 'react-redux';
+import './Search.css';
 
 function Search() {
 
@@ -28,11 +29,11 @@ function Search() {
       }, [searchTerm])
 
     return (
-        <div>
+        <div className="search-component">
             <SearchBar searchTerm={searchTerm} SetSearchTerm={SetSearchTerm} /> 
             <SearchResultRow movie={movie} />
         </div>
     )
 }
 
-export default Search
+export default Search;
