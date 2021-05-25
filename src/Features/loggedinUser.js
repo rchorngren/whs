@@ -1,14 +1,17 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 const loggedin = createAction('loggedin');
+const loggedout = createAction('loggedout');
 
 const actions = {
-    loggedin
+    loggedin,
+    loggedout
 }
 
 const LOGGEDINUSER = {
     DEFAULT: false,
-    LOGGEDIN: true
+    LOGGEDIN: true,
+    // LOGGEDOUT: false
 }
 
 const initialState = {
@@ -19,6 +22,10 @@ const reducer = createReducer(initialState, {
     [loggedin]: (state, action) => ({
         ...state,
         loggedinUser: LOGGEDINUSER.LOGGEDIN
+    }),
+    [loggedout]: (state, action) => ({
+        ...state,
+        loggedinUser: LOGGEDINUSER.DEFAULT
     })
 });
 

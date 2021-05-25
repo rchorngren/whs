@@ -4,7 +4,7 @@ import { ACTIVEVIEW } from '../../Features/activeView';
 import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
-import Profile from '../Profile/Profile';
+import Profile from '../ProfileOrder/ProfileOrder';
 import './ActiveView.css';
 import Search from '../Search/Search';
 
