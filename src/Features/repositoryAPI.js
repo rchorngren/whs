@@ -128,7 +128,9 @@ export default Test;
 
 ***************************************************************************************/
 export async function getGenreMovieList(dispatch, genreId, page) {
+  let date = formatDate(Date());
   let options = '&with_genres=' + genreId + '&sort_by=popularity.desc&vote_count.gte=3000&page=' + page;
+  options += '&release_date.lte=' + date;
   dispatch(loadAnimAction.increase());
 
   try {

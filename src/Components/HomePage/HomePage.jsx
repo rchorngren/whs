@@ -15,6 +15,8 @@ const HomePage = () => {
     const [upcommingFlix, setUpcommingFlix] = useState([]);
     const dispatch = useDispatch();
 
+    let popElements = [];
+
     useEffect(() => {
         getUpcommingFlix(dispatch, 1).then((resp) => { setUpcommingFlix(JSON.parse(resp)) });
         getSortedFlix(dispatch, 'popular', 1).then((resp) => { setPopularFlix(JSON.parse(resp)) });
@@ -29,11 +31,16 @@ const HomePage = () => {
             console.log('recommend ' + recommendedFlix);
             console.log('newFlix ' + newFlix.results[0].title);
             console.log('upcommingFlix ' + upcommingFlix.results[0].title);
+            popElements = popularFlix.results.map((movie) => (
+                <div>
+                    {movie.title}
+                </div>
+            ));
         }
     }, [popularFlix, recommendedFlix, newFlix, upcommingFlix]);
 
     return (
-        <div>Hej {content}</div>
+        <div>Hej {popElements}</div>
     );
 }
 
