@@ -17,18 +17,16 @@ const GenreMenu = () => {
     
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
-        console.log(genreList);
+        //console.log('GenreList', genreList);
 
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems' key={genre.name} 
                 onClick={() => { console.log(genre.name, genre.id) }}>{genre.name}</div>
-
         ))
-        console.log(genreListMap)
+        //console.log('GenreListMap', genreListMap)
     }    
 
     return (
-
         <div  className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
                 <div className='sidebarScroll'>

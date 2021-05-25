@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import React, { useDispatch, useSelector } from 'react-redux';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenreMovieList } from "../../Features/repositoryAPI";
+import './ChosenGenreUi.css'
 
 
 const ChosenGenre = () => {
@@ -14,23 +15,40 @@ const ChosenGenre = () => {
     const dispatch = useDispatch();
     let genreId = 28;
 
+    let hej = ['hello ', 'goodbye'];
     
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
-            setGenreMovieList(JSON.parse(resp));
+            const resultsList = JSON.parse(resp);
+            setGenreMovieList(resultsList.results);
         })
+
     }, [])
 
+    let movieListMap = [];
     useEffect(() => {
         if(status === STATUS.FINISHED) {
-            setContent(genreMovieList.results[0].title);
-        }
+            setContent(genreMovieList[0].title);
+        }       
+        console.log('GenreMovieList', genreMovieList);
+       
     }, [genreMovieList])
 
+     
+    console.log('MovieListResults', genreMovieList);
+
+    movieListMap = genreMovieList.map((movie) => (
+        <div key={movie.title}>{movie.title}</div>
+    ))
+    
+    console.log('MovieListMap', movieListMap)
     return (
-        <div className='hej'>
-            {content}
-            Hej
+        <div className='genreMovies'>
+            <div>
+                {movieListMap}
+            </div>
+            
+            {hej}
         </div>
     )
 }
