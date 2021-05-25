@@ -1,0 +1,28 @@
+.results {
+    color: #fff;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #fff;
+    background-color: black;
+}
+.results img {
+    width: 100px;
+    padding-left: 8px;
+}
+
+.results h3 {
+    font-size: 20px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.results p {
+    font-size: 12px;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.search-result-component {
+    overflow: scroll;
+    height: 75vh;
+}

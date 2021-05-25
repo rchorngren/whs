@@ -37,11 +37,11 @@ const Header = () => {
                 } else {
                     dispatch(actions.menu());
                 }
-            }
+            } 
         }, 250);
     }
-
     return (
+        <>
         <header className="header">
             <div
                 className="menuButton buttonGeneral"
@@ -70,7 +70,6 @@ const Header = () => {
                 <h2>WHS</h2>
             </div>
 
-
             <div
                 className="shoppingcartButton buttonGeneral"
                 onClick={() => { setShoppingCartButtonIsClicked(true); animationOnClick(dispatch, 'baskedClicked') }}>
@@ -79,6 +78,7 @@ const Header = () => {
                     src={ShoppingCart} alt="" />
             </div>
         </header>
+        </>
     )
 }
 

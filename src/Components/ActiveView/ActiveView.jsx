@@ -5,6 +5,7 @@ import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import './ActiveView.css';
+import Search from '../Search/Search';
 
 
 const ActiveView = () => {
@@ -31,6 +32,8 @@ const ActiveView = () => {
         if (!menuActive) {
             setMenuActive(true);
         }
+    } else if (activeView === ACTIVEVIEW.SEARCH) {
+        content = <Search />
     }
     else {
         content = lastView;
