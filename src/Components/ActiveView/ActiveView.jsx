@@ -65,6 +65,7 @@ const ActiveView = () => {
 
     return (
         <div>
+            <ChosenGenre/>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
                 {/* Menu component goes here */}
                 <GenreMenu/>
