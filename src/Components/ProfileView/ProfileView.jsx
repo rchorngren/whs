@@ -1,57 +1,83 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from 'firebase';
 import { useDispatch } from "react-redux";
 import { actions as activeViewActions } from '../../Features/activeView';
 import { actions as loggedinUserActions } from '../../Features/loggedinUser';
-
-
+import './ProfileView.css';
 
 const ProfileView = () => {
-    const [currenPassword, setCurrentPassword] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [statusMessage, setStatusMessage] = useState(null);
 
     const dispatch = useDispatch();
 
+    //displays the status message and removes it after 5s
+    function displayStatus(message) {
+        setStatusMessage(message);
+        setTimeout(() => {
+            setStatusMessage('');
+        }, 5000);
+    }
+
     function updatePassword() {
-        console.log('trying to update password of current user');
-        console.log('currentPassword: ', currenPassword);
-        console.log('newPassword: ', newPassword);
-        console.log('confirmNewPassword: ', confirmNewPassword);
+        const user = firebase.auth().currentUser;
+        if (user != null) {
+            if (newPassword === confirmNewPassword && newPassword.length > 5) {
+                user.updatePassword(newPassword).then(() => {
+                    setNewPassword('');
+                    setConfirmNewPassword('');
+                    displayStatus('Password updated');
+                }).catch((error) => {
+                    displayStatus('There was an error - ', error);
+                });
+            } else {
+                displayStatus('Error - password does not match or is too short');
+            }
+        }
     }
 
     function logoutUser() {
         localStorage.removeItem('currentUser');
-        console.log('logging out current user');
         firebase.auth().signOut().then(() => {
-            console.log('signout Successfully');
             dispatch(loggedinUserActions.loggedout());
             dispatch(activeViewActions.login());
         }).catch((error) => {
-            console.log('there was an error while signing out: ', error);
+            displayStatus('Error - ', error);
         })
     }
+
+    function getCurrentUser() {
+        const user = firebase.auth().currentUser;
+        if (user != null) {
+            setCurrentUser(user.email);
+        }
+    }
+
+    useEffect(() => {
+        getCurrentUser();
+    }, []);
 
     return (
         <div className="p-r-content">
             <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{ fontSize: 18, paddingTop: '15px' }}>{currentUser ? currentUser : 'Loading...'}</div>
                 <input type="password"
                     className="text-input-profile"
-                    placeholder="Current password"
-                    value={currenPassword}
-                    onInput={e => setCurrentPassword(e.target.value)} />
-
-                <input type="password"
-                    className="text-input-profile"
-                    placeholder="New password" 
+                    placeholder="New password"
                     value={newPassword}
                     onInput={e => setNewPassword(e.target.value)} />
 
                 <input type="password"
                     className="text-input-profile"
-                    placeholder="Confirm new password" 
+                    placeholder="Confirm new password"
                     value={confirmNewPassword}
                     onInput={e => setConfirmNewPassword(e.target.value)} />
+            </div>
+
+            <div className="status-message-container">
+                {statusMessage}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>

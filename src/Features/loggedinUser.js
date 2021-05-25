@@ -11,7 +11,6 @@ const actions = {
 const LOGGEDINUSER = {
     DEFAULT: false,
     LOGGEDIN: true,
-    // LOGGEDOUT: false
 }
 
 const initialState = {

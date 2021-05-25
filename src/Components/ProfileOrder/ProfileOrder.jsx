@@ -21,7 +21,6 @@ const Profile = () => {
                     //orderHistoryView goes here
                 )}
 
-
             </div>
         </div >
     )
