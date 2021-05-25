@@ -4,25 +4,13 @@
     justify-content: space-between;
     align-items: center;
     height: 10vh;
-    border-bottom: 1px solid black;
-    background: #C4C4C4;
+    border-bottom: 4px solid #0BD3D3;
+    background: #FFFFFF;
 }
 
 .menuButton {
-    margin-left: 25px;
-    display: flex;
     flex-direction: column;
     background: white;
-}
-
-.profileButton {
-    margin-right: 25px;
-    background: white;
-}
-
-.profileButtonLoggedIn {
-    margin-right: 25px;
-    background: #548F25 !important;
 }
 
 .menuContainer {
@@ -35,45 +23,28 @@
 }
 
 .menuRow {
-    height: 7px;
-    width: 50px;
+    height: 3px;
+    width: 25px;
     margin-top: 5px;
     background: black;
 }
 
 .menuRowOpenA {
-    height: 7px;
-    width: 50px;
-    margin-top: 5px;
+    height: 3px;
+    width: 40px;
+    margin-top: 3.5px;
     transform: rotate(45deg);
     background: black;
 }
 
 .menuRowOpenB {
-    height: 7px;
-    width: 50px;
-    margin-top: -7.5px;
+    height: 3px;
+    width: 40px;
+    margin-top: -1.5px;
     transform: rotate(135deg);
     background: black;
 }
 
-.buttonImage {
-    width: 40;
-    height: 40;
-}
-
-.buttonImageClicked {
-    width: 35px;
-    height: 35px;
-}
-
-.buttonGeneral {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: 1px solid black;
+.shoppingcartButton {
+    margin-right: 10px;
 }
