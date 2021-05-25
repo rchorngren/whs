@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, ACTIVEVIEW } from '../../Features/activeView';
-// import ProfileIcon from '../../Assets/Images/profileIcon.png';
-import BasketCounter from '../BasketCounter/BasketCounter';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
 
