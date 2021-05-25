@@ -81,7 +81,7 @@ const ProfileView = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div className="call-to-action-button-profile save-button"
+                <div className="call-to-action-button-profile update-password-button"
                     onClick={updatePassword}>Update password</div>
                 <div className="call-to-action-button-profile logout-button"
                     onClick={logoutUser}>Logout</div>
