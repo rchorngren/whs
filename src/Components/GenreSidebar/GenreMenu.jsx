@@ -1,24 +1,31 @@
 
-import { useState } from 'react';
-import React from 'react-redux';
+import { useEffect, useState } from 'react';
+import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { STATUS } from '../../Features/genresListOf';
+import { getGenre } from '../../Features/repositoryAPI';
 
 const GenreMenu = () => {
 
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+       getGenre(dispatch);
+    }, [])
+    
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         console.log(genreList);
 
         genreListMap = genreList.genres.map((genre) => (
-            <div className='genreItems' key={genre.name} onClick={() => { console.log(genre.name) }}>{genre.name}</div>
+            <div className='genreItems' key={genre.name} 
+                onClick={() => { console.log(genre.name, genre.id) }}>{genre.name}</div>
 
         ))
         console.log(genreListMap)
-    }
+    }    
 
     return (
 

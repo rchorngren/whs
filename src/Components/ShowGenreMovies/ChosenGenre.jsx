@@ -14,14 +14,13 @@ const ChosenGenre = () => {
 
             console.log(array);
         })
-
-
-        return (
-            <div className='hej'>
-
-            </div>
-        )
-
+        
     })
+
+    return (
+        <div className='hej'>
+
+        </div>
+    )
 }
 export default ChosenGenre; 
