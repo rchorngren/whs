@@ -7,6 +7,7 @@ import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import Profile from '../ProfileOrder/ProfileOrder';
 import './ActiveView.css';
 import Search from '../Search/Search';
+import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 
 
 const ActiveView = () => {
@@ -68,6 +69,7 @@ const ActiveView = () => {
                 {/* Menu component goes here */}
                 <GenreMenu/>
             </div>
+            
             {content}
         </div>
     )
