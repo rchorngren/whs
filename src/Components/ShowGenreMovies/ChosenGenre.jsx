@@ -13,9 +13,7 @@ const ChosenGenre = () => {
     const [genreMovieList, setGenreMovieList] = useState([]);
     const [content, setContent] = useState('');
     const dispatch = useDispatch();
-    let genreId = 28;
-
-    let hej = ['hello ', 'goodbye'];
+    let genreId = 16;
     
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
@@ -44,11 +42,9 @@ const ChosenGenre = () => {
     console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
-            <div>
+            <div className='pickedGenre'>
                 {movieListMap}
             </div>
-            
-            {hej}
         </div>
     )
 }
