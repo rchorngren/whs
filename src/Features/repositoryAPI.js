@@ -225,7 +225,7 @@ export async function getSortedFlix(dispatch, search, page) {
   } else {
     options += '&sort_by=popularity.desc&page=' + page;
   }
-  console.log(options);
+ 
   try {
     let resp = await fetch(url1 + 'discover/movie?' + apiKey1Lang + options);
     let data = await resp.json();
