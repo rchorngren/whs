@@ -23,6 +23,6 @@
 }
 
 .search-result-component {
-    overflow: scroll;
-    height: 75vh;
+    overflow: auto;
+    height: calc(76vh - 30px);
 }
