@@ -56,3 +56,16 @@
     font-size: 16px;
     font-weight: 700;
 }
+
+.status-message-container-login {
+    font-size: 16px;
+    height: 100px;
+    width: 80%;
+    align-self: center;
+}
+
+.status-message-container-registration {
+    font-size: 16px;
+    width: 80%;
+    align-self: center;
+}

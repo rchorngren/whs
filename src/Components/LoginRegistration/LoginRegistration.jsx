@@ -10,6 +10,7 @@ const LoginRegistration = () => {
     const [userPassword, setUserPassword] = useState('');
     const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
     const [registrationComplete, setRegistrationComplete] = useState(false);
+    const [statusMessage, setStatusMessage] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -21,19 +22,26 @@ const LoginRegistration = () => {
         setShowLogin(!showLogin);
     }
 
+    //displays the status message and removes it after 5s
+    function displayStatus(message) {
+        setStatusMessage(message);
+        setTimeout(() => {
+            setStatusMessage('');
+        }, 5000);
+    }
+
     function loginUser() {
         if (!userName || !userPassword) {
-            console.log('not all fields are filled in');
+            displayStatus('Make sure both fields are filled in');
         } else {
             firebase.auth().signInWithEmailAndPassword(userName, userPassword)
-                .then((userCredential) => {
-                    console.log('logged in as: ', userCredential);
-                    localStorage.setItem('currentUser', JSON.stringify(userCredential));
+                .then(() => {
                     dispatch(actions.loggedin());
                 })
                 .catch((error) => {
                     let errorCode = error.code;
                     let errorMessage = error.message;
+                    displayStatus(errorMessage);
                     console.log('there was an error during signing in: ', errorCode, ' , ', errorMessage);
                 })
         }
@@ -44,9 +52,6 @@ const LoginRegistration = () => {
         if (userPassword === userPasswordConfirm) {
             firebase.auth().createUserWithEmailAndPassword(userName, userPassword)
                 .then((userCredential) => {
-                    let user = userCredential.user;
-                    console.log('registration complete: ', user);
-                    console.log('userCredential: ', userCredential);
                     localStorage.setItem('currentUser', JSON.stringify(userCredential));
                     dispatch(actions.loggedin());
                     setRegistrationComplete(true);
@@ -54,6 +59,7 @@ const LoginRegistration = () => {
                 .catch((error) => {
                     let errorCode = error.code;
                     let errorMessage = error.message;
+                    displayStatus(errorMessage);
                     console.log('there was an error during registration: ', errorCode, ' , ', errorMessage);
                 });
 
@@ -71,6 +77,10 @@ const LoginRegistration = () => {
                     <input type='password' className="textInput" placeholder="Password" value={userPassword} onInput={e => setUserPassword(e.target.value)} />
                 </div>
 
+                <div className="status-message-container-login">
+                    {statusMessage}
+                </div>
+
                 <div className="call-to-action-button" onClick={() => loginUser()}>Login</div>
                 <div className="newCustomerText" onClick={() => toggleLogin()}>
                     New to WHS? Register here!
@@ -82,6 +92,7 @@ const LoginRegistration = () => {
     //html for registration window
     function registrationView() {
         return (
+
             <div className="login-registration-container">
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <input type='text' className="textInput" placeholder="E-mail" value={userName} onInput={e => setUsername(e.target.value)} />
@@ -89,11 +100,18 @@ const LoginRegistration = () => {
                     <input type='password' className="textInput" placeholder="Confirm password" value={userPasswordConfirm} onInput={e => setUserPasswordConfirm(e.target.value)} />
                 </div>
 
-                <div className="call-to-action-button" onClick={() => registerUser()}>Register</div>
+                {!statusMessage ? (
+                    <div className="call-to-action-button" onClick={() => registerUser()}>Register</div>
+                ) : (
+                    <div className="status-message-container-registration">{statusMessage}</div>
+                )}
+
                 <div className="newCustomerText" onClick={() => toggleLogin()}>
                     Back to login
                 </div>
             </div>
+
+
         )
     }
 

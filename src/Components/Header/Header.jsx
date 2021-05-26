@@ -39,7 +39,6 @@ const Header = () => {
         }, 250);
     }
     return (
-        <>
         <header className="header">
             <div
                 className="menuButton buttonGeneral"
@@ -76,7 +75,6 @@ const Header = () => {
                     src={ShoppingCart} alt="" />
             </div>
         </header>
-        </>
     )
 }
 
