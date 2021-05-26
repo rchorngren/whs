@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, ACTIVEVIEW } from '../../Features/activeView';
-// import ProfileIcon from '../../Assets/Images/profileIcon.png';
-import BasketCounter from '../BasketCounter/BasketCounter';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
 
@@ -37,11 +35,11 @@ const Header = () => {
                 } else {
                     dispatch(actions.menu());
                 }
-            }
+            } 
         }, 250);
     }
-
     return (
+        <>
         <header className="header">
             <div
                 className="menuButton buttonGeneral"
@@ -70,7 +68,6 @@ const Header = () => {
                 <h2>WHS</h2>
             </div>
 
-
             <div
                 className="shoppingcartButton buttonGeneral"
                 onClick={() => { setShoppingCartButtonIsClicked(true); animationOnClick(dispatch, 'baskedClicked') }}>
@@ -79,6 +76,7 @@ const Header = () => {
                     src={ShoppingCart} alt="" />
             </div>
         </header>
+        </>
     )
 }
 

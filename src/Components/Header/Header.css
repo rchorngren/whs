@@ -48,3 +48,15 @@
 .shoppingcartButton {
     margin-right: 10px;
 }
+
+.searchButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.searchButton img {
+    width: 20px;
+    height: 20px;
+}
