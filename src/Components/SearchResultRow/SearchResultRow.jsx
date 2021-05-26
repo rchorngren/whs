@@ -28,8 +28,7 @@ const SearchResultRow = (props) => {
             )
         }
         return (
-            <>
-            </>
+            null
         )
         
     } catch (e) {
