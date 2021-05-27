@@ -4,6 +4,7 @@ import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenre } from '../../Features/repositoryAPI';
+import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 
 const GenreMenu = () => {
 
@@ -18,23 +19,21 @@ const GenreMenu = () => {
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         //console.log('GenreList', genreList);
-
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems' key={genre.name} 
                 onClick={() => { console.log(genre.name, genre.id) } }>{genre.name}</div>
         ))
         //console.log('GenreListMap', genreListMap)
     }    
-
+    
     return (
         <div  className='genreSidebar'>
             <h3 id='genresText'>Genres</h3>
                 <div className='sidebarScroll'>
                     <div className='genreItemsContainer'>
                         {genreListMap}
-                    </div>
-                    <button>hej</button>
-                </div>               
+                    </div>    
+                </div>           
         </div>  
     )
 }

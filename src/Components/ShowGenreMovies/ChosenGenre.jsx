@@ -30,10 +30,10 @@ const ChosenGenre = () => {
         console.log('PosterUrl:', posterUrl)
     }
     
-    console.log('GenreMovieList', genreMovieList);
+    //console.log('GenreMovieList', genreMovieList);
 
     let movieListMap = [];
-    console.log('MovieListResults', genreMovieList);
+    //console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
             //<div key={movie.title}>{movie.title}</div>
@@ -42,7 +42,7 @@ const ChosenGenre = () => {
         ))
     }
 
-    console.log('MovieListMap', movieListMap)
+    //console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
             <div>
@@ -58,10 +58,8 @@ const ChosenGenre = () => {
                                     getGenreMovieList(dispatch, genreId, newPage).then((resp) => {
                                     const resultsList = JSON.parse(resp);
                                     setGenreMovieList(resultsList.results)
-
-                                    })
-                                }
-                             } }>Back</div>
+                                })}
+                                } }>Back</div>
                     <div className='pageButtons' id='nextButton' 
                         onClick={() => {
                             console.log('Next button pressed')
@@ -70,7 +68,7 @@ const ChosenGenre = () => {
                             getGenreMovieList(dispatch, genreId, newPage).then((resp) => {
                                 const resultsList = JSON.parse(resp);
                                 setGenreMovieList(resultsList.results);
-                            }) } }>Next</div>
+                            })} }>Next</div>
                 </div>
             </div>
         </div>
