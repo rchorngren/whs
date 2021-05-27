@@ -16,8 +16,7 @@ const ChosenGenre = () => {
     const [poster, setPoster] = useState('')
     let genreId = 16;
 
-    
-    
+   
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
             const resultsList = JSON.parse(resp);
@@ -26,11 +25,10 @@ const ChosenGenre = () => {
 
     }, [])
 
-    let myPosterUrl = ''
+    let posterUrl = ''
     if(genreMovieList != null) {
-        let posterName = genreMovieList[0].poster_path
-        myPosterUrl = sessionStorage.posterSmall + posterName;
-        console.log('PosterUrl:', myPosterUrl)
+        posterUrl = sessionStorage.posterSmall;
+        console.log('PosterUrl:', posterUrl)
     }
     
 
@@ -47,8 +45,9 @@ const ChosenGenre = () => {
     console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
-            <div key={movie.title}>{movie.title}</div>
-            //<img src={myPosterUrl} alt="" />
+            //<div key={movie.title}>{movie.title}</div>
+        
+            <img src={posterUrl + movie.poster_path} alt="" className='poster'/>
         ))
     }
     // {movieListMap}   <img src={myPosterUrl} alt="" />
@@ -56,13 +55,9 @@ const ChosenGenre = () => {
     console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
-            <img src={myPosterUrl} alt="" className='poster'/>
-            <img src={myPosterUrl} alt="" className='poster'/>
-            <img src={myPosterUrl} alt="" className='poster'/>
-            <img src={myPosterUrl} alt="" className='poster'/>
-            <img src={myPosterUrl} alt="" className='poster'/>
+
             <div className='pickedGenre'>
-                
+                {movieListMap}
             </div>
         </div>
     )
