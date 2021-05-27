@@ -69,7 +69,7 @@ const ActiveView = () => {
                 {/* Menu component goes here */}
                 <GenreMenu/>
             </div>
-            <ChosenGenre />
+            { /*<ChosenGenre />*/}
             {content}
         </div>
     )
