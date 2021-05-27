@@ -1,0 +1,22 @@
+.genreMovies {
+    color: white;
+    padding: 1rem 0 1rem 0;
+    height: calc(70vh - 8px);
+    overflow: auto;
+}
+
+.poster {
+    padding: 5px;
+    border-radius: 6%;
+}
+
+.nextBackButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.pageButton {
+    font-style: italic;
+}

@@ -6,7 +6,7 @@
   }
   
   #genresText {
-      padding: 20px 0 30px 0;
+      padding: 10px 0 30px 0;
       color: white;
       font-size: 23px;
       border-bottom: 1px solid white;
@@ -25,9 +25,10 @@
     height: calc(80vh - 8px);
     border-right: 1px solid white;
     border-radius: 0 10px 10px 0;
-    margin-top: -23px;
     width: 200px;
+    margin-top: 0px;
     /* overflow-y: scroll; */
+    position: absolute;
   }
 
   .sidebarScroll{
