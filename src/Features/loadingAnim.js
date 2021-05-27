@@ -39,12 +39,10 @@ const reducer = createReducer(initialState, {
                 status: STATUS.LOADING
             }
         } else {
-            setTimeout(() => {
-                return {
-                    status: STATUS.WAITING,
-                    count: 0
-                }
-            }, 1000)
+            return {
+                status: STATUS.WAITING,
+                count: 0
+            }
         }
     },
     [loading]: (state, action) => ({
@@ -57,7 +55,7 @@ const reducer = createReducer(initialState, {
     }),
     [increase]: (state, action) => ({
         status: STATUS.LOADING,
-        count: state.count + 1
+        count: (state.count + 1)
     }),
     [decrease]: (state, action) => {
         if (state.count > 1) {

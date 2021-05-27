@@ -138,7 +138,6 @@ export async function getGenreMovieList(dispatch, genreId, page) {
     let data = await resp.json();
 
     dispatch(loadAnimAction.decrease());
-    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
@@ -231,7 +230,6 @@ export async function getSortedFlix(dispatch, search, page) {
     let data = await resp.json();
 
     dispatch(loadAnimAction.decrease());
-    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
@@ -315,7 +313,6 @@ export async function getUpcommingFlix(dispatch, page) {
     let data = await resp.json();
 
     dispatch(loadAnimAction.decrease());
-    dispatch(loadAnimAction.wait());
     return JSON.stringify(data);
   }
   catch (error) {
@@ -418,7 +415,6 @@ export async function searchFlix(dispatch, search, multi, page) {
       let data = await resp.json();
 
       dispatch(loadAnimAction.decrease());
-      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {
@@ -518,7 +514,6 @@ export async function getFlixDetail(dispatch, id) {
       let data = await resp.json();
 
       dispatch(loadAnimAction.decrease());
-      dispatch(loadAnimAction.wait());
       return JSON.stringify(data);
     }
     catch (error) {

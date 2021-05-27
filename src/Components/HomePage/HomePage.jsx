@@ -16,7 +16,7 @@ const HomePage = () => {
     const [newFlix, setNewFlix] = useState([]);
     const [upcommingFlix, setUpcommingFlix] = useState([]);
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         getUpcommingFlix(dispatch, 1).then((resp) => { setUpcommingFlix(JSON.parse(resp)) });
         getSortedFlix(dispatch, 'popular', 1).then((resp) => { setPopularFlix(JSON.parse(resp)) });
