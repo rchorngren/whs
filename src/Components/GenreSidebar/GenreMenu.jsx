@@ -21,7 +21,7 @@ const GenreMenu = () => {
 
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems' key={genre.name} 
-                onClick={() => { console.log(genre.name, genre.id) }}>{genre.name}</div>
+                onClick={() => { console.log(genre.name, genre.id) } }>{genre.name}</div>
         ))
         //console.log('GenreListMap', genreListMap)
     }    
@@ -33,6 +33,7 @@ const GenreMenu = () => {
                     <div className='genreItemsContainer'>
                         {genreListMap}
                     </div>
+                    <button>hej</button>
                 </div>               
         </div>  
     )
