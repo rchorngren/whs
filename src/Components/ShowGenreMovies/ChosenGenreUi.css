@@ -1,8 +1,9 @@
 .genreMovies {
     color: white;
-    
+    padding-top: 20px;
 }
 
 .poster {
     padding: 5px;
+    border-radius: 6%;
 }

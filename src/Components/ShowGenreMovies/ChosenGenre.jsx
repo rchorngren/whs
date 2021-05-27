@@ -13,8 +13,7 @@ const ChosenGenre = () => {
     const [genreMovieList, setGenreMovieList] = useState(null);
     const [content, setContent] = useState('');
     const dispatch = useDispatch();
-    const [poster, setPoster] = useState('')
-    let genreId = 16;
+    let genreId = 18;
 
    
     useEffect(() => {
@@ -31,31 +30,21 @@ const ChosenGenre = () => {
         console.log('PosterUrl:', posterUrl)
     }
     
+    console.log('GenreMovieList', genreMovieList);
 
     let movieListMap = [];
-    useEffect(() => {
-        if(status === STATUS.FINISHED) {
-            setContent(genreMovieList[0].title);
-        }       
-        console.log('GenreMovieList', genreMovieList);
-       
-    }, [genreMovieList])
-
-     //for each movie in genre, poster.
     console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
             //<div key={movie.title}>{movie.title}</div>
-        
-            <img src={posterUrl + movie.poster_path} alt="" className='poster'/>
+            <img src={posterUrl + movie.poster_path} alt="" className='poster'
+                onClick={() => { console.log(movie.title) }}/>
         ))
     }
-    // {movieListMap}   <img src={myPosterUrl} alt="" />
-    
+
     console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
-
             <div className='pickedGenre'>
                 {movieListMap}
             </div>
