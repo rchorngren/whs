@@ -16,7 +16,7 @@ const HomePage = () => {
     const [newFlix, setNewFlix] = useState([]);
     const [upcommingFlix, setUpcommingFlix] = useState([]);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         getUpcommingFlix(dispatch, 1).then((resp) => { setUpcommingFlix(JSON.parse(resp)) });
         getSortedFlix(dispatch, 'popular', 1).then((resp) => { setPopularFlix(JSON.parse(resp)) });
@@ -53,35 +53,37 @@ const HomePage = () => {
     }, [popularFlix, recommendedFlix, newFlix, upcommingFlix]);
 
     return (
-        <div className='homepage'>
-            <div className='homepage heading first'>
-                Popular
+        <div className='homepage-container'>
+            <div className='homepage'>
+                <div className='homepage heading first'>
+                    Popular
             </div>
-            <ScrollContainer className='homepage movie-row second'>
-                {popContent}
-            </ScrollContainer>
-            <div className='homepage heading third'>
-                Top Recommendations
+                <ScrollContainer className='homepage movie-row second'>
+                    {popContent}
+                </ScrollContainer>
+                <div className='homepage heading third'>
+                    Top Recommendations
             </div>
-            <ScrollContainer className='homepage movie-row forth'>
-                {recContent}
-            </ScrollContainer>
-            <div className='homepage heading fifth'>
-                New
+                <ScrollContainer className='homepage movie-row forth'>
+                    {recContent}
+                </ScrollContainer>
+                <div className='homepage heading fifth'>
+                    New
             </div>
-            <ScrollContainer className='homepage movie-row sixth'>
-                {newContent}
-            </ScrollContainer>
-            <div className='homepage heading seventh'>
-                Comming
+                <ScrollContainer className='homepage movie-row sixth'>
+                    {newContent}
+                </ScrollContainer>
+                <div className='homepage heading seventh'>
+                    Comming
             </div>
-            <ScrollContainer className='homepage movie-row eightth'>
-                {upContent}
-            </ScrollContainer>
+                <ScrollContainer className='homepage movie-row eightth'>
+                    {upContent}
+                </ScrollContainer>
+            </div>
         </div>
     );
 
-    function fillList(movie, index){
+    function fillList(movie, index) {
         if (movie.poster_path != null) {
             return (
                 <div key={index}>
