@@ -8,7 +8,6 @@ import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import ActiveView from './Components/ActiveView/ActiveView';
 import db from './firebase.config'; // eslint-disable-line
-import HomePage from './Components/HomePage/HomePage';
 
 import './Components/GenreSidebar/sidebarUi.css';
 
@@ -36,7 +35,6 @@ function App() {
         <Header />
         <main>
           <LoadingAnim />
-          <HomePage />
           <ActiveView />
         </main>
         <Footer />

@@ -10,17 +10,15 @@
 }
 
 .homepage.heading {
-    grid-row: 1;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-left: 2rem;
-    margin-top: 0.2%;
+    margin-top: 0.1%;
     text-align: left;
 }
 
-.homepage.first-row {
-    grid-row: 2;
+.homepage.movie-row {
     display: flex;
     flex-direction: row;
     gap: 2px;
@@ -28,6 +26,39 @@
     overflow-x: scroll;
     white-space: nowrap;
 }
+
+.homepage.first {
+    grid-row: 1;
+}
+
+.homepage.second {
+    grid-row: 2;
+}
+
+.homepage.third {
+    grid-row: 3;
+}
+
+.homepage.forth {
+    grid-row: 4;
+}
+
+.homepage.fifth {
+    grid-row: 5;
+}
+
+.homepage.sixth {
+    grid-row: 6;
+}
+
+.homepage.seventh {
+    grid-row: 7;
+}
+
+.homepage.eightth {
+    grid-row: 8;
+}
+
 .homepage.first-row::-webkit-scrollbar {
     display: none;
 }

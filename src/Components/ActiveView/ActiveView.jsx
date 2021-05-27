@@ -5,6 +5,7 @@ import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import Profile from '../ProfileOrder/ProfileOrder';
+import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
 import Search from '../Search/Search';
 
@@ -28,6 +29,8 @@ const ActiveView = () => {
         // content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
+    } else if (activeView === ACTIVEVIEW.DEFAULT) {
+        content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
         if (!menuActive) {
