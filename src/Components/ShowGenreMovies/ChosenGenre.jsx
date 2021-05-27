@@ -51,13 +51,17 @@ const ChosenGenre = () => {
                     <div className='pageButtons' id='backButton'
                         onClick={() => {
                             console.log('Back button pressed')
+                            
                             const newPage = currPage - 1;
-                            setCurrPage(newPage)
-                            getGenreMovieList(dispatch, genreId, newPage).then((resp) => {
-                                const resultsList = JSON.parse(resp);
-                                setGenreMovieList(resultsList.results)
+                                if(newPage >= 1) {
+                                    setCurrPage(newPage)
+                                    getGenreMovieList(dispatch, genreId, newPage).then((resp) => {
+                                    const resultsList = JSON.parse(resp);
+                                    setGenreMovieList(resultsList.results)
 
-                            }) } }>Back</div>
+                                    })
+                                }
+                             } }>Back</div>
                     <div className='pageButtons' id='nextButton' 
                         onClick={() => {
                             console.log('Next button pressed')
