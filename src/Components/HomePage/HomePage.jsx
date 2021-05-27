@@ -1,20 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { STATUS } from '../../Features/loadingAnim';
-import './homePage.css';
-import { useEffect, useState } from 'react';
 import { getSortedFlix, getUpcommingFlix } from "../../Features/repositoryAPI";
-
-// Under construction!
+import { STATUS } from '../../Features/loadingAnim';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import ScrollContainer from 'react-indiana-drag-scroll'
+import './homePage.css';
 
 const HomePage = () => {
     const status = useSelector(state => state.loadingAnim.status);
-    const [content, setContent] = useState('');
+    const [popContent, setPopContent] = useState('');
+    const [recContent, setRecContent] = useState('');
+    const [newContent, setNewContent] = useState('');
+    const [upContent, setUpContent] = useState('');
     const [popularFlix, setPopularFlix] = useState([]);
     const [recommendedFlix, setRecommendedFlix] = useState([]);
     const [newFlix, setNewFlix] = useState([]);
     const [upcommingFlix, setUpcommingFlix] = useState([]);
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         getUpcommingFlix(dispatch, 1).then((resp) => { setUpcommingFlix(JSON.parse(resp)) });
         getSortedFlix(dispatch, 'popular', 1).then((resp) => { setPopularFlix(JSON.parse(resp)) });
@@ -24,45 +26,71 @@ const HomePage = () => {
 
     useEffect(() => {
         if (status === STATUS.FINISHED) {
-            console.log(popularFlix);
-            console.log(recommendedFlix);
-            console.log(newFlix);
-            console.log(upcommingFlix);
-            console.log(status);
-            setContent('Fully Loaded - ');
-        } // eslint-disable-next-line
-    }, [status]);
+            //pop
+            let tempElements = popularFlix.results.map((movie, index) => (
+                fillList(movie, index)
+            ));
+            setPopContent(tempElements);
 
-    // useEffect(() => {
-    //     console.log(status);
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('popular ' + popularFlix.results[0].title);
-    //     }
-    // }, [popularFlix]);
+            //rec
+            tempElements = recommendedFlix.results.map((movie, index) => (
+                fillList(movie, index)
+            ));
+            setRecContent(tempElements);
 
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('recommend ' + recommendedFlix);
-    //     }
-    // }, [recommendedFlix]);
+            //new
+            tempElements = newFlix.results.map((movie, index) => (
+                fillList(movie, index)
+            ));
+            setNewContent(tempElements);
 
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('hej ' + newFlix.results[0].title);
-    //     }
-    // }, [newFlix]);
-
-    // useEffect(() => {
-    //     if (status === STATUS.FINISHED) {
-    //         console.log('hej ' + upcommingFlix.results[0].title);
-    //     }
-    // }, [upcommingFlix]);
-
-
+            //up
+            tempElements = upcommingFlix.results.map((movie, index) => (
+                fillList(movie, index)
+            ));
+            setUpContent(tempElements);
+        }
+    }, [popularFlix, recommendedFlix, newFlix, upcommingFlix]);
 
     return (
-        <div>Hej {content}</div>
+        <div className='homepage'>
+            <div className='homepage heading first'>
+                Popular
+            </div>
+            <ScrollContainer className='homepage movie-row second'>
+                {popContent}
+            </ScrollContainer>
+            <div className='homepage heading third'>
+                Top Recommendations
+            </div>
+            <ScrollContainer className='homepage movie-row forth'>
+                {recContent}
+            </ScrollContainer>
+            <div className='homepage heading fifth'>
+                New
+            </div>
+            <ScrollContainer className='homepage movie-row sixth'>
+                {newContent}
+            </ScrollContainer>
+            <div className='homepage heading seventh'>
+                Comming
+            </div>
+            <ScrollContainer className='homepage movie-row eightth'>
+                {upContent}
+            </ScrollContainer>
+        </div>
     );
+
+    function fillList(movie, index){
+        if (movie.poster_path != null) {
+            return (
+                <div key={index}>
+                    <img src={sessionStorage.posterSmall + movie.poster_path} alt="poster" />
+                </div>
+            )
+        }
+        return '';
+    }
 }
 
 export default HomePage;
