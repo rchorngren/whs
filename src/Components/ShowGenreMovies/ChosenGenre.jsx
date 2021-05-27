@@ -27,7 +27,7 @@ const ChosenGenre = () => {
     let posterUrl = ''
     if(genreMovieList != null) {
         posterUrl = sessionStorage.posterSmall;
-        console.log('PosterUrl:', posterUrl)
+        //console.log('PosterUrl:', posterUrl)
     }
     
     //console.log('GenreMovieList', genreMovieList);
@@ -38,7 +38,8 @@ const ChosenGenre = () => {
         movieListMap = genreMovieList.map((movie) => (
             //<div key={movie.title}>{movie.title}</div>
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) }}/>
+                onClick={() => { console.log(movie.title) }}
+                key={movie.title}/>
         ))
     }
 

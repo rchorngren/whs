@@ -32,6 +32,7 @@ const ActiveView = () => {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
+        content = <ChosenGenre/>
         if (!menuActive) {
             setMenuActive(true);
             
@@ -40,6 +41,7 @@ const ActiveView = () => {
         content = <Search />
     }
     else {
+        
         content = lastView;
     }
 
