@@ -391,13 +391,12 @@ export default Test;
 export async function searchFlix(dispatch, search, multi, page) {
   let parametersOk = true;
   let options = 'search/multi?' + apiKey1Lang;
-  dispatch(loadAnimAction.increase());
 
   if (!multi) {
     options = 'search/movie?' + apiKey1Lang;
   }
 
-  if (search === '' && search.length < 2) {
+  if (search === '' || search.length < 2 ) {
     parametersOk = false;
   } else {
     options += '&query=' + search;
@@ -410,6 +409,7 @@ export async function searchFlix(dispatch, search, multi, page) {
   }
 
   if (parametersOk) {
+    dispatch(loadAnimAction.increase());
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
