@@ -14,8 +14,10 @@ const SearchResultRow = (props) => {
                     <tbody>
                         <tr>
                             <td>
-                                <img alt="movie poster" src={url + props.movie.results[index].poster_path} />
-                            </td>
+                                <img alt="movie poster" 
+                                        src={props.movie.results[index].poster_path ? url + props.movie.results[index].poster_path: logo} 
+                                    />
+                                </td>
                             <td>
                                 <h3>{props.movie.results[index].title}</h3>
                                 <p>{props.movie.results[index].overview}</p>
