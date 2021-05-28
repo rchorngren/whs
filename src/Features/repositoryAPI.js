@@ -48,7 +48,7 @@ export async function getImgUrl() {
 /*  JSON format: {"genres": [{ "id": Int, "name": String}]}                           */
 /*                                                                                    */
 /*                                                                                    */
-/*  Usage: See Global states (variables)                                              */
+/*  Usage: See Globalg states (variables)                                              */
 /*                                                                                    */
 /**************************************************************************************/
 export async function getGenre(dispatch) {

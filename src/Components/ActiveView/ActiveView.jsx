@@ -8,6 +8,8 @@ import Profile from '../ProfileOrder/ProfileOrder';
 import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
 import Search from '../Search/Search';
+import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+import { render } from '@testing-library/react';
 
 
 const ActiveView = () => {
@@ -33,20 +35,25 @@ const ActiveView = () => {
         content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
+        content = <ChosenGenre/>
         if (!menuActive) {
             setMenuActive(true);
+            
         }
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
     }
     else {
+        
         content = lastView;
     }
 
     //separate useEffect when closing side menu to avoid loop
     useEffect(() => {
         if (menuActive) {
+            content = <ChosenGenre/>
             setMenuActive(false);
+            
         }
     }, [menuActive]);
 
@@ -68,8 +75,8 @@ const ActiveView = () => {
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
-                {/* Menu component goes here */}
                 <GenreMenu/>
+                
             </div>
             {content}
         </div>
