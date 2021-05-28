@@ -1,6 +1,7 @@
 import logo from '../../logo.png';
 import React, { useEffect } from 'react'
 import './SearchResultRow.css'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
@@ -9,7 +10,7 @@ const SearchResultRow = (props) => {
     try {
         if (props.movie.results) {
             return (
-                <div className="search-result-component">
+                <ScrollContainer className="search-result-component">
                 {props.movie.results.map((movie, index) => 
                 <table className="results" key={index}>
                     <tbody>
@@ -27,7 +28,7 @@ const SearchResultRow = (props) => {
                     </tbody>
                 </table>
                 )}
-                </div>
+                </ScrollContainer>
             )
         }
         return (
