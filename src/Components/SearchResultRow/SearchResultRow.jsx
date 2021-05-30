@@ -1,11 +1,26 @@
 import logo from '../../logo.png';
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SearchResultRow.css'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import movieSelected from '../../Features/movieSelected'
+import {useDispatch} from 'react-redux'
+import {actions} from '../../Features/movieSelected'
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
- 
+    const [movieID, setMovieID] = useState('');
+    const dispatch = useDispatch()
+
+    const setID = (id) => {
+        setMovieID(id)
+        dispatch(actions.getMovieID(movieID))
+    }
+
+
+    useEffect(() => {
+       console.log(movieID)
+    }, [movieID])
+    
 
     try {
         if (props.movie.results) {
@@ -23,6 +38,9 @@ const SearchResultRow = (props) => {
                             <td>
                                 <h3>{props.movie.results[index].title}</h3>
                                 <p>{props.movie.results[index].overview}</p>
+                                <button onClick={() => {
+                                    setID(props.movie.results[index].id)
+                                }}>placeholder</button>
                             </td>
                         </tr>
                     </tbody>
