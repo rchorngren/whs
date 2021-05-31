@@ -1,7 +1,7 @@
 import { getSortedFlix, getUpcommingFlix } from "../../Features/repositoryAPI";
 import { STATUS } from '../../Features/loadingAnim';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll'
 import './homePage.css';
 
@@ -49,7 +49,7 @@ const HomePage = () => {
                 fillList(movie, index)
             ));
             setUpContent(tempElements);
-        }
+        }  // eslint-disable-next-line
     }, [popularFlix, recommendedFlix, newFlix, upcommingFlix]);
 
     return (
