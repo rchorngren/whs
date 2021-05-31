@@ -21,7 +21,13 @@ const GenreMenu = () => {
         //console.log('GenreList', genreList);
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems' key={genre.name} 
-                onClick={() => { console.log(genre.name, genre.id) } }>{genre.name}</div>
+                onClick={() => { 
+                    console.log(genre.name, genre.id)
+
+                    return (
+                        <div><ChosenGenre/></div>
+                    )
+                 } }>{genre.name}</div>
         ))
         //console.log('GenreListMap', genreListMap)
     }    
