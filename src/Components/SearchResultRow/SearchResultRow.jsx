@@ -17,7 +17,7 @@ const SearchResultRow = (props) => {
     
     // Test purpose
     // useEffect(() => {
-    //    console.log(movieIDsaved)
+    //    console.log(movieID)
     // }, [movieID])
 
     try {

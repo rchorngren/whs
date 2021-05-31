@@ -32,6 +32,15 @@
     white-space: nowrap;
 }
 
+.homepage.twinkle {
+    z-index: 99;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    margin-top: 0.1%;
+    margin-left: 2rem;
+}
+
 .homepage.first {
     grid-row: 1;
 }
