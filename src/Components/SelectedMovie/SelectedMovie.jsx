@@ -1,18 +1,32 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { getFlixDetail } from "../../Features/repositoryAPI";
 import './SelectedMovie.css';
 
 const SelectedMovie = () => {
+    const url = 'https://image.tmdb.org/t/p/w200';
+    const movieId = useSelector(state => state.movieSelected.id);;
+    const [flixDetail, setFlixDetail] = useState([]);
+    const dispatch = useDispatch();
+    let id = movieId;
+
+    useEffect(() => {
+        getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
+    }, []);
 
     return (
         <ScrollContainer className="individual-movie-component">
 
             <div className="movie-info">
+                <div className="movie-poster">
+                    <img src={url + flixDetail.poster_path} alt="" />
+                </div>
 
-                <div style={{ background: 'blue' }} className="movie-poster"></div>
+
                 <div className="movie-info-container">
-                    <div className="movie-title-text">Movie title goes here</div>
-                    <div className="movie-info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                    <div className="movie-actor-text">Staring: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                    <div className="movie-title-text">{flixDetail.original_title}</div>
+                    <div className="movie-info-text">{flixDetail.overview}</div>
                 </div>
 
             </div>
@@ -34,7 +48,7 @@ const SelectedMovie = () => {
 
             <div className="user-review-container">
                 <div className="user-review-header">User reviews</div>
-                
+
                 {/* user-review is generated through mapping of any reviews left by other users */}
 
                 <div className="user-review">

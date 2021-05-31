@@ -14,7 +14,8 @@
 
 .movie-poster {
     width: 50%;
-    height: 30vh;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .movie-info-container {
@@ -33,11 +34,6 @@
     font-size: 12px;
     color: white;
     margin-bottom: 5px;
-}
-
-.movie-actor-text {
-    font-size: 12px;
-    color: white;
 }
 
 .user-rating-container {
