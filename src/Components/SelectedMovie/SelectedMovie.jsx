@@ -1,9 +1,10 @@
+import ScrollContainer from 'react-indiana-drag-scroll';
 import './SelectedMovie.css';
 
 const SelectedMovie = () => {
 
     return (
-        <div className="individual-movie-component">
+        <ScrollContainer className="individual-movie-component">
 
             <div className="movie-info">
 
@@ -57,7 +58,7 @@ const SelectedMovie = () => {
             </div>
 
 
-        </div>
+        </ScrollContainer>
     )
 }
 

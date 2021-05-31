@@ -25,8 +25,8 @@ const ActiveView = () => {
 
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
-        // content = 'checkout component goes here';
-        content = <SelectedMovie />
+        content = 'checkout component goes here';
+        // content = <SelectedMovie />
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
     } else if (activeView === ACTIVEVIEW.LOGIN) {
@@ -41,6 +41,8 @@ const ActiveView = () => {
         }
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
+    } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
+        content = <SelectedMovie />
     }
     else {
         
