@@ -1,3 +1,4 @@
+import master from '../../Assets/Images/master-monk.jpg';
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import firebase from 'firebase';
@@ -11,6 +12,7 @@ const LoginRegistration = () => {
     const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
     const [registrationComplete, setRegistrationComplete] = useState(false);
     const [statusMessage, setStatusMessage] = useState(null);
+    const [admView, setAdmView] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -35,8 +37,13 @@ const LoginRegistration = () => {
             displayStatus('Make sure both fields are filled in');
         } else {
             firebase.auth().signInWithEmailAndPassword(userName, userPassword)
-                .then(() => {
-                    dispatch(actions.loggedin());
+                .then((userCredential) => {
+                    console.log(userCredential.user.uid);
+                    if (userCredential.user.uid === 'g49gSTfDIhdj2jd97SfSFY6gIQH2') {
+                        setAdmView(true);
+                    } else {
+                        dispatch(actions.loggedin());
+                    }
                 })
                 .catch((error) => {
                     let errorCode = error.code;
@@ -125,10 +132,18 @@ const LoginRegistration = () => {
         )
     }
 
+    function adminView() {
+        return (
+            <div className="login-registration-container">
+                <img src={master} alt="master" />
+            </div>
+        )
+    }
+
     return (
         <div className="loginComponent">
             {showLogin ? (
-                loginView()
+                admView ? adminView():loginView()
             ) : (
                 registrationComplete ? (
                     registrationDoneView()
