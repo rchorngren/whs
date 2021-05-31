@@ -1,9 +1,12 @@
+import twinkle from '../../Assets/Images/twinkle.png';
 import { getSortedFlix, getUpcommingFlix } from "../../Features/repositoryAPI";
 import { STATUS } from '../../Features/loadingAnim';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll'
 import './homePage.css';
+import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const HomePage = () => {
     const status = useSelector(state => state.loadingAnim.status);
@@ -17,6 +20,11 @@ const HomePage = () => {
     const [upcommingFlix, setUpcommingFlix] = useState([]);
     const dispatch = useDispatch();
 
+    const setID = (id) => {
+        dispatch(actions.getMovieID(id));
+        dispatch(activeViewActions.selectedMovie());
+    }
+    
     useEffect(() => {
         getUpcommingFlix(dispatch, 1).then((resp) => { setUpcommingFlix(JSON.parse(resp)) });
         getSortedFlix(dispatch, 'popular', 1).then((resp) => { setPopularFlix(JSON.parse(resp)) });
@@ -69,7 +77,8 @@ const HomePage = () => {
                 </ScrollContainer>
                 <div className='homepage heading fifth'>
                     New
-            </div>
+                    <img className='homepage twinkle' src={twinkle} alt='' />
+                </div>
                 <ScrollContainer className='homepage movie-row sixth'>
                     {newContent}
                 </ScrollContainer>
@@ -86,7 +95,10 @@ const HomePage = () => {
     function fillList(movie, index) {
         if (movie.poster_path != null) {
             return (
-                <div key={index}>
+                <div key={index}  onClick={() => {
+                    setID(movie.id);
+                    // Call selectedMovie via ActiveView
+                }}>
                     <img src={sessionStorage.posterSmall + movie.poster_path} alt="poster" />
                 </div>
             )

@@ -32,6 +32,17 @@
     white-space: nowrap;
 }
 
+.homepage.twinkle {
+    z-index: 99;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin-top: 2%;
+    margin-left: 2rem;
+    opacity: 0;
+    animation: star-twinkle 1 6s linear;
+}
+
 .homepage.first {
     grid-row: 1;
 }
@@ -66,4 +77,11 @@
 
 .homepage.first-row::-webkit-scrollbar {
     display: none;
+}
+
+@keyframes star-twinkle {
+    0% {transform: scale(1); opacity: 0;}
+    90% {transform: scale(1); opacity: 1;}
+    97% {transform: scale(10); opacity: 1;}
+    100% {transform: scale(1); opacity: 0;}
 }
