@@ -21,9 +21,7 @@ const SelectedMovie = () => {
 
             <div className="movie-info">
                 <div className="movie-poster">
-                    {flixDetail ? (
-                        <img src={url + flixDetail.poster_path} alt="" />
-                    ) : (null)}
+                    <img src={flixDetail.poster_path ? url + flixDetail.poster_path : null} alt="" />
                 </div>
 
                 <div className="movie-info-container">
