@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from '../Searchbar/SearchBar'
 import SearchResultRow from '../SearchResultRow/SearchResultRow'
 import { searchFlix } from '../../Features/repositoryAPI';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './Search.css';
 
 function Search() {
@@ -22,10 +22,9 @@ function Search() {
                 // console.log('no data')
             } else {
                 setMovieData(JSON.parse(r))
-                console.log(movie)
             }  
         })
-        
+         // eslint-disable-next-line
       }, [searchTerm])
 
     return (

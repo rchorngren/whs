@@ -22,6 +22,10 @@
     padding-left: 16px;
 }
 
+.results button {
+    align-items: center;
+}
+
 .search-result-component {
     overflow: auto;
     height: calc(76vh - 30px);

@@ -39,7 +39,7 @@ const LoadingAnim = () => {
           dispatch(loadAnimAction.wait());
         }
       }, 1000)
-    }
+    } // eslint-disable-next-line
   }, [status]);
 
 
