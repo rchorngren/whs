@@ -4,6 +4,7 @@ import './SearchResultRow.css'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { useDispatch } from 'react-redux'
 import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
@@ -42,7 +43,7 @@ const SearchResultRow = (props) => {
                                 <tbody>
                                     <tr onClick={() => {
                                         setID(props.movie.results[index].id)
-                                        // Call selectedMovie via ActiveView
+                                        dispatch(activeViewActions.selectedMovie());
                                     }}>
                                         <td>
                                             <img alt="movie poster"
