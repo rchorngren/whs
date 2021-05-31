@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll'
 import './homePage.css';
-import {actions} from '../../Features/movieSelected'
+import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const HomePage = () => {
     const status = useSelector(state => state.loadingAnim.status);
@@ -21,6 +22,7 @@ const HomePage = () => {
 
     const setID = (id) => {
         dispatch(actions.getMovieID(id));
+        dispatch(activeViewActions.selectedMovie());
     }
     
     useEffect(() => {
