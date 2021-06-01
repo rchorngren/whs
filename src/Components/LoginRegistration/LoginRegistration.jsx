@@ -42,6 +42,7 @@ const LoginRegistration = () => {
                     if (userCredential.user.uid === 'g49gSTfDIhdj2jd97SfSFY6gIQH2') {
                         setAdmView(true);
                     } else {
+                        // Visa ett msg och till dEFAULT
                         dispatch(actions.loggedin());
                     }
                 })
