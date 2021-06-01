@@ -18,7 +18,6 @@ const ChosenGenre = () => {
 
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
-
     const setID = (id) => {
         dispatch(actions.getMovieID(id));
         dispatch(activeViewActions.selectedMovie());
@@ -36,7 +35,6 @@ const ChosenGenre = () => {
     let posterUrl = ''
     if(genreMovieList != null) {
         posterUrl = sessionStorage.posterSmall;
-        //console.log('PosterUrl:', posterUrl)
     }
     
     console.log('GenreMovieList', genreMovieList);
@@ -48,7 +46,6 @@ const ChosenGenre = () => {
     })
 
     let movieListMap = [];
-    //console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
@@ -58,14 +55,6 @@ const ChosenGenre = () => {
         ))
     }
 
-    // const testFunction = () => {
-        
-    // }
-
-    // genreList.forEach(testFunction)
-
-
-    //console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
             <div className='chosenGenre'>
