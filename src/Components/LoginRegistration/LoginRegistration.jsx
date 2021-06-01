@@ -1,11 +1,13 @@
 import master from '../../Assets/Images/master-monk.jpg';
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase';
 import { actions } from '../../Features/loggedinUser';
 import './LoginRegistration.css';
+import { LOGGEDINUSER } from '../../Features/loggedinUser';
 
 const LoginRegistration = () => {
+    const status = useSelector(state => state.loggedinUser.loggedinUser);
     const [showLogin, setShowLogin] = useState(true);
     const [userName, setUsername] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -38,12 +40,12 @@ const LoginRegistration = () => {
         } else {
             firebase.auth().signInWithEmailAndPassword(userName, userPassword)
                 .then((userCredential) => {
-                    console.log(userCredential.user.uid);
+                    localStorage.setItem('currentUser', JSON.stringify(userCredential));
                     if (userCredential.user.uid === 'g49gSTfDIhdj2jd97SfSFY6gIQH2') {
                         setAdmView(true);
                     } else {
-                        // Visa ett msg och till dEFAULT
                         dispatch(actions.loggedin());
+                        // Visa ett msg och till dEFAULT
                     }
                 })
                 .catch((error) => {
@@ -133,9 +135,9 @@ const LoginRegistration = () => {
         )
     }
 
-    function adminView() {
+    function logedInView() {
         return (
-            <div className="login-registration-container">
+            <div className="login-end-screen">
                 <img src={master} alt="master" />
             </div>
         )
@@ -144,7 +146,7 @@ const LoginRegistration = () => {
     return (
         <div className="loginComponent">
             {showLogin ? (
-                admView ? adminView():loginView()
+                status === LOGGEDINUSER.LOGGEDIN ? logedInView():loginView()
             ) : (
                 registrationComplete ? (
                     registrationDoneView()
