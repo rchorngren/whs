@@ -1,0 +1,96 @@
+.individual-movie-component {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.movie-poster {
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.movie-info-container {
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.movie-title-text {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.movie-info-text {
+    font-size: 12px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.user-rating-container {
+    width: 60%;
+    height: 10vh;
+    color: white;
+}
+
+.user-rating-score-text {
+    font-size: 30px;
+}
+
+.movie-price-text {
+    width: 40%;
+    height: 10vh;
+    font-size: 18px;
+    color: white;
+}
+
+.buy-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 195px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid white;
+    color: white;
+    background-color: #0BD3D3;
+}
+
+.user-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.user-review-header {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.user-review {
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: black;
+    background-color: white;
+}
+
+.user-review-text {
+    padding: 5px;
+}

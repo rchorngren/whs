@@ -4,6 +4,7 @@ import { ACTIVEVIEW } from '../../Features/activeView';
 import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
+import SelectedMovie from '../SelectedMovie/SelectedMovie';
 import Profile from '../ProfileOrder/ProfileOrder';
 import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
@@ -26,10 +27,9 @@ const ActiveView = () => {
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = 'checkout component goes here';
+        // content = <SelectedMovie />
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
-        //TODO: remove temporary button
-        // content = <button onClick={() => {localStorage.removeItem('currentUser')}}>Wipe LocalStorage</button>
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.DEFAULT) {
@@ -44,6 +44,8 @@ const ActiveView = () => {
         }
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
+    } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
+        content = <SelectedMovie />
     }
     else {
         

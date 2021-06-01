@@ -1,25 +1,20 @@
 import logo from '../../logo.png';
-import React, { useState } from 'react'
+import React from 'react'
 import './SearchResultRow.css'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { useDispatch } from 'react-redux'
 import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const SearchResultRow = (props) => {
     const url = 'https://image.tmdb.org/t/p/w200';
-    const [movieID, setMovieID] = useState('');
     const dispatch = useDispatch()
     
     const setID = (id) => {
-        setMovieID(id)
-        dispatch(actions.getMovieID(movieID))
+        dispatch(actions.getMovieID(id))
+        dispatch(activeViewActions.selectedMovie());
     }
     
-    // Test purpose
-    // useEffect(() => {
-    //    console.log(movieIDsaved)
-    // }, [movieID])
-
     try {
         if (props.movie.results) {
             return (
@@ -42,7 +37,6 @@ const SearchResultRow = (props) => {
                                 <tbody>
                                     <tr onClick={() => {
                                         setID(props.movie.results[index].id)
-                                        // Call selectedMovie via ActiveView
                                     }}>
                                         <td>
                                             <img alt="movie poster"
