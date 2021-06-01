@@ -64,7 +64,7 @@ const ActiveView = () => {
             }
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
-    //content = <ChosenGenre/>
+    
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
