@@ -12,9 +12,7 @@ const ChosenGenre = () => {
     const status = useSelector(state => state.loadingAnim.status);
     const [currPage, setCurrPage] = useState(1);
     const [genreMovieList, setGenreMovieList] = useState(null);
-    const [content, setContent] = useState('');
     const dispatch = useDispatch();
-    let tempGenreId = 18;
     
    console.log('GenreId: ', genreId)
 
