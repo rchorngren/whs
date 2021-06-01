@@ -7,6 +7,7 @@ import { STATUS } from '../../Features/genresListOf';
 import { getGenre } from '../../Features/repositoryAPI';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import { actions as activeViewActions } from '../../Features/activeView';
+import { actions as sideMenuActions } from '../../Features/sideMenu';
 
 
 const GenreMenu = () => {
@@ -26,6 +27,7 @@ const GenreMenu = () => {
             <div className='genreItems' key={genre.name} 
                 onClick={() => { 
                     dispatch(actions.genreClicked(genre.id));
+                    dispatch(sideMenuActions.menuClosed());
                     dispatch(activeViewActions.chosenGenre());
                 } }>{genre.name}</div>
                 
