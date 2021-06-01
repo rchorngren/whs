@@ -71,9 +71,9 @@
 }
 
 .login-end-screen {
-    margin-left: auto;
-    margin-right: auto;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     max-width: 800px;
     font-weight: 700;
     font-size: 30px;
@@ -81,8 +81,18 @@
     background: black;
 }
 
-.login-end-screen img {
+.login-end-screen img.master {
     height: 80%;
     width: 80%;
-    object-fit: contain ;
+    object-fit: contain;
+}
+
+.login-end-screen img.user {
+    margin-right: 30%;
+    margin-left: 30%;
+    margin-top: 10%;
+    height: 40%;
+    width: 40%;
+    object-fit: contain;
+    animation: whs-logo-spin infinite 3s linear;
 }
