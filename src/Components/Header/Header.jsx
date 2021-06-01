@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions, ACTIVEVIEW } from '../../Features/activeView';
+import { actions } from '../../Features/activeView';
 import { actions as sideMenuActions } from '../../Features/sideMenu';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
-import GenreMenu from '../GenreSidebar/GenreMenu';
 import { SIDEMENU } from '../../Features/sideMenu';
 
 const Header = () => {

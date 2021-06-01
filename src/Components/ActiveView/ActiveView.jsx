@@ -55,7 +55,7 @@ const ActiveView = () => {
     //closes side menu when activeView is updated
     useEffect(() => {
         dispatch(sideMenuActions.menuClosed());
-    }, [activeView]);
+    }, [activeView]); // eslint-disable-line react-hooks/exhaustive-deps
 
     //checks localstorage for previous loggedin user
     useEffect(() => {
@@ -63,7 +63,7 @@ const ActiveView = () => {
                 dispatch(loggedInActions.loggedin());
             }
 
-    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps 
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
     //content = <ChosenGenre/>
     return (
         <div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/activeView';
-import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import HomeIcon from '../../Assets/Images/homeIcon.svg';
 import ProfileIcon from '../../Assets/Images/profileIcon.png';
 import SearchIcon from '../../Assets/Images/searchIcon.svg';
@@ -12,7 +11,6 @@ const Footer = () => {
     const loggedIn = useSelector(state => state.loggedinUser.loggedinUser);
     const [userLoggedIn, setUserLoggedIn] = useState(loggedIn);
     const [homeButtonIsClicked, setHomeButtonIsClicked] = useState(false);
-    const [pendingButtonIsClicked, setPendingButtonIsClicked] = useState(false);
     const [searchButtonIsClicked, setSearchButtonIsClicked] = useState(false);
     const [profileButtonIsClicked, setProfileButtonIsClicked] = useState(false);
 
@@ -23,8 +21,6 @@ const Footer = () => {
         setTimeout(() => {
             if (clickedButton === 'homeButton') {
                 setHomeButtonIsClicked(false);    
-            } else if (clickedButton === 'pendingButton') {
-                setPendingButtonIsClicked(false);
             } else if (clickedButton === 'searchButton') {
                 setSearchButtonIsClicked(false);
             } else if (clickedButton === 'profileButton') {
@@ -65,14 +61,6 @@ const Footer = () => {
                     className={homeButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
                     src={HomeIcon} alt="" />
             </div>
-
-            {/* <div
-                className="buttonGeneral"
-                onClick={() => { setPendingButtonIsClicked(true); animationOnClick(dispatch, 'pendingButton') }}>
-                <img
-                    className={pendingButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
-                    src={ShoppingCart} alt="" />
-            </div> */}
 
             <div
                 className="buttonGeneral"
