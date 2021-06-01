@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions, ACTIVEVIEW } from '../../Features/activeView';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
+import GenreMenu from '../GenreSidebar/GenreMenu';
 
 const Header = () => {
     const [shoppingCartButtonIsClicked, setShoppingCartButtonIsClicked] = useState(false);

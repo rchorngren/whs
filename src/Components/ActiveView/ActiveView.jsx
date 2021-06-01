@@ -10,6 +10,7 @@ import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+import GenreStore from '../../Features/genreSelected';
 import { render } from '@testing-library/react';
 
 
@@ -35,7 +36,9 @@ const ActiveView = () => {
         content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
-        content = <ChosenGenre/>
+
+        //content = <ChosenGenre/>
+
         if (!menuActive) {
             setMenuActive(true);
         }
@@ -43,6 +46,8 @@ const ActiveView = () => {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
         content = <SelectedMovie />
+    } else if (activeView === ACTIVEVIEW.CHOSENGENRE) {
+        content = <ChosenGenre />
     }
     else {
         
@@ -52,9 +57,7 @@ const ActiveView = () => {
     //separate useEffect when closing side menu to avoid loop
     useEffect(() => {
         if (menuActive) {
-            content = <ChosenGenre/>
             setMenuActive(false);
-            
         }
     }, [menuActive]);
 
@@ -71,12 +74,13 @@ const ActiveView = () => {
                 dispatch(loggedInActions.loggedin());
             }
 
-    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
-
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps 
+    //content = <ChosenGenre/>
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
-                <GenreMenu/>
+                    <GenreMenu />
+                    
             </div>
             {content}
         </div>

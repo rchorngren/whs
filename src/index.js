@@ -10,6 +10,7 @@ import { rootReducer } from './Features/rootReducer';
 
 const store = configureStore({
   reducer : rootReducer
+  
 })
 
 ReactDOM.render(

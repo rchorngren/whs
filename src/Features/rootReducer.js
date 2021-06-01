@@ -4,7 +4,8 @@ import { reducer as genresListOfReducer} from './genresListOf';
 import { reducer as loadingAnimReducer} from './loadingAnim';
 import { reducer as activeViewReducer } from './activeView';
 import { reducer as loggedinUserReducer } from './loggedinUser';
-import { reducer as movieReducer } from './movieSelected'
+import { reducer as movieReducer } from './movieSelected';
+import { reducer as genreReducer } from './genreSelected';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     loggedinUser: loggedinUserReducer,
     loadingAnim: loadingAnimReducer,
     movieSelected: movieReducer,
+    genreSelected: genreReducer
 });
 
 export { rootReducer };
