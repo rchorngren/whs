@@ -8,14 +8,16 @@ import './ChosenGenreUi.css'
 
 const ChosenGenre = () => {
 
+    const genreId = useSelector(state => state.genreSelected)
     const status = useSelector(state => state.loadingAnim.status);
     const [currPage, setCurrPage] = useState(1);
     const [genreMovieList, setGenreMovieList] = useState(null);
     const [content, setContent] = useState('');
     const dispatch = useDispatch();
-    let genreId = 18;
+    let tempGenreId = 18;
+    
+   console.log('GenreId: ', genreId)
 
-   
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
             const resultsList = JSON.parse(resp);
@@ -39,6 +41,7 @@ const ChosenGenre = () => {
             //<div key={movie.title}>{movie.title}</div>
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
                 onClick={() => { console.log(movie.title) }}
+                    
                 key={movie.title}/>
         ))
     }
@@ -51,8 +54,7 @@ const ChosenGenre = () => {
                 <div className='nextBackButtons'>
                     <div className='pageButtons' id='backButton'
                         onClick={() => {
-                            console.log('Back button pressed')
-                            
+                            //next button in ChosenGenre
                             const newPage = currPage - 1;
                                 if(newPage >= 1) {
                                     setCurrPage(newPage)
@@ -63,7 +65,7 @@ const ChosenGenre = () => {
                                 } }>Back</div>
                     <div className='pageButtons' id='nextButton' 
                         onClick={() => {
-                            console.log('Next button pressed')
+                            //back button in ChosenGenre
                             const newPage = currPage + 1;
                             setCurrPage(newPage)
                             getGenreMovieList(dispatch, genreId, newPage).then((resp) => {

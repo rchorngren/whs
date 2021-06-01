@@ -10,6 +10,7 @@ import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+import GenreStore from '../../Features/genreSelected';
 import { render } from '@testing-library/react';
 
 
@@ -35,6 +36,8 @@ const ActiveView = () => {
         content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
+        <ChosenGenre/>
+        //content = <GenreStore> <ChosenGenre/> </GenreStore>
 
         if (!menuActive) {
             setMenuActive(true);
@@ -53,6 +56,7 @@ const ActiveView = () => {
     useEffect(() => {
         if (menuActive) {
             setMenuActive(false);
+            <ChosenGenre/>
         }
     }, [menuActive]);
 
@@ -74,8 +78,8 @@ const ActiveView = () => {
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
-                <GenreMenu />
-                
+                    <GenreMenu />
+                    
             </div>
             {content}
         </div>
