@@ -1,16 +1,22 @@
+import master from '../../Assets/Images/master-monk.jpg';
+import logo from '../../logo.png';
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase';
 import { actions } from '../../Features/loggedinUser';
 import './LoginRegistration.css';
+import { LOGGEDINUSER } from '../../Features/loggedinUser';
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const LoginRegistration = () => {
+    const status = useSelector(state => state.loggedinUser.loggedinUser);
     const [showLogin, setShowLogin] = useState(true);
     const [userName, setUsername] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
-    const [registrationComplete, setRegistrationComplete] = useState(false);
     const [statusMessage, setStatusMessage] = useState(null);
+    const [admView, setAdmView] = useState(false);
+    const [endMsg, setEndMsg] = useState('');
 
     const dispatch = useDispatch();
 
@@ -35,8 +41,8 @@ const LoginRegistration = () => {
             displayStatus('Make sure both fields are filled in');
         } else {
             firebase.auth().signInWithEmailAndPassword(userName, userPassword)
-                .then(() => {
-                    dispatch(actions.loggedin());
+                .then((userCredential) => {
+                    loggHimIn(userCredential, 'Welcome back, dear user!');
                 })
                 .catch((error) => {
                     let errorCode = error.code;
@@ -52,9 +58,8 @@ const LoginRegistration = () => {
         if (userPassword === userPasswordConfirm) {
             firebase.auth().createUserWithEmailAndPassword(userName, userPassword)
                 .then((userCredential) => {
-                    localStorage.setItem('currentUser', JSON.stringify(userCredential));
-                    dispatch(actions.loggedin());
-                    setRegistrationComplete(true);
+                    loggHimIn(userCredential, 'Thank you for choosing WHS!');
+                    toggleLogin();
                 })
                 .catch((error) => {
                     let errorCode = error.code;
@@ -82,9 +87,13 @@ const LoginRegistration = () => {
                 </div>
 
                 <div className="call-to-action-button" onClick={() => loginUser()}>Login</div>
-                <div className="newCustomerText" onClick={() => toggleLogin()}>
+                <div className="newCustomerText" onClick={() => {
+                    toggleLogin();
+                    setUsername('');
+                    setUserPassword('');
+                    }}>
                     New to WHS? Register here!
-                    </div>
+                </div>
             </div>
         )
     }
@@ -110,17 +119,27 @@ const LoginRegistration = () => {
                     Back to login
                 </div>
             </div>
-
-
         )
     }
 
-    //html for successful registration
-    function registrationDoneView() {
+    function loggHimIn(userCredential, msg) {
+        if (userCredential.user.uid === 'g49gSTfDIhdj2jd97SfSFY6gIQH2') {
+            setAdmView(true);
+            msg = '';
+        }
+        localStorage.setItem('currentUser', JSON.stringify(userCredential));
+        dispatch(actions.loggedin());
+        setEndMsg(msg);
+        setTimeout(() => {
+            dispatch(activeViewActions.empty());
+        }, 3000);
+    }
+
+    function logedInView() {
         return (
-            <div className="login-registration-container">
-                <h3>Thank you for choosing WHS!</h3>
-                <div className="call-to-action-button" onClick={() => console.log('go to main view')}>Let the adventure begin!</div>
+            <div className="login-end-screen">
+                <img className={admView ? 'master' : 'user'} src={admView ? master : logo} alt="welcome" />
+                {endMsg}
             </div>
         )
     }
@@ -128,13 +147,9 @@ const LoginRegistration = () => {
     return (
         <div className="loginComponent">
             {showLogin ? (
-                loginView()
+                status === LOGGEDINUSER.LOGGEDIN ? logedInView() : loginView()
             ) : (
-                registrationComplete ? (
-                    registrationDoneView()
-                ) : (
-                    registrationView()
-                )
+                registrationView()
             )}
         </div>
     )
