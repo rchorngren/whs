@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../../Features/activeView';
 import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
+import { actions as sideMenuActions } from '../../Features/sideMenu';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import SelectedMovie from '../SelectedMovie/SelectedMovie';
 import Profile from '../ProfileOrder/ProfileOrder';
@@ -15,7 +16,6 @@ const ActiveView = () => {
     const menuStatus = useSelector(state => state.sideMenu.sideMenu);
     const [menuActive, setMenuActive] = useState(false);
     const activeView = useSelector(state => state.activeView.activeView);
-
     const currentUserUnparsed = localStorage.getItem('currentUser');
     const currentUser = JSON.parse(currentUserUnparsed);
     const dispatch = useDispatch();
@@ -51,6 +51,11 @@ const ActiveView = () => {
             setMenuActive(false)
         }
     }, [menuStatus]);
+
+    //closes side menu when activeView is updated
+    useEffect(() => {
+        dispatch(sideMenuActions.menuClosed());
+    }, [activeView]);
 
     //checks localstorage for previous loggedin user
     useEffect(() => {

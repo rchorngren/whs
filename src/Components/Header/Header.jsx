@@ -12,6 +12,7 @@ const Header = () => {
     const [menuButtonIsClicked, setMenuButtonIsClicked] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const menuStatus = useSelector(state => state.sideMenu.sideMenu);
+    const activeView = useSelector(state => state.activeView.activeView);
 
     useEffect(() => {
         if (menuStatus === SIDEMENU.OPEN) {
@@ -20,6 +21,11 @@ const Header = () => {
             setMenuOpen(false);
         }
     }, [menuStatus]);
+
+    //updates local state of menu button to avoid doubleclick to open it again
+    useEffect(() => {
+        setMenuButtonIsClicked(false);
+    }, [activeView]);
 
     const dispatch = useDispatch();
 
