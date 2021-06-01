@@ -35,7 +35,7 @@ const ActiveView = () => {
         content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
-        content = <ChosenGenre/>
+
         if (!menuActive) {
             setMenuActive(true);
         }
@@ -52,9 +52,7 @@ const ActiveView = () => {
     //separate useEffect when closing side menu to avoid loop
     useEffect(() => {
         if (menuActive) {
-            content = <ChosenGenre/>
             setMenuActive(false);
-            
         }
     }, [menuActive]);
 
@@ -71,12 +69,13 @@ const ActiveView = () => {
                 dispatch(loggedInActions.loggedin());
             }
 
-    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps 
 
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
-                <GenreMenu/>
+                <GenreMenu />
+                
             </div>
             {content}
         </div>
