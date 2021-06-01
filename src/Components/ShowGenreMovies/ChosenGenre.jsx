@@ -15,7 +15,6 @@ const ChosenGenre = () => {
     const [currPage, setCurrPage] = useState(1);
     const [genreMovieList, setGenreMovieList] = useState(null);
     const dispatch = useDispatch();
-<<<<<<< HEAD
 
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
 
@@ -24,9 +23,7 @@ const ChosenGenre = () => {
         dispatch(activeViewActions.selectedMovie());
     }
 
-=======
     
->>>>>>> removed console logs
 
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
