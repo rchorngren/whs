@@ -14,14 +14,17 @@ function Search() {
     let multi = false
     let search = searchTerm;
     const dispatch = useDispatch();
+    const [searching, SetSearching] = useState(false)
     
 
       useEffect(() => {
         SetCurrPage(1)
         searchFlix(dispatch, search, multi, currPage).then((r) => {
             if(search.length >= 2) {
-                setMovieData(JSON.parse(r))
+                setMovieData(JSON.parse(r));
+                SetSearching(true)
             }  
+            console.log(searching)
         })
          // eslint-disable-next-line
       }, [searchTerm])
@@ -49,16 +52,24 @@ function Search() {
           }
       }
 
+      const pageButtons = () => {
+          if(searching) {
+              return (
+                <p className="pages"><span onClick={() => {
+                    previousPage()
+                    }}>prev</span>{currPage}<span onClick={() => {
+                    nextPage()
+                    }}>next</span></p>
+              )
+                
+          }
+      }
     return (
         <>
         <div className="search-component">
             <SearchBar searchTerm={searchTerm} SetSearchTerm={SetSearchTerm} /> 
             <SearchResultRow movie={movie} />
-            <p className="pages"><span onClick={() => {
-                previousPage()
-            }}>prev</span>{currPage}<span onClick={() => {
-                nextPage()
-            }}>next</span></p>
+            {pageButtons()}
         </div>
         
         </>
