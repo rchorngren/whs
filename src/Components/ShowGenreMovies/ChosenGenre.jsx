@@ -13,8 +13,12 @@ const ChosenGenre = () => {
     const [currPage, setCurrPage] = useState(1);
     const [genreMovieList, setGenreMovieList] = useState(null);
     const dispatch = useDispatch();
+
+    const status2 = useSelector(state => state.genresListOf.status);
+    const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
     
-   console.log('GenreId: ', genreId)
+   console.log('GenreId: ', genreId);
+    console.log('GenreList: ', genreList);
 
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
@@ -30,23 +34,39 @@ const ChosenGenre = () => {
         //console.log('PosterUrl:', posterUrl)
     }
     
-    //console.log('GenreMovieList', genreMovieList);
+    console.log('GenreMovieList', genreMovieList);
+    let gMap = genreList.genres.map((genres) => {
+        if(genres.id === genreId){
+            return <div>{genres.name}</div>
+            
+        }
+    })
 
     let movieListMap = [];
     //console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
-            //<div key={movie.title}>{movie.title}</div>
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) }}
-                    
+                onClick={() => { console.log(movie.title) }}     
                 key={movie.title}/>
         ))
     }
 
+    // const testFunction = () => {
+        
+    // }
+
+    // genreList.forEach(testFunction)
+
+
     //console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
+            <div className='chosenGenre'>
+                <h3>Genre: </h3>
+                <h3>{gMap}</h3>
+            </div>
+            
             <div>
                 {movieListMap}
                 <div className='nextBackButtons'>

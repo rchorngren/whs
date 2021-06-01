@@ -30,6 +30,7 @@ const GenreMenu = () => {
                     dispatch(actions.genreClicked(genre.id));
                     dispatch(activeViewActions.chosenGenre());
                 } }>{genre.name}</div>
+                
         ))
         //console.log('GenreListMap', genreListMap)
     }    
