@@ -24,7 +24,7 @@ const ChosenGenre = () => {
             setGenreMovieList(resultsList.results);
         })
 
-    }, [])
+    }, [genreId])
 
     let posterUrl = ''
     if(genreMovieList != null) {

@@ -36,8 +36,8 @@ const ActiveView = () => {
         content = <HomePage />
     } else if (activeView === ACTIVEVIEW.MENU) {
         content = lastView;
-        <ChosenGenre/>
-        //content = <GenreStore> <ChosenGenre/> </GenreStore>
+
+        //content = <ChosenGenre/>
 
         if (!menuActive) {
             setMenuActive(true);
@@ -54,7 +54,6 @@ const ActiveView = () => {
     useEffect(() => {
         if (menuActive) {
             setMenuActive(false);
-            <ChosenGenre/>
         }
     }, [menuActive]);
 
@@ -72,7 +71,7 @@ const ActiveView = () => {
             }
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps 
-
+    content = <ChosenGenre/>
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
