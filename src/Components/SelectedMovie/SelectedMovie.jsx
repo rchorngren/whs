@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { getFlixDetail } from "../../Features/repositoryAPI";
 import './SelectedMovie.css';
-import logo from '../../logo.png';
 
 const SelectedMovie = () => {
     const url = 'https://image.tmdb.org/t/p/w200';
@@ -14,7 +13,7 @@ const SelectedMovie = () => {
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <ScrollContainer className="individual-movie-component">
