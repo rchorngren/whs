@@ -25,7 +25,6 @@ const GenreMenu = () => {
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems' key={genre.name} 
                 onClick={() => { 
-                    console.log(genre.name, genre.id);
                     dispatch(actions.genreClicked(genre.id));
                     dispatch(activeViewActions.chosenGenre());
                 } }>{genre.name}</div>

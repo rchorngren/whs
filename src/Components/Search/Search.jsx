@@ -24,7 +24,6 @@ function Search() {
                 setMovieData(JSON.parse(r));
                 SetSearching(true)
             }  
-            console.log(searching)
         })
          // eslint-disable-next-line
       }, [searchTerm])

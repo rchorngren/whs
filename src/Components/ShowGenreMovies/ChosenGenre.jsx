@@ -23,6 +23,7 @@ const ChosenGenre = () => {
         dispatch(activeViewActions.selectedMovie());
     }
 
+    
 
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
@@ -37,21 +38,20 @@ const ChosenGenre = () => {
         posterUrl = sessionStorage.posterSmall;
     }
     
-    console.log('GenreMovieList', genreMovieList);
-    let gMap = genreList.genres.map((genres) => {
+    let gMap = genreList.genres.map((genres, index) => {
         if(genres.id === genreId){
-            return <div>{genres.name}</div>
+            return <div key={index}>{genres.name}</div>
             
         }
     })
 
     let movieListMap = [];
     if(genreMovieList != null){
-        movieListMap = genreMovieList.map((movie) => (
+        movieListMap = genreMovieList.map((movie, index) => (
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) 
+                onClick={() => { 
                 setID(movie.id);    }}     
-                key={movie.title}/>
+                key={index}/>
         ))
     }
 
