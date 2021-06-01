@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import React, { useDispatch, useSelector } from 'react-redux';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenreMovieList } from "../../Features/repositoryAPI";
+import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 import './ChosenGenreUi.css'
 
 
@@ -13,8 +15,14 @@ const ChosenGenre = () => {
     const [currPage, setCurrPage] = useState(1);
     const [genreMovieList, setGenreMovieList] = useState(null);
     const dispatch = useDispatch();
-    
-   console.log('GenreId: ', genreId)
+
+    const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
+
+    const setID = (id) => {
+        dispatch(actions.getMovieID(id));
+        dispatch(activeViewActions.selectedMovie());
+    }
+
 
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
@@ -27,26 +35,33 @@ const ChosenGenre = () => {
     let posterUrl = ''
     if(genreMovieList != null) {
         posterUrl = sessionStorage.posterSmall;
-        //console.log('PosterUrl:', posterUrl)
     }
     
-    //console.log('GenreMovieList', genreMovieList);
+    console.log('GenreMovieList', genreMovieList);
+    let gMap = genreList.genres.map((genres) => {
+        if(genres.id === genreId){
+            return <div>{genres.name}</div>
+            
+        }
+    })
 
     let movieListMap = [];
-    //console.log('MovieListResults', genreMovieList);
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
-            //<div key={movie.title}>{movie.title}</div>
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) }}
-                    
+                onClick={() => { console.log(movie.title) 
+                setID(movie.id);    }}     
                 key={movie.title}/>
         ))
     }
 
-    //console.log('MovieListMap', movieListMap)
     return (
         <div className='genreMovies'>
+            <div className='chosenGenre'>
+                <h3>Genre: </h3>
+                <h3>{gMap}</h3>
+            </div>
+            
             <div>
                 {movieListMap}
                 <div className='nextBackButtons'>
