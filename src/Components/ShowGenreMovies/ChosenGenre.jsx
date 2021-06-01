@@ -38,10 +38,9 @@ const ChosenGenre = () => {
         posterUrl = sessionStorage.posterSmall;
     }
     
-    console.log('GenreMovieList', genreMovieList);
-    let gMap = genreList.genres.map((genres) => {
+    let gMap = genreList.genres.map((genres, index) => {
         if(genres.id === genreId){
-            return <div>{genres.name}</div>
+            return <div key={index}>{genres.name}</div>
             
         }
     })
