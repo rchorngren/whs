@@ -6,6 +6,7 @@ import { actions } from '../../Features/genreSelected';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenre } from '../../Features/repositoryAPI';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+import { actions as activeViewActions } from '../../Features/activeView';
 
 
 const GenreMenu = () => {
@@ -27,7 +28,8 @@ const GenreMenu = () => {
                 onClick={() => { 
                     console.log(genre.name, genre.id);
                     dispatch(actions.genreClicked(genre.id));
-                 } }>{genre.name}</div>
+                    dispatch(activeViewActions.chosenGenre());
+                } }>{genre.name}</div>
         ))
         //console.log('GenreListMap', genreListMap)
     }    

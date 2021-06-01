@@ -46,6 +46,8 @@ const ActiveView = () => {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
         content = <SelectedMovie />
+    } else if (activeView === ACTIVEVIEW.CHOSENGENRE) {
+        content = <ChosenGenre />
     }
     else {
         
