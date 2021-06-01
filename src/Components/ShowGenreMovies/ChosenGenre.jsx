@@ -47,11 +47,11 @@ const ChosenGenre = () => {
 
     let movieListMap = [];
     if(genreMovieList != null){
-        movieListMap = genreMovieList.map((movie) => (
+        movieListMap = genreMovieList.map((movie, index) => (
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) 
+                onClick={() => { 
                 setID(movie.id);    }}     
-                key={movie.title}/>
+                key={index}/>
         ))
     }
 
