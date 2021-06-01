@@ -7,7 +7,7 @@
     position: relative;
     width: 95%;
     height: 96%;
-    margin-top: 2%;
+    /* margin-top: 2%; */
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 2em 1fr 2em 1fr 2em 1fr 2em 1fr;
