@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import React, { useDispatch, useSelector } from 'react-redux';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenreMovieList } from "../../Features/repositoryAPI";
+import { actions } from '../../Features/movieSelected'
+import { actions as activeViewActions } from '../../Features/activeView';
 import './ChosenGenreUi.css'
 
 
@@ -14,11 +16,14 @@ const ChosenGenre = () => {
     const [genreMovieList, setGenreMovieList] = useState(null);
     const dispatch = useDispatch();
 
-    const status2 = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
-    
-   console.log('GenreId: ', genreId);
-    console.log('GenreList: ', genreList);
+
+
+    const setID = (id) => {
+        dispatch(actions.getMovieID(id));
+        dispatch(activeViewActions.selectedMovie());
+    }
+
 
     useEffect(() => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
@@ -47,7 +52,8 @@ const ChosenGenre = () => {
     if(genreMovieList != null){
         movieListMap = genreMovieList.map((movie) => (
             <img src={posterUrl + movie.poster_path} alt="" className='poster'
-                onClick={() => { console.log(movie.title) }}     
+                onClick={() => { console.log(movie.title) 
+                setID(movie.id);    }}     
                 key={movie.title}/>
         ))
     }
