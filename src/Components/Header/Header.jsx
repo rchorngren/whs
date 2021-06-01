@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, ACTIVEVIEW } from '../../Features/activeView';
+import { actions as sideMenuActions } from '../../Features/sideMenu';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
 import GenreMenu from '../GenreSidebar/GenreMenu';
+import { SIDEMENU } from '../../Features/sideMenu';
 
 const Header = () => {
     const [shoppingCartButtonIsClicked, setShoppingCartButtonIsClicked] = useState(false);
     const [menuButtonIsClicked, setMenuButtonIsClicked] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuStatus = useSelector(state => state.sideMenu.sideMenu);
     const activeView = useSelector(state => state.activeView.activeView);
 
     useEffect(() => {
-        if (activeView === ACTIVEVIEW.MENU) {
+        if (menuStatus === SIDEMENU.OPEN) {
             setMenuOpen(true);
         } else {
             setMenuOpen(false);
         }
+    }, [menuStatus]);
+
+    //updates local state of menu button to avoid doubleclick to open it again
+    useEffect(() => {
+        setMenuButtonIsClicked(false);
     }, [activeView]);
 
     const dispatch = useDispatch();
@@ -32,9 +40,11 @@ const Header = () => {
             } else {
                 if (menuButtonIsClicked) {
                     setMenuButtonIsClicked(!menuButtonIsClicked);
-                    dispatch(actions.empty());
+                    dispatch(sideMenuActions.menuClosed());
+                    
                 } else {
-                    dispatch(actions.menu());
+                    dispatch(sideMenuActions.menuOpen());
+                    
                 }
             } 
         }, 250);

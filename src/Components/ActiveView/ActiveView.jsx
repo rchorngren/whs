@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVEVIEW } from '../../Features/activeView';
 import GenreMenu from '../GenreSidebar/GenreMenu';
 import { actions as loggedInActions } from '../../Features/loggedinUser';
+import { actions as sideMenuActions } from '../../Features/sideMenu';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import SelectedMovie from '../SelectedMovie/SelectedMovie';
 import Profile from '../ProfileOrder/ProfileOrder';
@@ -10,19 +11,16 @@ import HomePage from '../HomePage/HomePage';
 import './ActiveView.css';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
-import GenreStore from '../../Features/genreSelected';
-import { render } from '@testing-library/react';
-
 
 const ActiveView = () => {
+    const menuStatus = useSelector(state => state.sideMenu.sideMenu);
     const [menuActive, setMenuActive] = useState(false);
-    const [lastView, setLastView] = useState(null);
     const activeView = useSelector(state => state.activeView.activeView);
-    let content = null;
-
     const currentUserUnparsed = localStorage.getItem('currentUser');
     const currentUser = JSON.parse(currentUserUnparsed);
     const dispatch = useDispatch();
+
+    let content = null;
 
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
@@ -34,14 +32,6 @@ const ActiveView = () => {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.DEFAULT) {
         content = <HomePage />
-    } else if (activeView === ACTIVEVIEW.MENU) {
-        content = lastView;
-
-        //content = <ChosenGenre/>
-
-        if (!menuActive) {
-            setMenuActive(true);
-        }
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
@@ -49,24 +39,23 @@ const ActiveView = () => {
     } else if (activeView === ACTIVEVIEW.CHOSENGENRE) {
         content = <ChosenGenre />
     }
-    else {
-        
-        content = lastView;
+    else { 
+        content = <HomePage />
     }
 
     //separate useEffect when closing side menu to avoid loop
     useEffect(() => {
-        if (menuActive) {
-            setMenuActive(false);
+        if (menuStatus) {
+            setMenuActive(true);
+        } else if (menuStatus === false) {
+            setMenuActive(false)
         }
-    }, [menuActive]);
+    }, [menuStatus]);
 
-    //saving current active component so it displays when side menu closes
+    //closes side menu when activeView is updated
     useEffect(() => {
-        if (activeView !== (ACTIVEVIEW.MENU || ACTIVEVIEW.DEFAULT)) {
-            setLastView(content);
-        }
-    }, [activeView]); // eslint-disable-line react-hooks/exhaustive-deps
+        dispatch(sideMenuActions.menuClosed());
+    }, [activeView]);
 
     //checks localstorage for previous loggedin user
     useEffect(() => {
@@ -79,8 +68,7 @@ const ActiveView = () => {
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
-                    <GenreMenu />
-                    
+                <GenreMenu />
             </div>
             {content}
         </div>
