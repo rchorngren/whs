@@ -11,10 +11,18 @@ const SelectedMovie = () => {
     const [flixDetail, setFlixDetail] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
     const dispatch = useDispatch();
+    const [imdbRating, SetImdbRating] = useState([]);
+    const [imdbID, SetImdbId] = useState([]);
     let id = movieId;
+    const urlRating ='https://imdb-api.com/en/API/Ratings/k_3xxh1qwu/'
+
 
     useEffect(() => {
-        getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
+        getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
+            SetImdbId(JSON.parse(resp).imdb_id)
+            console.log(JSON.parse(resp).imdb_id)
+        });
+        
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     function buyMovie() {
@@ -22,6 +30,7 @@ const SelectedMovie = () => {
         dispatch(actions.addItem(movieToBuy));
     }
 
+<<<<<<< HEAD
     function animationOnClick() {
         setTimeout(() => {
             setButtonClicked(false);
@@ -31,6 +40,25 @@ const SelectedMovie = () => {
         }, 250);
     }
 
+=======
+    async function getIMDBRating() {
+        try {
+            let resp = await fetch(urlRating + imdbID);
+            let data = await resp.json();
+            
+            SetImdbRating(JSON.stringify(data.imDb + '/10'))
+            
+            console.log(JSON.stringify(data.imDb));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getIMDBRating()
+    }, [imdbID])
+>>>>>>> gets IMDB rating for movie and display it under rating
     return (
         <ScrollContainer className="individual-movie-component">
 
@@ -47,8 +75,8 @@ const SelectedMovie = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
                 <div className="user-rating-container">
-                    User rating <br />
-                    <div className="user-rating-score-text">4.5</div>
+                    IMDB rating<br />
+                    <div className="user-rating-score-text">{imdbRating}</div>
                 </div>
 
                 <div className="movie-price-text">
