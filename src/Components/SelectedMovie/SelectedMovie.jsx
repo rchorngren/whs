@@ -18,18 +18,18 @@ const SelectedMovie = () => {
 
     
 
-    const currentBasket = useSelector(state => state.customerBasket.content);
+    // const currentBasket = useSelector(state => state.customerBasket.content);
 
     function buyMovie() {
-        const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
+        const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 5};
         // console.log('current bakset: ', currentBasket);
         console.log('adding to cart: ', movieToBuy);
         dispatch(actions.addItem(movieToBuy));
     }
 
-    useEffect(() => {
-        console.log('content of basket: ', currentBasket);
-    }, [currentBasket]);
+    // useEffect(() => {
+    //     console.log('content of basket: ', currentBasket);
+    // }, [currentBasket]);
 
     return (
         <ScrollContainer className="individual-movie-component">
