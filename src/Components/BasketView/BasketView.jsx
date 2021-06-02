@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import './BasketView.css';
 import remove from '../../Assets/Images/cross.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../Features/customerBasket';
 
 
 
@@ -14,13 +15,17 @@ const Basket = () => {
 
     let priceArray = [];
 
+    const dispatch = useDispatch();
+
     function goToCheckout() {
         console.log('going to checkout');
         //dispatch to checkout component goes here
     }
 
     function trashItem(id) {
+        console.log('currentBasket: ', currentBasket);
         console.log('throwing away...', id);
+        dispatch(actions.removeItem(id));
     }
 
     function animationOnClick() {
@@ -46,7 +51,7 @@ const Basket = () => {
                 <div className="basket-item-container" key={index}>
                     <div className="basket-item-title">{item.movieTitle}</div>
                     <div className="basket-item-price">${item.price}</div>
-                    <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem(item.movieId)} />
+                    <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem(index)} />
                 </div>
             )
         }))
@@ -54,7 +59,7 @@ const Basket = () => {
 
     useEffect(() => {
         buildBasket();
-    }, [currentBasket]);
+    }, [currentBasket]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="basket-view-component">

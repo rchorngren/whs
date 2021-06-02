@@ -23,10 +23,11 @@ const reducer = createReducer(initialState, {
         ...state,
         content: [action.payload, ...state.content]
     }),
-    // [removeItem]: (state, action) => ({
-    //     ...state,
-    //     content: ''
-    // }),
+    [removeItem]: (state, action) => ({
+        ...state,
+        content: [...state.content.slice(0, action.payload), ...state.content.slice(action.payload + 1)]
+        
+    }),
     [content]: (state, action) => ({
         ...state,
         content: []
