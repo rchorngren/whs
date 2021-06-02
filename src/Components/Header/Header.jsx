@@ -26,6 +26,13 @@ const Header = () => {
         setMenuButtonIsClicked(false);
     }, [activeView]);
 
+    //makes sure menu is closed and ready to be opened again
+    useEffect(() => {
+        if(menuStatus === false) {
+            setMenuButtonIsClicked(false);
+        }
+    }, [menuStatus]);
+
     const dispatch = useDispatch();
 
     function animationOnClick(dispatch, clickedButton) {
