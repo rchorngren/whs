@@ -1,11 +1,10 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { actions } from '../../Features/genreSelected';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenre } from '../../Features/repositoryAPI';
-// import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import { actions as activeViewActions } from '../../Features/activeView';
 import { actions as sideMenuActions } from '../../Features/sideMenu';
 

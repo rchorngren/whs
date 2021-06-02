@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
 

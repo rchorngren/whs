@@ -6,8 +6,6 @@ import { useDispatch } from 'react-redux';
 import './Search.css';
 
 function Search() {
-
-    //searchfunction
     const [movie, setMovieData] = useState([]);
     const [searchTerm, SetSearchTerm] = useState([]);
     const [currPage, SetCurrPage] = useState(1)
