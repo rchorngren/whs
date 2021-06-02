@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { actions } from '../../Features/genreSelected';
 import { STATUS } from '../../Features/genresListOf';
 import { getGenre } from '../../Features/repositoryAPI';
-import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+// import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import { actions as activeViewActions } from '../../Features/activeView';
 import { actions as sideMenuActions } from '../../Features/sideMenu';
 
@@ -14,12 +14,12 @@ const GenreMenu = () => {
     
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
+    const menuStatus = useSelector(state => state.sideMenu.sideMenu);
     const dispatch = useDispatch();
 
     useEffect(() => {
        getGenre(dispatch);
     }, [])
-
 
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
