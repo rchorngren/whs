@@ -14,7 +14,6 @@ const GenreMenu = () => {
     
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
-    const menuStatus = useSelector(state => state.sideMenu.sideMenu);
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './BasketView.css';
 import remove from '../../Assets/Images/cross.svg';
 
@@ -18,7 +18,7 @@ const Basket = () => {
     function animationOnClick() {
         setTimeout(() => {
             setButtonClicked(false);
-        }, 100);
+        }, 150);
         setTimeout(() => {
             goToCheckout();
         }, 250);
@@ -29,33 +29,35 @@ const Basket = () => {
             <div className="basket-view-container">
                 <div className="basket-header-text">Your basket</div>
                 <div className="items-in-basket-container">
-                    {/* items in basket goes here */}
+                    
 
                     <div className="movies-in-basket">
 
+                        {/* items in basket goes here - placeholders atm */}
+
                         <div className="basket-item-container">
                             <div className="basket-item-title">A really cool movie title</div>
                             <div className="basket-item-price">$4.99</div>
-                            <img className="basket-item-trash" src={remove} onClick={() => trashItem()} />
+                            <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem()} />
                         </div>
 
                         <div className="basket-item-container even">
                             <div className="basket-item-title">A really cool movie title</div>
                             <div className="basket-item-price">$4.99</div>
-                            <img className="basket-item-trash" src={remove} onClick={() => trashItem()} />
+                            <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem()} />
                         </div>
 
                         <div className="basket-item-container">
                             <div className="basket-item-title">A really cool movie title</div>
                             <div className="basket-item-price">$4.99</div>
-                            <img className="basket-item-trash" src={remove} onClick={() => trashItem()} />
+                            <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem()} />
 
                         </div>
 
                         <div className="basket-item-container even">
                             <div className="basket-item-title">A really cool movie title</div>
                             <div className="basket-item-price">$4.99</div>
-                            <img className="basket-item-trash" src={remove} onClick={() => trashItem()} />
+                            <img className="basket-item-trash" src={remove} alt="" onClick={() => trashItem()} />
 
                         </div>
 
