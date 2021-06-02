@@ -86,12 +86,14 @@
     color: black;
 }
 
-.even {
+.uneven {
     background-color: darkgrey;
 }
 
 .basket-item-title {
+    width: 50%;
     margin-left: 10px;
+    text-align: left;
 }
 
 .basket-item-trash {

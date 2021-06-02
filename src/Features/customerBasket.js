@@ -10,10 +10,6 @@ const actions = {
     content
 }
 
-// const BASKET = {
-//     CONTENT: 'content of basket'
-// }
-
 const initialState = {
     content: []
 }
@@ -25,8 +21,10 @@ const reducer = createReducer(initialState, {
     }),
     [removeItem]: (state, action) => ({
         ...state,
-        content: [...state.content.slice(0, action.payload), ...state.content.slice(action.payload + 1)]
-        
+        content: [
+            ...state.content.slice(0, action.payload),
+            ...state.content.slice(action.payload + 1)
+        ]
     }),
     [content]: (state, action) => ({
         ...state,

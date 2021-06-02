@@ -16,20 +16,10 @@ const SelectedMovie = () => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    
-
-    // const currentBasket = useSelector(state => state.customerBasket.content);
-
     function buyMovie() {
-        const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 5};
-        // console.log('current bakset: ', currentBasket);
-        console.log('adding to cart: ', movieToBuy);
+        const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
         dispatch(actions.addItem(movieToBuy));
     }
-
-    // useEffect(() => {
-    //     console.log('content of basket: ', currentBasket);
-    // }, [currentBasket]);
 
     return (
         <ScrollContainer className="individual-movie-component">
