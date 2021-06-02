@@ -16,11 +16,12 @@ const SelectedMovie = () => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const movieToBuy = [flixDetail.id, flixDetail.original_title, 4.99];
+    
 
     const currentBasket = useSelector(state => state.customerBasket.content);
 
     function buyMovie() {
+        const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
         // console.log('current bakset: ', currentBasket);
         console.log('adding to cart: ', movieToBuy);
         dispatch(actions.addItem(movieToBuy));
