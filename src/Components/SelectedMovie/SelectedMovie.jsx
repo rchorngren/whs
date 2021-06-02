@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
-import { getFlixDetail } from "../../Features/repositoryAPI";
+import { getFlixDetail } from '../../Features/repositoryAPI';
+import { actions } from '../../Features/customerBasket';
 import './SelectedMovie.css';
 
 const SelectedMovie = () => {
@@ -14,6 +15,20 @@ const SelectedMovie = () => {
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const movieToBuy = [flixDetail.original_title, 4.99];
+
+    const currentBasket = useSelector(state => state.customerBasket.content);
+
+    function buyMovie() {
+        console.log('current bakset: ', currentBasket);
+        console.log('adding to cart: ', movieToBuy);
+        dispatch(actions.addItem(movieToBuy));
+    }
+
+    useEffect(() => {
+        console.log('content of basket: ', currentBasket);
+    }, [currentBasket]);
 
     return (
         <ScrollContainer className="individual-movie-component">
@@ -42,7 +57,7 @@ const SelectedMovie = () => {
             </div>
 
             <div>
-                <div className="buy-button">Buy</div>
+                <div className="buy-button" onClick={buyMovie}>Buy</div>
             </div>
 
             <div className="user-review-container">

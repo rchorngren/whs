@@ -7,6 +7,7 @@ import { reducer as loggedinUserReducer } from './loggedinUser';
 import { reducer as movieReducer } from './movieSelected';
 import { reducer as genreReducer } from './genreSelected';
 import { reducer as sideMenuReducer } from './sideMenu';
+import { reducer as customerBasketReducer } from './customerBasket';
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     loadingAnim: loadingAnimReducer,
     movieSelected: movieReducer,
     genreSelected: genreReducer,
-    sideMenu: sideMenuReducer
+    sideMenu: sideMenuReducer,
+    customerBasket: customerBasketReducer
 });
 
 export { rootReducer };
