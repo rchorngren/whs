@@ -8,9 +8,10 @@ import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import SelectedMovie from '../SelectedMovie/SelectedMovie';
 import Profile from '../ProfileOrder/ProfileOrder';
 import HomePage from '../HomePage/HomePage';
-import './ActiveView.css';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
+import BasketView from '../BasketView/BasketView';
+import './ActiveView.css';
 
 const ActiveView = () => {
     const menuStatus = useSelector(state => state.sideMenu.sideMenu);
@@ -24,8 +25,7 @@ const ActiveView = () => {
 
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
-        content = 'checkout component goes here';
-        // content = <SelectedMovie />
+        content = <BasketView />
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
     } else if (activeView === ACTIVEVIEW.LOGIN) {
