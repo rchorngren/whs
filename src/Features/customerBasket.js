@@ -21,7 +21,7 @@ const initialState = {
 const reducer = createReducer(initialState, {
     [addItem]: (state, action) => ({
         ...state,
-        content: action.payload
+        content: [action.payload, ...state.content]
     }),
     // [removeItem]: (state, action) => ({
     //     ...state,
