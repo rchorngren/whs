@@ -1,0 +1,112 @@
+.basket-view-component {
+    display: flex;
+    height: 80vh;
+}
+
+.basket-view-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    height: 60vh;
+    width: 80vw;
+    max-width: 800px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 30px;
+    color: white;
+    background-color: #F890E7;
+}
+
+.basket-header-text {
+    margin: 0px;
+}
+
+.items-in-basket-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 65%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: auto;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.movies-in-basket {
+    height: calc(100% - 50px);
+    overflow: auto;
+}
+
+.checkout-button {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 165px;
+    height: 44px;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+    background-color: #0BD3D3;
+}
+
+.checkout-button-clicked {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 165px;
+    height: 44px;
+    font-size: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+    background-color: #0bd3d3c9;
+}
+
+/* basket */
+.basket-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 12px;
+    color: black;
+}
+
+.even {
+    background-color: darkgrey;
+}
+
+.basket-item-title {
+    margin-left: 10px;
+}
+
+.basket-item-trash {
+    height: 15px;
+    width: 15px;
+    margin-right: 10px;
+}
+
+.basket-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    font-size: 14px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #0BD3D3;
+}
