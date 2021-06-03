@@ -23,9 +23,6 @@ const SelectedMovie = () => {
 
             if(JSON.parse(resp).imdb_id !== null) {
                 SetImdbId(JSON.parse(resp).imdb_id)
-                // console.log(JSON.parse(resp))
-            } else {
-                // console.log('imdbID: ' + imdbID)
             }
         });
         
@@ -50,7 +47,7 @@ const SelectedMovie = () => {
                 let resp = await fetch(urlRating + imdbID + apiKey);
                 let data = await resp.json();
                 
-                // console.log(data.Response)
+                
                 if(imdbID.length) {
                     if(data.imdbRating !== "N/A"){
                         if(data.Response !== 'False') {
@@ -58,17 +55,13 @@ const SelectedMovie = () => {
                            
                         }else {
                             SetImdbRating('No Rating Found')
-                            // console.log('no data found')
                         }
                         
                         
-                    } else {
-                        // console.log('No Rating')
-                    }
+                    } 
                     
                 } else {
                     SetImdbRating('No Rating Found')
-                    // console.log('empty array:' + imdbID)
                 }
               
             }
