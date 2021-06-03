@@ -5,6 +5,7 @@ import { actions as sideMenuActions } from '../../Features/sideMenu';
 import ShoppingCart from '../../Assets/Images/shoppingCart.png';
 import './Header.css';
 import { SIDEMENU } from '../../Features/sideMenu';
+import BasketCounter from '../../Components/BasketCounter/BasketCounter';
 
 const Header = () => {
     const [shoppingCartButtonIsClicked, setShoppingCartButtonIsClicked] = useState(false);
@@ -90,6 +91,8 @@ const Header = () => {
                 <img
                     className={shoppingCartButtonIsClicked ? "buttonImageClicked" : "buttonImage"}
                     src={ShoppingCart} alt="" />
+
+                <BasketCounter />
             </div>
         </header>
     )

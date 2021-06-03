@@ -9,7 +9,8 @@
     position: absolute;
     top: 40px;
     right: 10px;
-    color: white;
+    color: black;
     font-weight: bold;
-    background: #548F25;
+    background: rgb(11,211,211);
+    background: linear-gradient(135deg, rgba(11,211,211,1) 0%, rgba(11,211,211,1) 0%, rgba(248,144,231,1) 100%);
 }

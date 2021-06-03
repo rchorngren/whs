@@ -59,7 +59,7 @@ const SelectedMovie = () => {
             </div>
 
             <div>
-                <div className={buttonClicked ? "buy-button-clicked" : "buy-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Buy</div>
+                <div className={buttonClicked ? "buy-button clicked" : "buy-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Buy</div>
             </div>
 
             <div className="user-review-container">
