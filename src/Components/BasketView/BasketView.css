@@ -52,23 +52,16 @@
     width: 165px;
     height: 44px;
     font-size: 12px;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 10px;
     color: black;
     background-color: #0BD3D3;
 }
 
-.checkout-button-clicked {
-    display: flex;
-    align-self: center;
-    align-items: center;
-    justify-content: center;
-    width: 165px;
-    height: 44px;
+.clicked {
+    padding: 1px;
     font-size: 10px;
     border: 1px solid black;
-    border-radius: 10px;
-    color: black;
     background-color: #0bd3d3c9;
 }
 

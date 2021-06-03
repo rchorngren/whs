@@ -89,7 +89,7 @@ const Basket = () => {
 
                 </div>
 
-                <div className={buttonClicked ? "checkout-button-clicked" : "checkout-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Proceed to checkout</div>
+                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Proceed to checkout</div>
             </div>
         </div>
     )
