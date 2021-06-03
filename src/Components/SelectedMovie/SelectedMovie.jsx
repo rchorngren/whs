@@ -45,7 +45,7 @@ const SelectedMovie = () => {
             let resp = await fetch(urlRating + imdbID);
             let data = await resp.json();
             
-            if(data.imDb != "") {
+            if(data.imDb !== "") {
                 SetImdbRating(JSON.stringify(data.imDb + '/10'))
             } else {
                 SetImdbRating('No rating found')
