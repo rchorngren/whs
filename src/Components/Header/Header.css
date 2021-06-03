@@ -47,6 +47,7 @@
 
 .shoppingcartButton {
     margin-right: 10px;
+    width: 70px !important;
 }
 
 .searchButton {

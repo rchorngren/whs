@@ -13,11 +13,9 @@ const BasketCounter = () => {
     }, [basketActivity]);
 
     return (
-        basketActivity.length > 0 ? (
-            <div className="basketCounter">
+            <div className={basketActivity.length > 0 ? "basketCounter" : "basketCounter counter-hidden"}>
                 {itemsInBasket}
             </div>
-        ) : (null)
     )
 }
 
