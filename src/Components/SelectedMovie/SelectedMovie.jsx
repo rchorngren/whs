@@ -36,7 +36,6 @@ const SelectedMovie = () => {
         dispatch(actions.addItem(movieToBuy));
     }
 
-<<<<<<< HEAD
     function animationOnClick() {
         setTimeout(() => {
             setButtonClicked(false);
@@ -46,7 +45,6 @@ const SelectedMovie = () => {
         }, 250);
     }
 
-=======
     async function getIMDBRating() {
             try {
                 let resp = await fetch(urlRating + imdbID + apiKey);
@@ -83,7 +81,6 @@ const SelectedMovie = () => {
     useEffect(() => {
         getIMDBRating()
     }, [imdbID])
->>>>>>> gets IMDB rating for movie and display it under rating
     return (
         <ScrollContainer className="individual-movie-component">
 
