@@ -30,7 +30,6 @@ const SelectedMovie = () => {
             buyMovie();
         }, 250);
     }
-    //FINISH ANIMATION CODE
 
     return (
         <ScrollContainer className="individual-movie-component">
