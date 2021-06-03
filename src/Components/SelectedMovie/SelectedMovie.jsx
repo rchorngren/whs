@@ -13,12 +13,14 @@ const SelectedMovie = () => {
     const [imdbRating, SetImdbRating] = useState([]);
     const [imdbID, SetImdbId] = useState([]);
     let id = movieId;
-    const urlRating ='https://imdb-api.com/en/API/Ratings/k_3xxh1qwu/'
+    const urlRating ='http://www.omdbapi.com/?i='
+    const apiKey = '&apikey=fbdcb121'
 
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
             SetImdbId(JSON.parse(resp).imdb_id)
+            console.log(JSON.parse(resp).imdb_id)
         });
         
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -30,14 +32,16 @@ const SelectedMovie = () => {
 
     async function getIMDBRating() {
         try {
-            let resp = await fetch(urlRating + imdbID);
+            let resp = await fetch(urlRating + imdbID + apiKey);
             let data = await resp.json();
             
-            if(data.imDb !== "") {
-                SetImdbRating(JSON.stringify(data.imDb + '/10'))
+            console.log(data.imdbRating)
+            if(data.imdbRating === "N/A") {
+                SetImdbRating('No Rating Found')
             } else {
-                SetImdbRating('No rating found')
+                SetImdbRating(data.imdbRating + "/10")
             }
+          
         }
         catch (error) {
             console.log(error);
