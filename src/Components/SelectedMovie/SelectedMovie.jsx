@@ -9,6 +9,7 @@ const SelectedMovie = () => {
     const url = 'https://image.tmdb.org/t/p/w200';
     const movieId = useSelector(state => state.movieSelected.id);;
     const [flixDetail, setFlixDetail] = useState([]);
+    const [buttonClicked, setButtonClicked] = useState(false);
     const dispatch = useDispatch();
     let id = movieId;
 
@@ -20,6 +21,16 @@ const SelectedMovie = () => {
         const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
         dispatch(actions.addItem(movieToBuy));
     }
+
+    function animationOnClick() {
+        setTimeout(() => {
+            setButtonClicked(false);
+        }, 150);
+        setTimeout(() => {
+            buyMovie();
+        }, 250);
+    }
+    //FINISH ANIMATION CODE
 
     return (
         <ScrollContainer className="individual-movie-component">
@@ -48,7 +59,7 @@ const SelectedMovie = () => {
             </div>
 
             <div>
-                <div className="buy-button" onClick={buyMovie}>Buy</div>
+                <div className={buttonClicked ? "buy-button-clicked" : "buy-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Buy</div>
             </div>
 
             <div className="user-review-container">
