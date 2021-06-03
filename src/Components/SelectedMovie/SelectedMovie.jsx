@@ -43,21 +43,25 @@ const SelectedMovie = () => {
 
 =======
     async function getIMDBRating() {
-        try {
-            let resp = await fetch(urlRating + imdbID + apiKey);
-            let data = await resp.json();
-            
-            console.log(data.imdbRating)
-            if(data.imdbRating === "N/A") {
-                SetImdbRating('No Rating Found')
-            } else {
-                SetImdbRating(data.imdbRating + "/10")
+        if(imdbID === null) {
+            SetImdbRating('No Rating found')
+        } else {
+            try {
+                let resp = await fetch(urlRating + imdbID + apiKey);
+                let data = await resp.json();
+                
+                if(data.imdbRating !== "N/A") {
+                    SetImdbRating(data.imdbRating + "/10")
+                } else {
+                    SetImdbRating('No Rating Found')
+                }
+              
             }
-          
+            catch (error) {
+                console.log(error);
+            }
         }
-        catch (error) {
-            console.log(error);
-        }
+        
     }
 
     useEffect(() => {
