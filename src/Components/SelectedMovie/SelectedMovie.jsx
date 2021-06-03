@@ -11,10 +11,21 @@ const SelectedMovie = () => {
     const [flixDetail, setFlixDetail] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
     const dispatch = useDispatch();
+    const [imdbRating, SetImdbRating] = useState([]);
+    const [imdbID, SetImdbId] = useState([]);
     let id = movieId;
+    const urlRating ='http://www.omdbapi.com/?i='
+    const apiKey = '&apikey=fbdcb121'
+
 
     useEffect(() => {
-        getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });
+        getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
+
+            if(JSON.parse(resp).imdb_id !== null) {
+                SetImdbId(JSON.parse(resp).imdb_id)
+            }
+        });
+        
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     function buyMovie() {
@@ -31,6 +42,38 @@ const SelectedMovie = () => {
         }, 250);
     }
 
+    async function getIMDBRating() {
+            try {
+                let resp = await fetch(urlRating + imdbID + apiKey);
+                let data = await resp.json();
+                
+                
+                if(imdbID.length) {
+                    if(data.imdbRating !== "N/A"){
+                        if(data.Response !== 'False') {
+                            SetImdbRating(data.imdbRating + "/10")
+                           
+                        }else {
+                            SetImdbRating('No Rating Found')
+                        }
+                        
+                        
+                    } 
+                    
+                } else {
+                    SetImdbRating('No Rating Found')
+                }
+              
+            }
+            catch (error) {
+                console.log(error);
+            }
+}
+        
+
+    useEffect(() => {
+        getIMDBRating()
+    }, [imdbID])
     return (
         <ScrollContainer className="individual-movie-component">
 
@@ -47,8 +90,8 @@ const SelectedMovie = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
                 <div className="user-rating-container">
-                    User rating <br />
-                    <div className="user-rating-score-text">4.5</div>
+                    IMDB rating<br />
+                    <div className="user-rating-score-text">{imdbRating}</div>
                 </div>
 
                 <div className="movie-price-text">
