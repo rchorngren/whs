@@ -19,7 +19,6 @@ const SelectedMovie = () => {
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
             SetImdbId(JSON.parse(resp).imdb_id)
-            console.log(JSON.parse(resp).imdb_id)
         });
         
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -34,9 +33,11 @@ const SelectedMovie = () => {
             let resp = await fetch(urlRating + imdbID);
             let data = await resp.json();
             
-            SetImdbRating(JSON.stringify(data.imDb + '/10'))
-            
-            console.log(JSON.stringify(data.imDb));
+            if(data.imDb != "") {
+                SetImdbRating(JSON.stringify(data.imDb + '/10'))
+            } else {
+                SetImdbRating('No rating found')
+            }
         }
         catch (error) {
             console.log(error);
