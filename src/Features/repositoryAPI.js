@@ -69,7 +69,7 @@ export async function getGenre(dispatch) {
 /*                                                                                    */
 /*  Returns a list of movies (20/page) matching a genre from themoviedb.org as JSON   */
 /*  Parameters: (dispatch, search String, multi Bool, page Int)                       */
-/*         search String: the string to search fo                                      */
+/*         search String: the string to search for                                    */
 /*         page: the number of the page                                               */
 /*                                                                                    */
 /*  JSON format: {dispatch, "page": Int, "total_pages": Int, "total_results": Int,    */
