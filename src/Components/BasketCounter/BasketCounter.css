@@ -6,11 +6,15 @@
     width: 30px;
     border-radius: 50px;
     border: 1px solid black;
-    position: absolute;
-    top: 40px;
+    position: relative;
+    top: 20px;
     right: 10px;
     color: black;
     font-weight: bold;
     background: rgb(11,211,211);
     background: linear-gradient(135deg, rgba(11,211,211,1) 0%, rgba(11,211,211,1) 0%, rgba(248,144,231,1) 100%);
+}
+
+.counter-hidden {
+    opacity: 0%;
 }
