@@ -19,8 +19,13 @@ const SelectedMovie = () => {
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
-            SetImdbId(JSON.parse(resp).imdb_id)
-            console.log(JSON.parse(resp).imdb_id)
+
+            if(JSON.parse(resp).imdb_id !== null) {
+                SetImdbId(JSON.parse(resp).imdb_id)
+                // console.log(JSON.parse(resp))
+            } else {
+                // console.log('imdbID: ' + imdbID)
+            }
         });
         
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -31,26 +36,37 @@ const SelectedMovie = () => {
     }
 
     async function getIMDBRating() {
-        if(imdbID === null) {
-            SetImdbRating('No Rating found')
-        } else {
             try {
                 let resp = await fetch(urlRating + imdbID + apiKey);
                 let data = await resp.json();
                 
-                if(data.imdbRating !== "N/A") {
-                    SetImdbRating(data.imdbRating + "/10")
+                // console.log(data.Response)
+                if(imdbID.length) {
+                    if(data.imdbRating !== "N/A"){
+                        if(data.Response !== 'False') {
+                            SetImdbRating(data.imdbRating + "/10")
+                           
+                        }else {
+                            SetImdbRating('No Rating Found')
+                            // console.log('no data found')
+                        }
+                        
+                        
+                    } else {
+                        // console.log('No Rating')
+                    }
+                    
                 } else {
                     SetImdbRating('No Rating Found')
+                    // console.log('empty array:' + imdbID)
                 }
               
             }
             catch (error) {
                 console.log(error);
             }
-        }
+}
         
-    }
 
     useEffect(() => {
         getIMDBRating()
