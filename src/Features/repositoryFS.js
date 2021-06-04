@@ -4,8 +4,8 @@
 /*  A collenction  of useful functionen used to get data from Firestore.              */
 /**************************************************************************************/
 import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import "firebase/firestore";
+import "firebase/auth";
 
 const db = firebase.firestore();
 
@@ -13,29 +13,41 @@ const db = firebase.firestore();
 /*                                createOrder() - Async                               */
 /*                                                                                    */
 /*  Creates a new Order in Firestore connected to the user (localStorage.currentUser).*/
-/*  Parameter: An array of movieIDs                                                   */
+/*  Parameter:                                                                        */
+/*      First: An array of movieIDs                                                   */
+/*      Second: A function (preferebly used to know when async is finnished)          */
 /*                                                                                    */
 /*  Usage: 
 
-import { useEffect} from 'react';
+import { useEffect, useState} from 'react';
 import { createOrder } from '../../Features/repositoryFS';
 
 const Test = () => {
-    let orderList = [603, 605];
+    const [fsQueryDone, setFsQueryDone] = useState(false);
+    const [content, setContent] = useState('Hello world!');
+    let orderList = [603, 503736];
+
     useEffect(() => {   // Make sure it only run once
-        createOrder(orderList)
+        createOrder(orderList, () => setFsQueryDone(true))
     }, []);
 
+    useEffect(() => {
+        if (fsQueryDone){
+            setContent('Thank you for your order!');
+        }
+    }, [fsQueryDone]);
+
     return (
-        <div>Hello World</div>
+        <div>{content}</div>
     );
 }
 
 export default Test;
 
 ***************************************************************************************/
-export async function createOrder(movieIDs) {
+export async function createOrder(movieIDs, done) {
     if (checkMovieIDs(movieIDs)) {
+        let noOfQuerys = 1;
         let userId = 'Li4sUlGWF2fYe0Yy8oh7lLSIzpi1';
         if (localStorage.currentUser !== undefined) {
             let userCred = JSON.parse(localStorage.currentUser);
@@ -43,34 +55,42 @@ export async function createOrder(movieIDs) {
         }
         let totalPrice = 4.99;
         if (Array.isArray(movieIDs)) {
+            noOfQuerys = movieIDs.length;
             totalPrice = movieIDs.length * 4.99;
         }
-        db.collection('Users').doc(userId).collection('Orders')
-            .add({
-                created: firebase.firestore.FieldValue.serverTimestamp(),
-                total: totalPrice
-            })
-            .then(docRef => {
-                console.log(docRef.id);
-                if (Array.isArray(movieIDs)) {
-                    for (let i = 0; i < movieIDs.length; i++) {
+
+        if (1 !== 1) {
+            db.collection('Users').doc(userId).collection('Orders')
+                .add({
+                    created: firebase.firestore.FieldValue.serverTimestamp(),
+                    total: totalPrice
+                })
+                .then(docRef => {
+                    if (Array.isArray(movieIDs)) {
+                        for (let i = 0; i < movieIDs.length; i++) {
+                            db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
+                                .add({
+                                    created: firebase.firestore.FieldValue.serverTimestamp(),
+                                    movieID: movieIDs[i],
+                                    price: 4.99
+                                })
+                                .then(() => {
+                                    noOfQuerys--;
+                                    if (noOfQuerys === 0){done()}
+                                })
+                        }
+                    }
+                    else {
                         db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
                             .add({
                                 created: firebase.firestore.FieldValue.serverTimestamp(),
-                                movieID: movieIDs[i],
+                                movieID: movieIDs,
                                 price: 4.99
                             })
+                            .then(done())
                     }
-                }
-                else {
-                    db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
-                        .add({
-                            created: firebase.firestore.FieldValue.serverTimestamp(),
-                            movieID: movieIDs,
-                            price: 4.99
-                        })
-                }
-            })
+                })
+        }
     }
 };
 
@@ -108,7 +128,7 @@ export async function getOrders() {
 
     // const data = await svar.data();
     // console.log(data);
-};
+}
 
 function checkMovieIDs(arr) {
     if (Array.isArray(arr)) {
