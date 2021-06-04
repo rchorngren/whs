@@ -1,9 +1,29 @@
 
 import React from 'react';
 import './CheckoutView.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../Features/customerBasket';
+import { useState } from 'react';
 
 
 const CheckoutView = () => {
+
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [contentOfBasket, setContentOfBasket] = useState(null);
+
+    const currentBasket = useSelector(state => state.customerBasket.content);
+    const dispatch = useDispatch();
+
+
+    
+
+    
+
+
+
+
+
+
 
 
     return (
@@ -24,7 +44,7 @@ const CheckoutView = () => {
                 <div>
                     <div className='ownerInformation'> 
                         <text>Payment information</text>
-                        <input type="text" placeholder='Card owner' id='ownerName' className='holderInformation'/>
+                        <input type="text" placeholder='Card holder' id='ownerName' className='holderInformation'/>
                         <input type="text" placeholder='Card number' id='cardNumber' className='holderInformation'/>
                     </div>
                 
@@ -34,7 +54,11 @@ const CheckoutView = () => {
                     </div>
                 </div>
 
-                <button className='payButton'>Pay</button>
+            <button className='payButton'  onClick={() => {
+
+                console.log(currentBasket)}} 
+
+                >Pay</button>
             </div>
         </div>
     )

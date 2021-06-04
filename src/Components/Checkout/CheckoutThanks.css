@@ -1,0 +1,46 @@
+
+.container {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.thanksContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    background: #F890E7;
+    height: 70vh;
+    width: 80vw;
+    border-radius: 10px;
+    align-items: center;
+}
+
+#thanks {
+    font-size: 24px;
+    margin-top: 3rem;
+}
+
+#foryour {
+    font-size: 20px;
+}
+
+#purchase {
+    font-size: 24px;;
+}
+
+#link {
+    width: 60vw;
+    justify-self: center;
+}
+
+#goBack {
+    height: 7vh;
+    width: 50vw;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: rgb(64, 192, 201);
+    justify-self: center;
+}

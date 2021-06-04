@@ -12,6 +12,7 @@ import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import BasketView from '../BasketView/BasketView';
 import CheckoutView  from '../Checkout/CheckoutView';
+import CheckoutThanks from '../Checkout/CheckoutThanks';
 import './ActiveView.css';
 
 const ActiveView = () => {
@@ -32,7 +33,9 @@ const ActiveView = () => {
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.DEFAULT) {
-        content = <HomePage />
+        //content = <HomePage />
+        //content = <CheckoutView/>
+        content = <CheckoutThanks/>
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
@@ -65,7 +68,9 @@ const ActiveView = () => {
             }
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
-    content = <CheckoutView/>
+
+    //content = <CheckoutView/>
+
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
