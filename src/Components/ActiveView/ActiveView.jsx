@@ -11,6 +11,7 @@ import HomePage from '../HomePage/HomePage';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import BasketView from '../BasketView/BasketView';
+import CheckoutView  from '../Checkout/CheckoutView';
 import './ActiveView.css';
 
 const ActiveView = () => {
@@ -64,7 +65,7 @@ const ActiveView = () => {
             }
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
-    
+    content = <CheckoutView/>
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>
