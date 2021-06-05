@@ -59,41 +59,87 @@ export async function createOrder(movieIDs, done) {
             totalPrice = movieIDs.length * 4.99;
         }
 
-        if (1 !== 1) {
-            db.collection('Users').doc(userId).collection('Orders')
-                .add({
-                    created: firebase.firestore.FieldValue.serverTimestamp(),
-                    total: totalPrice
-                })
-                .then(docRef => {
-                    if (Array.isArray(movieIDs)) {
-                        for (let i = 0; i < movieIDs.length; i++) {
-                            db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
-                                .add({
-                                    created: firebase.firestore.FieldValue.serverTimestamp(),
-                                    movieID: movieIDs[i],
-                                    price: 4.99
-                                })
-                                .then(() => {
-                                    noOfQuerys--;
-                                    if (noOfQuerys === 0){done()}
-                                })
-                        }
-                    }
-                    else {
+        db.collection('Users').doc(userId).collection('Orders')
+            .add({
+                date: formatDate(Date.now()),
+                created: firebase.firestore.FieldValue.serverTimestamp(),
+                total: totalPrice
+            })
+            .then(docRef => {
+                if (Array.isArray(movieIDs)) {
+                    for (let i = 0; i < movieIDs.length; i++) {
                         db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
                             .add({
                                 created: firebase.firestore.FieldValue.serverTimestamp(),
-                                movieID: movieIDs,
+                                movieID: movieIDs[i],
                                 price: 4.99
                             })
-                            .then(done())
+                            .then(() => {
+                                noOfQuerys--;
+                                if (noOfQuerys === 0) { done() }
+                            })
                     }
-                })
-        }
+                }
+                else {
+                    db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
+                        .add({
+                            created: firebase.firestore.FieldValue.serverTimestamp(),
+                            movieID: movieIDs,
+                            price: 4.99
+                        })
+                        .then(done())
+                }
+            })
     }
 };
 
+/**************************************************************************************/
+/*                                 getOrders() - Async                                */
+/*                                                                                    */
+/*  Returns a list of orders for a user from firestire as JSON                        */
+/*  Returns null if user is not logged in.                                            */
+/*                                                                                    */
+/*  JSON format: {"orders": [                                                         */
+/*                        "date": YYYY-MM-DD,                                         */
+/*                        "totalsum": float,                                          */
+/*                        "movies": [{"movieid": int, "price": float}]                */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*  Usage: 
+
+import { useEffect, useState} from 'react';
+import { getOrders } from '../../Features/repositoryFS';
+
+const Test = () => {
+    const [response, setResponse] = useState('');
+    const [content, setContent] = useState('Hello World');
+  
+    useEffect(() => {   
+        getOrders().then((resp) => {
+            setResponse(JSON.parse(resp));
+        }); // eslint-disable-next-line;
+    }, []);
+
+    useEffect(() => {
+        if (response !== ''){
+            if (response == null){
+                setContent('User not logged in');
+            } else if (response.orders.length === 0){
+                setContent('No orders');
+            } else {
+                setContent('Date of first order: ' + response.orders[0].date);
+            }
+        }
+    }, [response]);
+
+    return (
+        <div>{content}</div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
 export async function getOrders() {
     let userId = '';
     if (localStorage.currentUser !== undefined) {
@@ -107,29 +153,39 @@ export async function getOrders() {
 
     const response = docRef;
     const data = await response.get();
-    console.log('items0');
-    data.docs.forEach(item => {
-        console.log('items ' + item.id)
-    })
 
-    docRef.doc('sWff6IJNFAxs0LPtXEj9')
-        .get()
-        .then((doc) => {
-            if (doc.exists) {
-                let data = doc.data();
-                console.log("Document data:", data);
-                console.log('total ' + data.total);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        })
+    if (data.docs.length === 0) {
+        return '{"orders":[]}';
+    }
 
+    let jsonString = '{"orders":[';
 
-    // const data = await svar.data();
-    // console.log(data);
+    for (let i = 0; i < data.docs.length; i++) {
+        const r = docRef.doc(data.docs[i].id);
+        const d = await r.get();
+        jsonString += '{"date":"' + d.data().date + '","totalsum":' + d.data().total + ',"movies":[';
+
+        const items = docRef.doc(data.docs[i].id).collection('Items');
+        const itemsData = await items.get();
+
+        for (let ii = 0; ii < itemsData.docs.length; ii++) {
+            const item = docRef.doc(data.docs[i].id).collection('Items').doc(itemsData.docs[ii].id);
+            const itemData = await item.get();
+            jsonString += '{"movieid":' + itemData.data().movieID;
+            jsonString += ',"price":' + itemData.data().price + '},';
+        }
+        jsonString = jsonString.slice(0,-1);
+        jsonString += ']},';
+    }
+    jsonString = jsonString.slice(0,-1);
+    jsonString += ']}';
+
+    return jsonString;
 }
 
+/**************************************************************************************/
+/*                   checkMovieIDs(arr) - Check input for createOrder                 */
+/**************************************************************************************/
 function checkMovieIDs(arr) {
     if (Array.isArray(arr)) {
         for (let i = 0; i < arr.length; i++) {
@@ -147,3 +203,19 @@ function checkMovieIDs(arr) {
     }
 }
 
+/**************************************************************************************/
+/*                     formatDate(date) - Format date to YYYY-MM-DD                   */
+/**************************************************************************************/
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
