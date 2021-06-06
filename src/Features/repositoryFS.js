@@ -13,7 +13,8 @@ const db = firebase.firestore();
 /*                                createOrder() - Async                               */
 /*                                                                                    */
 /*  Creates a new Order in Firestore connected to the user (localStorage.currentUser).*/
-/*  Parameter:                                                                        */
+/*                                                                                    */
+/*  Parameters:                                                                       */
 /*      First: An array of movieIDs                                                   */
 /*      Second: A function (preferebly used to know when async is finnished)          */
 /*                                                                                    */
@@ -74,10 +75,10 @@ export async function createOrder(movieIDs, done) {
                                 movieID: movieIDs[i],
                                 price: 4.99
                             })
-                            .then(() => {
+                            .then(() => { // eslint-disable-line
                                 noOfQuerys--;
                                 if (noOfQuerys === 0) { done() }
-                            })
+                            }) 
                     }
                 }
                 else {
@@ -181,6 +182,68 @@ export async function getOrders() {
     jsonString += ']}';
 
     return jsonString;
+}
+
+/**************************************************************************************/
+/*                                reviewRate() - Async                                */
+/*                                                                                    */
+/*  Creates/Overwrites a Review in Firestore connected to movie (movieID) and         */
+/*  the user (localStorage.currentUser). User must be logged in.                      */
+/*                                                                                    */
+/*  Parameters:                                                                       */
+/*      First: movieID                                                                */
+/*      Second: rating                                                                */
+/*      Third: the review as a string                                                 */
+/*      Forth: A function (preferebly used to know when async is finnished)           */
+/*                                                                                    */
+/*  Usage: 
+
+import { useEffect, useState} from 'react';
+import { reviewRate } from '../../Features/repositoryFS';
+
+const Test = () => {
+    const [fsQueryDone, setFsQueryDone] = useState(false);
+    const [content, setContent] = useState('Hello world!');
+    let movieID = 603;
+    let rating = 5;
+    let review = 'A must see film. One of the best';
+
+    useEffect(() => {   // Make sure it only run once
+        reviewRate(movieID, rating, review, () => setFsQueryDone(true))
+    }, []);
+
+    useEffect(() => {
+        if (fsQueryDone){
+            setContent('Thank you for your review!');
+        }
+    }, [fsQueryDone]);
+
+    return (
+        <div>{content}</div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function reviewRate(movieID, rating, review, done) {
+    let userId = 'wrong';
+    if (localStorage.currentUser !== undefined) {
+        let userCred = JSON.parse(localStorage.currentUser);
+        userId = userCred.user.uid;
+    } else {
+        return null;
+    }
+
+    db.collection('Movies').doc(movieID.toString()).collection('Reviews').doc(userId.toString())
+    .set({
+        rate: rating,
+        comment: review,
+        created: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        done();
+    })
 }
 
 /**************************************************************************************/
