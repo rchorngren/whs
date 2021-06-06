@@ -60,6 +60,11 @@ export async function createOrder(movieIDs, done) {
             totalPrice = movieIDs.length * 4.99;
         }
 
+        db.collection('Users').doc(userId)
+        .set({
+            dchanged: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        
         db.collection('Users').doc(userId).collection('Orders')
             .add({
                 date: formatDate(Date.now()),
@@ -185,7 +190,7 @@ export async function getOrders() {
 }
 
 /**************************************************************************************/
-/*                                reviewRate() - Async                                */
+/*              reviewRate(movieID, rating, review, done) - Async                     */
 /*                                                                                    */
 /*  Creates/Overwrites a Review in Firestore connected to movie (movieID) and         */
 /*  the user (localStorage.currentUser). User must be logged in.                      */
@@ -235,6 +240,11 @@ export async function reviewRate(movieID, rating, review, done) {
         return null;
     }
 
+    db.collection('Movies').doc(movieID.toString())
+    .set({
+        dchanged: firebase.firestore.FieldValue.serverTimestamp()
+    })
+
     db.collection('Movies').doc(movieID.toString()).collection('Reviews').doc(userId.toString())
     .set({
         rate: rating,
@@ -249,7 +259,7 @@ export async function reviewRate(movieID, rating, review, done) {
 /**************************************************************************************/
 /*                     getMovieReviewRating(movieID) - Async                          */
 /*                                                                                    */
-/*  Returns a list of reviews for a maovie from firestire as JSON                     */
+/*  Returns a list of reviews for a movie from firestire as JSON                      */
 /*                                                                                    */
 /*  Parameters:                                                                       */
 /*      First: movieID                                                                */
@@ -310,6 +320,85 @@ export async function getMovieReviewRating(movieID) {
         const r = docRef.doc(data.docs[i].id);
         const d = await r.get();
         jsonString += '{"user":"' + data.docs[i].id + '","rate":' + d.data().rate + ',"comment":"' + d.data().comment + '"},';
+    }
+    jsonString = jsonString.slice(0,-1);
+    jsonString += ']}';
+
+    return jsonString;
+}
+
+/**************************************************************************************/
+/*                         getUserReviewRating() - Async                              */
+/*                                                                                    */
+/*  Returns a list of reviews written by a user from firestire as JSON                */
+/*                                                                                    */
+/*  JSON format: {"reviews": [                                                        */
+/*                        "movieID": movieID,                                         */
+/*                        "rate": Number,                                             */
+/*                        "comment": String                                           */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*  Usage: 
+
+import { useEffect, useState} from 'react';
+import { getMovieReviewRating } from '../../Features/repositoryFS';
+
+const Test = () => {
+    const [response, setResponse] = useState('');
+    const [content, setContent] = useState('Hello World');
+    let movieID = 603;
+  
+    useEffect(() => {   
+        getMovieReviewRating(movieID).then((resp) => {
+            setResponse(JSON.parse(resp));
+        }); // eslint-disable-next-line;
+    }, []);
+
+    useEffect(() => {
+        if (response !== ''){
+            if (response.reviews.length === 0){
+                setContent('No reviews');
+            } else {
+                setContent('First review: ' + response.reviews[0].comment);
+            }
+        }
+    }, [response]);
+
+    return (
+        <div>{content}</div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getUserReviewRating() {
+    let userId = 'wrong';
+    if (localStorage.currentUser !== undefined) {
+        let userCred = JSON.parse(localStorage.currentUser);
+        userId = userCred.user.uid;
+    } else {
+        return null;
+    }
+
+    const docRef = db.collection('Movies');
+    const data = await docRef.get();
+
+    if (data.docs.length === 0) {
+        return '{"reviews":[]}';
+    }
+
+    let jsonString = '{"reviews":[';
+
+    for (let i = 0; i < data.docs.length; i++) {
+        const r = db.collection('Movies').doc(data.docs[i].id).collection('Reviews');
+        const d = await r.get();
+
+        for (let ii=0; ii < d.docs.length; ii++){
+            if (d.docs[ii].id === userId){
+                jsonString += '{"movieID":"' + data.docs[i].id + '","rate":' + d.docs[ii].data().rate + ',"comment":"' + d.docs[ii].data().comment + '"},';
+            }
+        }
     }
     jsonString = jsonString.slice(0,-1);
     jsonString += ']}';

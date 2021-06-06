@@ -72,7 +72,7 @@ const SelectedMovie = () => {
         
 
     useEffect(() => {
-        getIMDBRating()
+        getIMDBRating() // eslint-disable-next-line
     }, [imdbID])
     return (
         <ScrollContainer className="individual-movie-component">

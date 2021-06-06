@@ -30,8 +30,7 @@ const ChosenGenre = () => {
             setpageCheck(JSON.parse(resp))
             setGenreMovieList(resultsList.results);
             setCurrPage(1)
-        })
-
+        }) // eslint-disable-next-line
     },[genreId])
 
     let posterUrl = ''
@@ -62,7 +61,7 @@ const ChosenGenre = () => {
         getGenreMovieList(dispatch, genreId, currPage).then((resp) => {
             const resultsList = JSON.parse(resp);
             setGenreMovieList(resultsList.results) 
-            })
+            }) // eslint-disable-next-line
     }, [currPage])
 
     return (
