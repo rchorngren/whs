@@ -247,6 +247,77 @@ export async function reviewRate(movieID, rating, review, done) {
 }
 
 /**************************************************************************************/
+/*                     getMovieReviewRating(movieID) - Async                          */
+/*                                                                                    */
+/*  Returns a list of reviews for a maovie from firestire as JSON                     */
+/*                                                                                    */
+/*  Parameters:                                                                       */
+/*      First: movieID                                                                */
+/*                                                                                    */
+/*  JSON format: {"reviews": [                                                        */
+/*                        "user": userID,                                             */
+/*                        "rate": Number,                                             */
+/*                        "comment": String                                           */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*  Usage: 
+
+import { useEffect, useState} from 'react';
+import { getMovieReviewRating } from '../../Features/repositoryFS';
+
+const Test = () => {
+    const [response, setResponse] = useState('');
+    const [content, setContent] = useState('Hello World');
+    let movieID = 603;
+  
+    useEffect(() => {   
+        getMovieReviewRating(movieID).then((resp) => {
+            setResponse(JSON.parse(resp));
+        }); // eslint-disable-next-line;
+    }, []);
+
+    useEffect(() => {
+        if (response !== ''){
+            if (response.reviews.length === 0){
+                setContent('No reviews');
+            } else {
+                setContent('First review: ' + response.reviews[0].comment);
+            }
+        }
+    }, [response]);
+
+    return (
+        <div>{content}</div>
+    );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getMovieReviewRating(movieID) {
+    const docRef = db.collection('Movies').doc(movieID.toString()).collection('Reviews');
+
+    const response = docRef;
+    const data = await response.get();
+
+    if (data.docs.length === 0) {
+        return '{"reviews":[]}';
+    }
+
+    let jsonString = '{"reviews":[';
+
+    for (let i = 0; i < data.docs.length; i++) {
+        const r = docRef.doc(data.docs[i].id);
+        const d = await r.get();
+        jsonString += '{"user":"' + data.docs[i].id + '","rate":' + d.data().rate + ',"comment":"' + d.data().comment + '"},';
+    }
+    jsonString = jsonString.slice(0,-1);
+    jsonString += ']}';
+
+    return jsonString;
+}
+
+/**************************************************************************************/
 /*                   checkMovieIDs(arr) - Check input for createOrder                 */
 /**************************************************************************************/
 function checkMovieIDs(arr) {
