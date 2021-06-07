@@ -46,6 +46,12 @@ text {
     padding: 0 0 0 20px;
 }
 
+.basket-item-price {
+    padding-left: 20px;
+}
+
+
+
 .emailInput {
     padding: 1.5rem 0 0 0;
     display: flex;
@@ -101,3 +107,4 @@ text {
     font-weight: 600;
     background-color: rgb(64, 192, 201);
 }
+
