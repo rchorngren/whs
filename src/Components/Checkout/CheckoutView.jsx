@@ -7,23 +7,9 @@ import { useState } from 'react';
 
 
 const CheckoutView = () => {
-
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [contentOfBasket, setContentOfBasket] = useState(null);
-
-    const currentBasket = useSelector(state => state.customerBasket.content);
-    const dispatch = useDispatch();
-
+ 
 
     
-
-    
-
-
-
-
-
-
 
 
     return (
@@ -56,7 +42,7 @@ const CheckoutView = () => {
 
             <button className='payButton'  onClick={() => {
 
-                console.log(currentBasket)}} 
+                }} 
 
                 >Pay</button>
             </div>
