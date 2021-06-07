@@ -6,7 +6,6 @@ import { actions } from '../../Features/customerBasket';
 import{ actions as activeViewActions } from '../../Features/activeView';
 import { useState, useEffect } from 'react';
 
-
 const CheckoutView = () => {
  
     const [contentOfBasket, setContentOfBasket] = useState(null);
@@ -14,12 +13,12 @@ const CheckoutView = () => {
     const currentBasket = useSelector(state => state.customerBasket.content);
     const dispatch = useDispatch();
 
-    let priceArray = [];
-
+    
     function calculateTotalPrice(total, num) {
         return total + num;
     }
 
+    let priceArray = [];
     const buildBasket = () => {
         setContentOfBasket(currentBasket.map((item, index) => {
             priceArray.push(item.price);
