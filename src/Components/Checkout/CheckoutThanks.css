@@ -14,33 +14,40 @@
     width: 80vw;
     border-radius: 10px;
     align-items: center;
+    max-width: 800px;
 }
 
 #thanks {
     font-size: 24px;
     margin-top: 3rem;
+    max-width: 800px;
 }
 
 #foryour {
     font-size: 20px;
+    max-width: 800px;
 }
 
 #purchase {
-    font-size: 24px;;
+    font-size: 24px;
+    max-width: 800px;
 }
 
 #link {
     width: 60vw;
     justify-self: center;
+    max-width: 800px;
 }
 
 #goBack {
     height: 7vh;
     width: 50vw;
+    max-width: 500px;
     border-radius: 10px;
     border: 1px solid black;
     font-size: 20px;
     font-weight: 600;
     background-color: rgb(64, 192, 201);
     justify-self: center;
+    
 }
