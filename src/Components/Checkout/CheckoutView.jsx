@@ -60,7 +60,7 @@ const CheckoutView = () => {
     return (
         <div className='checkoutContainer'>
             <div className='checkoutMovies'>
-                <text>Checkout</text>
+                <div id='checkout'>Checkout</div>
                 <div className='moviesInCart'>
                     <div className='cart'>{contentOfBasket}</div>
                     <div id='price'>
@@ -69,12 +69,12 @@ const CheckoutView = () => {
                     </div>
                 </div>
                 <div className='emailInput'>
-                    <text>Email adress</text>
+                    <div id='emailAdress'>Email adress</div>
                     <input type="text" placeholder='Email' className='emailInputField'/>
                 </div>
                 <div>
                     <div className='ownerInformation'> 
-                        <text>Payment information</text>
+                        <div id='payInfo'>Payment information</div>
                         <input type="text" placeholder='Card holder' id='ownerName' className='holderInformation'/>
                         <input type="text" placeholder='Card number' id='cardNumber' className='holderInformation'/>
                     </div>
@@ -86,8 +86,8 @@ const CheckoutView = () => {
                 </div>
 
             <button className='payButton'  
-            onClick={() => dispatch(activeViewActions.purchaseThanks())
-                }>Pay</button>
+                onClick={() => dispatch(activeViewActions.purchaseThanks())
+                    }>Pay</button>
             </div>
         </div>
     )

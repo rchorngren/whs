@@ -17,7 +17,6 @@ const Basket = () => {
     const dispatch = useDispatch();
 
     function goToCheckout() {
-        console.log('placeholder log - going to checkout');
         //to checkout
         dispatch(activeViewActions.checkoutContinue());
     }
