@@ -30,6 +30,7 @@ const CheckoutView = () => {
                     <div className="basket-item-container" key={index}>
                         <div className="basket-item-title">{item.movieTitle}</div>
                         <div className="basket-item-price">${item.price}</div>
+                        <div></div>
                     </div>
                 )
             } else {
@@ -37,6 +38,7 @@ const CheckoutView = () => {
                     <div className="basket-item-container uneven" key={index}>
                     <div className="basket-item-title">{item.movieTitle}</div>
                     <div className="basket-item-price">${item.price}</div>
+                    <div></div>
                 </div>
                 )
             }
@@ -61,7 +63,7 @@ const CheckoutView = () => {
                     <div className='cart'>{contentOfBasket}</div>
                     <div id='price'>
                         <div className='totalPrice'>Total: </div>
-                        <div className='combinedPrice'>{totalPrice}</div>
+                        <div className='combinedPrice'>${totalPrice}</div>
                     </div>
                 </div>
                 <div className='emailInput'>

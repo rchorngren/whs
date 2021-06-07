@@ -26,7 +26,7 @@ text {
 
 .moviesInCart {
     display: grid;
-    grid-template-rows: 5fr 2fr;
+    grid-template-rows: 5fr 1.5fr;
     background: white;
     height: 25vh;
     width: 60vw;
@@ -44,13 +44,15 @@ text {
     grid-template-columns: 2fr 1fr;
     text-align: start;
     padding: 0 0 0 20px;
+    align-content: center;
+    background-color: #0bd3d3c9;
+    border-radius: 0 0 10px 10px;
+    color: white;
 }
 
 .basket-item-price {
     padding-left: 20px;
 }
-
-
 
 .emailInput {
     padding: 1.5rem 0 0 0;
@@ -106,5 +108,9 @@ text {
     font-size: 20px;
     font-weight: 600;
     background-color: rgb(64, 192, 201);
+}
+
+.basket-item-container {
+    
 }
 
