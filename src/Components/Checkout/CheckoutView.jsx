@@ -3,6 +3,7 @@ import React from 'react';
 import './CheckoutView.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/customerBasket';
+import{ actions as activeViewActions } from '../../Features/activeView';
 import { useState, useEffect } from 'react';
 
 
@@ -11,6 +12,7 @@ const CheckoutView = () => {
     const [contentOfBasket, setContentOfBasket] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const currentBasket = useSelector(state => state.customerBasket.content);
+    const dispatch = useDispatch();
 
     let priceArray = [];
 
@@ -83,11 +85,9 @@ const CheckoutView = () => {
                     </div>
                 </div>
 
-            <button className='payButton'  onClick={() => {
-
-                }} 
-
-                >Pay</button>
+            <button className='payButton'  
+            onClick={() => dispatch(activeViewActions.purchaseThanks())
+                }>Pay</button>
             </div>
         </div>
     )

@@ -30,7 +30,8 @@ const ActiveView = () => {
         content = <BasketView />
     } else if(activeView === ACTIVEVIEW.CHECKOUTCONTINUE) {
         content = <CheckoutView />
-        //content = <CheckoutThanks/>
+    } else if (activeView === ACTIVEVIEW.PURCHASETHANKS) {
+        content = <CheckoutThanks/>
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
     } else if (activeView === ACTIVEVIEW.LOGIN) {

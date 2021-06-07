@@ -1,9 +1,11 @@
 import React from 'react';
 import './CheckoutThanks.css';
+import{ actions } from '../../Features/activeView';
+import { useDispatch } from 'react-redux';
 
 const CheckoutThanks = () => {
 
-
+    const dispatch = useDispatch();
 
 
     return ( 
@@ -16,7 +18,7 @@ const CheckoutThanks = () => {
                 </div>
                 
                 <div id='link'>A download link will soon be sent to your email</div>
-                <button id='goBack'>Thanks</button>
+                <button id='goBack' onClick={() => dispatch(actions.empty())}>Thanks</button>
             </div>
             
         </div>
