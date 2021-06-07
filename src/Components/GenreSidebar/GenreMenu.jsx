@@ -16,7 +16,7 @@ const GenreMenu = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-       getGenre(dispatch);
+       getGenre(dispatch); // eslint-disable-next-line
     }, [])
 
     let genreListMap = [];
