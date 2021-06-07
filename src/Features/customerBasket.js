@@ -2,11 +2,13 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 
 const addItem = createAction('add item');
 const removeItem = createAction('remove item');
+const emptyBasket = createAction('empty basket')
 const content = createAction('content of basket')
 
 const actions = {
     addItem,
     removeItem,
+    emptyBasket,
     content
 }
 
@@ -26,6 +28,10 @@ const reducer = createReducer(initialState, {
             ...state.content.slice(action.payload + 1)
         ]
     }),
+    [emptyBasket]: (state, action) => ({
+        content: []
+    }),
+
     [content]: (state, action) => ({
         ...state,
         content: []
