@@ -7,7 +7,7 @@ const login = createAction('login view');
 const search = createAction('search view');
 const selectedMovie = createAction('selected movie view');
 const chosenGenre = createAction('chosen genre view');
-const checkoutContinue = createAction('checkout continue')
+const checkoutContinue = createAction('checkout continue view')
 
 const actions = {
     empty,
@@ -66,7 +66,7 @@ const reducer = createReducer(initialState, {
     }),
     [checkoutContinue]: (state, action) => ({
         ...state,
-        actionview: ACTIVEVIEW.CHECKOUTCONTINUE
+        activeView: ACTIVEVIEW.CHECKOUTCONTINUE
     })
 });
 
