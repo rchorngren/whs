@@ -16,7 +16,8 @@ const db = firebase.firestore();
 /*                                                                                    */
 /*  Parameters:                                                                       */
 /*      First: An array of movieIDs                                                   */
-/*      Second: A function (preferebly used to know when async is finnished)          */
+/*      Second: An array of corresponding movie titles                                */
+/*      Third: A function (preferebly used to know when async is finnished)           */
 /*                                                                                    */
 /*  Usage: 
 
@@ -27,6 +28,7 @@ const Test = () => {
     const [fsQueryDone, setFsQueryDone] = useState(false);
     const [content, setContent] = useState('Hello world!');
     let orderList = [603, 503736];
+    let orderListTitle = ['The Matrix', 'Army of the Dead'];
 
     useEffect(() => {   // Make sure it only run once
         createOrder(orderList, () => setFsQueryDone(true))
@@ -46,7 +48,7 @@ const Test = () => {
 export default Test;
 
 ***************************************************************************************/
-export async function createOrder(movieIDs, done) {
+export async function createOrder(movieIDs, titles, done) {
     if (checkMovieIDs(movieIDs)) {
         let noOfQuerys = 1;
         let userId = 'Li4sUlGWF2fYe0Yy8oh7lLSIzpi1';
@@ -77,7 +79,8 @@ export async function createOrder(movieIDs, done) {
                         db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
                             .add({
                                 created: firebase.firestore.FieldValue.serverTimestamp(),
-                                movieID: movieIDs[i],
+                                movieID: movieIDs[i].toString(),
+                                title: titles[i],
                                 price: 4.99
                             })
                             .then(() => { // eslint-disable-line
@@ -99,6 +102,7 @@ export async function createOrder(movieIDs, done) {
     }
 };
 
+
 /**************************************************************************************/
 /*                                 getOrders() - Async                                */
 /*                                                                                    */
@@ -108,8 +112,9 @@ export async function createOrder(movieIDs, done) {
 /*  JSON format: {"orders": [                                                         */
 /*                        "date": YYYY-MM-DD,                                         */
 /*                        "totalsum": float,                                          */
-/*                        "movies": [{"movieid": int, "price": float}]                */
-/*                  ]                                                                 */
+/*                        "movies": [                                                 */
+/*                            {"movieid": int, "title": String "price": float}]       */
+/*                        ]                                                           */
 /*               }                                                                    */
 /*  Usage: 
 
@@ -178,7 +183,8 @@ export async function getOrders() {
             const item = docRef.doc(data.docs[i].id).collection('Items').doc(itemsData.docs[ii].id);
             const itemData = await item.get();
             jsonString += '{"movieid":' + itemData.data().movieID;
-            jsonString += ',"price":' + itemData.data().price + '},';
+            jsonString += ',"title":"' + itemData.data().title;
+            jsonString += '","price":' + itemData.data().price + '},';
         }
         jsonString = jsonString.slice(0,-1);
         jsonString += ']},';
