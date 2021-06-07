@@ -9,6 +9,7 @@ const selectedMovie = createAction('selected movie view');
 const chosenGenre = createAction('chosen genre view');
 const checkoutContinue = createAction('checkout continue view')
 const purchaseThanks = createAction('purchase thanks')
+const review = createAction('review view')
 
 const actions = {
     empty,
@@ -19,7 +20,8 @@ const actions = {
     selectedMovie,
     chosenGenre,
     checkoutContinue,
-    purchaseThanks
+    purchaseThanks,
+    review
 }
 
 const ACTIVEVIEW = {
@@ -31,7 +33,8 @@ const ACTIVEVIEW = {
     SELECTEDMOVIE: 'selected movie',
     CHOSENGENRE: 'chosen genre',
     CHECKOUTCONTINUE: 'checkout continue',
-    PURCHASETHANKS: 'purchase thanks'
+    PURCHASETHANKS: 'purchase thanks',
+    REVIEW: 'review view'
 }
 
 const initialState = {
@@ -74,6 +77,10 @@ const reducer = createReducer(initialState, {
     [purchaseThanks]: (state, action)  => ({
         ...state,
         activeView: ACTIVEVIEW.PURCHASETHANKS
+    }),
+    [review]: (state, action) => ({
+        ...state,
+        activeView: ACTIVEVIEW.REVIEW
     })
 });
 

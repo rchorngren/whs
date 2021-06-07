@@ -14,6 +14,7 @@ import BasketView from '../BasketView/BasketView';
 import CheckoutView  from '../Checkout/CheckoutView';
 import CheckoutThanks from '../Checkout/CheckoutThanks';
 import './ActiveView.css';
+import ReviewView from '../ReviewView/ReviewView';
 
 const ActiveView = () => {
     const menuStatus = useSelector(state => state.sideMenu.sideMenu);
@@ -44,6 +45,8 @@ const ActiveView = () => {
         content = <SelectedMovie />
     } else if (activeView === ACTIVEVIEW.CHOSENGENRE) {
         content = <ChosenGenre />
+    } else if (activeView === ACTIVEVIEW.REVIEW) {
+        content = <ReviewView />
     }
     else { 
         content = <HomePage />
