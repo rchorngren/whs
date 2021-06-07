@@ -1,0 +1,118 @@
+.checkoutContainer {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#checkout, #emailAdress, #payInfo {
+    font-size: 15px;
+}
+
+.checkoutMovies {
+    display: flex;
+    flex-direction: column;
+    background: #F890E7;
+    height: 70vh;
+    width: 80vw;
+    max-width: 800px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.checkoutMovies > #checkout {
+    font-size: 20px;
+    padding: 1rem;
+}
+
+.moviesInCart {
+    display: grid;
+    grid-template-rows: 5fr 1.5fr;
+    background: white;
+    height: 25vh;
+    width: 60vw;
+    max-width: 600px;
+    border-radius: 10px; 
+    border: 1px solid black;
+}
+
+.cart {
+    padding: 15px 0 0 0;
+    overflow: auto;
+}
+
+#price {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    text-align: start;
+    padding: 0 0 0 20px;
+    align-content: center;
+    background-color: #0bd3d3c9;
+    border-radius: 0 0 10px 10px;
+    color: white;
+}
+
+.basket-item-price {
+    padding-left: 20px;
+}
+
+.emailInput {
+    padding: 1.5rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.emailInput > #emailAdress {
+    padding: 0 0 5px 0;
+}
+
+.emailInputField {
+    border-radius: 5px;
+    height: 20px;
+    width: 50vw;
+    max-width: 400px;
+    border: 1px solid black;
+}
+
+.ownerInformation {
+    margin: 1.5rem 0 0 0;
+}
+
+.ownerInformation > #payInfo {
+    padding: 0 0 5px 0;
+}
+
+.holderInformation {
+    width: 50vw;
+    border-radius: 5px;
+    border: 1px solid black;
+    max-width: 400px;
+}
+
+.addCardInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10vw;
+    padding: 10px 0 0 0;
+}
+
+.cardInfoInput {
+    width: 70px;
+    border-radius: 5px;
+    border: 1px solid black;
+    max-width: 400px;
+}
+
+.payButton {
+    height: 7vh;
+    margin: 1rem 0 0 0;
+    width: 50vw;
+    max-width: 400px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: rgb(64, 192, 201);
+}
+

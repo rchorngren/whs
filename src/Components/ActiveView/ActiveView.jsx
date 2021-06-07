@@ -11,6 +11,8 @@ import HomePage from '../HomePage/HomePage';
 import Search from '../Search/Search';
 import ChosenGenre from '../ShowGenreMovies/ChosenGenre';
 import BasketView from '../BasketView/BasketView';
+import CheckoutView  from '../Checkout/CheckoutView';
+import CheckoutThanks from '../Checkout/CheckoutThanks';
 import './ActiveView.css';
 
 const ActiveView = () => {
@@ -26,6 +28,10 @@ const ActiveView = () => {
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = <BasketView />
+    } else if(activeView === ACTIVEVIEW.CHECKOUTCONTINUE) {
+        content = <CheckoutView />
+    } else if (activeView === ACTIVEVIEW.PURCHASETHANKS) {
+        content = <CheckoutThanks/>
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
     } else if (activeView === ACTIVEVIEW.LOGIN) {
@@ -64,7 +70,8 @@ const ActiveView = () => {
             }
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
-    
+
+
     return (
         <div>
             <div className={menuActive ? "openMenu" : "closedMenu"}>

@@ -3,6 +3,7 @@ import './BasketView.css';
 import remove from '../../Assets/Images/cross.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/customerBasket';
+import{ actions as activeViewActions } from '../../Features/activeView';
 
 const Basket = () => {
     const [buttonClicked, setButtonClicked] = useState(false);
@@ -16,8 +17,8 @@ const Basket = () => {
     const dispatch = useDispatch();
 
     function goToCheckout() {
-        console.log('placeholder log - going to checkout');
-        //dispatch to checkout component goes here
+        //to checkout
+        dispatch(activeViewActions.checkoutContinue());
     }
 
     function trashItem(movieToRemove) {
@@ -89,7 +90,8 @@ const Basket = () => {
 
                 </div>
 
-                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => { setButtonClicked(true); animationOnClick() }}>Proceed to checkout</div>
+                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => { 
+                    setButtonClicked(true); animationOnClick() }}>Proceed to checkout</div>
             </div>
         </div>
     )
