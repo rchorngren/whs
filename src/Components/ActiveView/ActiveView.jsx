@@ -28,14 +28,15 @@ const ActiveView = () => {
     //uses state from redux to display active component
     if (activeView === ACTIVEVIEW.CHECKOUT) {
         content = <BasketView />
+    } else if(activeView === ACTIVEVIEW.CHECKOUTCONTINUE) {
+        content = <CheckoutView />
+        //content = <CheckoutThanks/>
     } else if (activeView === ACTIVEVIEW.PROFILE) {
         content = <Profile />
     } else if (activeView === ACTIVEVIEW.LOGIN) {
         content = <LoginRegistration />
     } else if (activeView === ACTIVEVIEW.DEFAULT) {
-        //content = <HomePage />
-        //content = <CheckoutView/>
-        content = <CheckoutThanks/>
+        content = <HomePage />
     } else if (activeView === ACTIVEVIEW.SEARCH) {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
@@ -69,7 +70,6 @@ const ActiveView = () => {
 
     }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    //content = <CheckoutView/>
 
     return (
         <div>
