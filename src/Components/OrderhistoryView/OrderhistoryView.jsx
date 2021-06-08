@@ -5,37 +5,64 @@ import './OrderhistoryView.css';
 const OrderhistoryView = () => {
 
     const [response, setResponse] = useState('');
-    const [content, setContent] = useState('You have no previous orders');
+    const [content, setContent] = useState('');
 
-    function createOrderHistory() {
-        //loop through all orders - one order-container for each order
-        //for each order, loop through all movies
+
+
+
+    function buildOrderHistory() {
+        const responseToMap = response.orders;
+        console.log('responseToMap: ', responseToMap);
+        
+        setContent(responseToMap.map((item, index) => {
+            
+            console.log('movies on order to map: ', item.movies);
+
+            
+            
+            return (
+                <div className="order-container" key={index}>
+                    <div className="order-info-text">Date of order: {item.date}</div>
+
+                    {/* movies on each order goes here */}
+
+                    <div className="order-total-cost">
+                        <div>Total price:</div>
+                        <div>{item.totalsum}</div>
+                    </div>
+                </div>
+            )
+        }))
     }
 
     useEffect(() => {
         getOrders().then((resp) => {
-            console.log('resp:', resp);
             setResponse(JSON.parse(resp));
-            console.log('response: ', response);
         }); //eslint-disable-next-line;
     }, []);
 
     useEffect(() => {
-        if (response !== ''){
-            if (response == null){
+        if (response !== '') {
+            if (response == null) {
                 setContent('User not logged in');
-            } else if (response.orders.length === 0){
+            } else if (response.orders.length === 0) {
                 setContent('No orders');
             } else {
-                setContent('Date of first order: ' + response.orders[0].date);
+                // setContent('Date of first order: ' + response.orders[0].date);
+                if (response) {
+                    buildOrderHistory();
+                }
+
             }
         }
     }, [response]);
 
     return (
         <div className="orderhistory-container">
+
             {content}
-{/*             
+
+            {/*             
             <div className="order-container">
                 <div className="order-individual-movie">
                     <div className="order-info-text">The Matrix</div>

@@ -1,8 +1,13 @@
 .orderhistory-container {
     display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
 }
 
 .order-container {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     border-radius: 10px;
     margin: 20px auto 20px auto;
