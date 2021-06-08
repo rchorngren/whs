@@ -62,9 +62,7 @@ const CheckoutView = () => {
     }, [currentBasket]); 
 
     useEffect(() => {
-        console.log('fsQuaryDone top: ', fsQueryDone);
         if(fsQueryDone) {
-            console.log('fsQuaryDone if: ', fsQueryDone);
             dispatch(actions.emptyBasket());
             dispatch(activeViewActions.purchaseThanks());
         }

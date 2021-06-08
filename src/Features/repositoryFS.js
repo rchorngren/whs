@@ -52,7 +52,6 @@ export default Test;
 ***************************************************************************************/
 export async function createOrder(movieIDs, titles, done) {
     if (checkMovieIDs(movieIDs)) {
-        console.log('running createOrder 54');
         let noOfQuerys = 1;
         let userId = 'Li4sUlGWF2fYe0Yy8oh7lLSIzpi1';
         if (localStorage.currentUser !== undefined) {
@@ -423,7 +422,6 @@ function checkMovieIDs(arr) {
         for (let i = 0; i < arr.length; i++) {
 
             if (isNaN(arr[i])) {
-                // console.log('if', arr[i])
                 return true;
             }
         }
