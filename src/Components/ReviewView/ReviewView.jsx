@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../Features/activeView';
 import './ReviewView.css'
 
 
@@ -9,6 +11,7 @@ function ReviewView() {
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const ratingStars = [1, 2, 3, 4, 5]
+    const dispatch = useDispatch();
 
     function StarIcon (props) {
         const {fill = 'none'} = props
@@ -72,8 +75,9 @@ function ReviewView() {
                     Thank you!
                     </div>
                     <button className="review-submit" onClick={() => {
-                        setreviewActive(!reviewActive)
-                        setIsChecked(false)
+                        // setreviewActive(!reviewActive)
+                        // setIsChecked(false)
+                        dispatch(actions.profile())
                     }}>GO BACK</button>
                 </div>
                
