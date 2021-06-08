@@ -62,6 +62,7 @@ const CheckoutView = () => {
         if(currentBasket.length === 0){
             setTotalPrice(0);
         }    
+        // eslint-disable-next-line
     }, [currentBasket]); 
 
     useEffect(() => {
@@ -69,6 +70,7 @@ const CheckoutView = () => {
             dispatch(actions.emptyBasket());
             dispatch(activeViewActions.purchaseThanks());
         }
+        // eslint-disable-next-line
     }, [fsQueryDone]);
 
     return (
