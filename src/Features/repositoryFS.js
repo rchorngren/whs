@@ -4,10 +4,12 @@
 /*  A collenction  of useful functionen used to get data from Firestore.              */
 /**************************************************************************************/
 import firebase from 'firebase/app';
+
 import "firebase/firestore";
 import "firebase/auth";
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
+import db from '../firebase.config';
 
 /**************************************************************************************/
 /*                                createOrder() - Async                               */
@@ -79,7 +81,8 @@ export async function createOrder(movieIDs, titles, done) {
                         db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
                             .add({
                                 created: firebase.firestore.FieldValue.serverTimestamp(),
-                                movieID: movieIDs[i].toString(),
+                                // movieID: movieIDs[i].toString(),
+                                movieID: movieIDs[i],
                                 title: titles[i],
                                 price: 4.99
                             })
@@ -191,7 +194,7 @@ export async function getOrders() {
     }
     jsonString = jsonString.slice(0,-1);
     jsonString += ']}';
-
+    console.log('jsonString: ', jsonString);
     return jsonString;
 }
 
@@ -418,8 +421,9 @@ export async function getUserReviewRating() {
 function checkMovieIDs(arr) {
     if (Array.isArray(arr)) {
         for (let i = 0; i < arr.length; i++) {
+
             if (isNaN(arr[i])) {
-                return false;
+                return true;
             }
         }
         return true;

@@ -3,7 +3,7 @@ import './BasketView.css';
 import remove from '../../Assets/Images/cross.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Features/customerBasket';
-import{ actions as activeViewActions } from '../../Features/activeView';
+import { actions as activeViewActions } from '../../Features/activeView';
 
 const Basket = () => {
     const [buttonClicked, setButtonClicked] = useState(false);
@@ -40,13 +40,13 @@ const Basket = () => {
 
     //builds the basket out of the value provided from redux and also calculates total price of all wares
     const buildBasket = () => {
-        setContentOfBasket(currentBasket.map((item, index) => {            
+        setContentOfBasket(currentBasket.map((item, index) => {
             priceArray.push(item.price);
             let priceToSet = priceArray.reduce(calculateTotalPrice)
             let roundedPrice = Math.round((priceToSet + Number.EPSILON) * 100) / 100;
             setTotalPrice(roundedPrice);
 
-            if(index % 2 === 0) {
+            if (index % 2 === 0) {
                 return (
                     <div className="basket-item-container" key={index}>
                         <div className="basket-item-title">{item.movieTitle}</div>
@@ -67,9 +67,11 @@ const Basket = () => {
     }
 
     useEffect(() => {
-        buildBasket();
-        if(currentBasket.length === 0) {
-            setTotalPrice(0);
+        if (currentBasket != null) {
+            buildBasket();
+            if (currentBasket.length === 0) {
+                setTotalPrice(0);
+            }
         }
     }, [currentBasket]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -90,8 +92,9 @@ const Basket = () => {
 
                 </div>
 
-                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => { 
-                    setButtonClicked(true); animationOnClick() }}>Proceed to checkout</div>
+                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => {
+                    setButtonClicked(true); animationOnClick()
+                }}>Proceed to checkout</div>
             </div>
         </div>
     )

@@ -2,9 +2,10 @@
 import React from 'react';
 import './CheckoutView.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState} from 'react';
+import { createOrder } from '../../Features/repositoryFS';
 import { actions } from '../../Features/customerBasket';
 import{ actions as activeViewActions } from '../../Features/activeView';
-import { useState, useEffect } from 'react';
 
 const CheckoutView = () => {
  
@@ -13,6 +14,7 @@ const CheckoutView = () => {
     const currentBasket = useSelector(state => state.customerBasket.content);
     const dispatch = useDispatch();
 
+    const [fsQueryDone, setFsQueryDone] = useState(false);
     
     function calculateTotalPrice(total, num) {
         return total + num;
@@ -46,15 +48,30 @@ const CheckoutView = () => {
         }));
     }
 
+    function makePurchase() {
+        let orderList = currentBasket;
+        let titleList = [];
+        orderList.forEach((item) => {
+            titleList.push(item.movieTitle);
+        })
+        createOrder(orderList, titleList, () => setFsQueryDone(true));
+    }
+
     useEffect (() => {
         buildBasket();
         if(currentBasket.length === 0){
             setTotalPrice(0);
-        }
-        
-
+        }    
+        // eslint-disable-next-line
     }, [currentBasket]); 
 
+    useEffect(() => {
+        if(fsQueryDone) {
+            dispatch(actions.emptyBasket());
+            dispatch(activeViewActions.purchaseThanks());
+        }
+        // eslint-disable-next-line
+    }, [fsQueryDone]);
 
     return (
         <div className='checkoutContainer'>
@@ -85,8 +102,7 @@ const CheckoutView = () => {
                 </div>
 
             <button className='payButton'  
-                onClick={() => dispatch(activeViewActions.purchaseThanks())
-                    }>Pay</button>
+                onClick={() => makePurchase()}>Pay</button>
             </div>
         </div>
     )

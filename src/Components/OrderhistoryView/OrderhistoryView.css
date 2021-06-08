@@ -1,0 +1,28 @@
+.orderhistory-container {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    border-radius: 10px;
+    margin: 20px auto 20px auto;
+    font-size: 12px;
+    text-align: left;
+    color: black;
+    background-color: white;
+}
+
+.order-info-text {
+    margin: 5px 10px 5px 10px;
+}
+
+.order-total-cost {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 10px 5px 10px;
+}
