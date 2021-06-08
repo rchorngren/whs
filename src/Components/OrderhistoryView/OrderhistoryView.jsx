@@ -4,12 +4,8 @@ import { actions } from '../../Features/activeView';
 import { actions as movieToReviewActions } from '../../Features/movieToReview';
 import { getOrders } from '../../Features/repositoryFS';
 import './OrderhistoryView.css';
-import { actions } from '../../Features/activeView';
-import { useDispatch } from 'react-redux';
 
 const OrderhistoryView = () => {
-    const dispatch = useDispatch();
-
     const [response, setResponse] = useState('');
     const [orders, setOrders] = useState([]);
     const [orderArray, setOrderArray] = useState([]);

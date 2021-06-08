@@ -5,12 +5,6 @@ import './ProfileOrder.css';
 
 const Profile = () => {
     const [tabToggle, setTabToggle] = useState(true);
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> fc158dc... sending movieid to ReviewView through redux
-   
 
     return (
         <div className="profile-component">
