@@ -9,7 +9,8 @@ const OrderhistoryView = () => {
 
     const [response, setResponse] = useState('');
     const [orders, setOrders] = useState([]);
-    const [content, setContent] = useState(null);
+    const [orderArray, setOrderArray] = useState([]);
+    const [content, setContent] = useState('Loading');
 
     useEffect(() => {
         getOrders().then((resp) => {
@@ -31,48 +32,38 @@ const OrderhistoryView = () => {
 
     useEffect(() => {
         if (orders !== []) {
-            let i;
-            for (let i = 0; i < orders.length; i++) {
-                console.log('Order date: ' + orders[i].date);
-                for (let ii = 0; ii < orders[i].movies.length; ii++){
-                    console.log('Item: ' + orders[i].movies[ii].title + ' - Price: only ' + orders[i].movies[ii].price);
-                }
-                // let singleOrder = { 'date': orders[i].date, 'totalsum': orders[i].totalsum, 'movies': orders[i].movies }
-
-                console.log('Total price: ', orders[i].totalsum);
-            }
-
+            setOrderArray(orders)
         }
     }, [orders]);
 
     return (
         <div className="orderhistory-container">
-            {content}
+            {orderArray.length > 0 ?
 
-            {/* <div className="order-container">
-                <div className="order-individual-movie">
-                    <div className="order-info-text">The Matrix</div>
-                    <div className="order-info-text">Price: $4.99   <button onClick={() => {
-                        //send user to ReviewPage
-                        dispatch(actions.review())
-                    }}>PLACEHOLDER</button></div>
-                  
-                </div>
-                <div className="order-individual-movie uneven">
-                    <div className="order-info-text">Matrix Reloaded</div>
-                    <div className="order-info-text">Price: $4.99 <button onClick={() => {
-                        //send user to ReviewPage
-                        dispatch(actions.review())
-                    }}>PLACEHOLDER</button></div>
-                </div>
+                orderArray.map((item, index) =>
 
-                <div className="order-total-cost">
-                    <div>Total price:</div>
-                    <div>$9.98</div>
-                </div>
-            </div> */}
+                    <div className="order-container" key={index}>
 
+                        <div className="order-into-text">Order date: {item.date}</div>
+
+                        {item.movies.map((movieItem, movieIndex) => (
+                            <div className="order-individual-movie" key={movieIndex}>
+                                <div className="order-info-text">{movieItem.title}</div>
+                                <div className="order-info-text">Price: ${movieItem.price}</div>
+                            </div>
+                        ))}
+
+                        <div className="order-total-cost">
+                            <div>Total price:</div>
+                            <div>${item.totalsum}</div>
+                        </div>
+
+                    </div>
+                )
+                :
+                <div>{content}</div>}
         </div>
+
     )
 }
 
