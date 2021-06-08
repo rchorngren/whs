@@ -6,30 +6,36 @@ const OrderhistoryView = () => {
 
     const [response, setResponse] = useState('');
     const [content, setContent] = useState('');
-
-
-
-
+    const [moviesOnOrder, setMoviesOnOrder] = useState([]);
+    // const [moviesToMap, setMoviesToMap] = useState([]);
+    
     function buildOrderHistory() {
         const responseToMap = response.orders;
-        console.log('responseToMap: ', responseToMap);
-        
-        setContent(responseToMap.map((item, index) => {
-            
-            console.log('movies on order to map: ', item.movies);
+        console.log('responseToMap: ', responseToMap[0].movies[0].movieid);
 
+        setContent(responseToMap.map((item, index) => {
+            let moviesToMaplocal = item.movies;
             
-            
+            setMoviesOnOrder(moviesToMaplocal.map((movieItem, movieIndex) => {
+                console.log('movieItem.movieid: ', movieItem.movieid);
+                return (
+                    <div key={movieIndex}>{movieItem.movieid}</div>
+                )
+            }))
+
             return (
                 <div className="order-container" key={index}>
                     <div className="order-info-text">Date of order: {item.date}</div>
 
-                    {/* movies on each order goes here */}
+                    <div>
+                        {moviesOnOrder}
+                    </div>
 
                     <div className="order-total-cost">
                         <div>Total price:</div>
                         <div>{item.totalsum}</div>
                     </div>
+
                 </div>
             )
         }))
