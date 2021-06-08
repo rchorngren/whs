@@ -32,10 +32,14 @@ const OrderhistoryView = () => {
     useEffect(() => {
         if (orders !== []) {
             let i;
-            for (i = 0; i < orders.length; i++) {
-                let singleOrder = { 'date': orders[i].date, 'totalsum': orders[i].totalsum, 'movies': orders[i].movies }
+            for (let i = 0; i < orders.length; i++) {
+                console.log('Order date: ' + orders[i].date);
+                for (let ii = 0; ii < orders[i].movies.length; ii++){
+                    console.log('Item: ' + orders[i].movies[ii].title + ' - Price: only ' + orders[i].movies[ii].price);
+                }
+                // let singleOrder = { 'date': orders[i].date, 'totalsum': orders[i].totalsum, 'movies': orders[i].movies }
 
-                console.log('singleOrder: ', singleOrder);
+                console.log('Total price: ', orders[i].totalsum);
             }
 
         }
