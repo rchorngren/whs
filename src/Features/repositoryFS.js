@@ -187,16 +187,13 @@ export async function getOrders() {
             jsonString += '{"movieid":' + itemData.data().movieID;
             jsonString += ',"title":"' + itemData.data().title;
             jsonString += '","price":' + itemData.data().price + '},';
-            // jsonString += '{"movieid":' + itemData.data().movieID.movieId;
-            // // console.log('itemData.data().movieID: ', itemData.data().movieID);
-            // jsonString += ',"price":' + itemData.data().price + '},';
         }
         jsonString = jsonString.slice(0,-1);
         jsonString += ']},';
     }
     jsonString = jsonString.slice(0,-1);
     jsonString += ']}';
-
+    console.log('jsonString: ', jsonString);
     return jsonString;
 }
 
