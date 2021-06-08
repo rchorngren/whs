@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import './ReviewView.css'
 
 
@@ -48,6 +49,12 @@ function ReviewView() {
     const onMouseEnter = (index) => {
         setHoverRating(index);
     }
+
+    const movieToReviewId = useSelector(state => state.movieToReview.id);
+
+    useEffect(() => {
+        console.log('movieToReviewId: ', movieToReviewId);
+    }, [movieToReviewId]);
     
     const onMouseLeave = () => {
         setHoverRating(0);

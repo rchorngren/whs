@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../Features/activeView';
+import { actions as movieToReviewActions } from '../../Features/movieToReview';
 import { getOrders } from '../../Features/repositoryFS';
 import './OrderhistoryView.css';
 import { actions } from '../../Features/activeView';
@@ -10,7 +13,14 @@ const OrderhistoryView = () => {
     const [response, setResponse] = useState('');
     const [orders, setOrders] = useState([]);
     const [orderArray, setOrderArray] = useState([]);
-    const [content, setContent] = useState('Loading');
+    const [content, setContent] = useState('Loading...');
+
+    const dispatch = useDispatch();
+
+    function startReviewView(movieid) {
+        dispatch(movieToReviewActions.getMovieID(movieid));
+        dispatch(actions.review());
+    }
 
     useEffect(() => {
         getOrders().then((resp) => {
@@ -23,7 +33,7 @@ const OrderhistoryView = () => {
             if (response == null) {
                 setContent('User not logged in');
             } else if (response.orders.length === 0) {
-                setContent('No orders');
+                setContent('You have no orders yet');
             } else {
                 setOrders(response.orders);
             }
@@ -44,14 +54,18 @@ const OrderhistoryView = () => {
 
                     <div className="order-container" key={index}>
 
-                        <div className="order-into-text">Order date: {item.date}</div>
+                        <div className="order-info-text">Order date: {item.date}</div>
+
+                        <div className="underline" />
 
                         {item.movies.map((movieItem, movieIndex) => (
-                            <div className="order-individual-movie" key={movieIndex}>
+                            <div className="order-individual-movie" key={movieIndex} onClick={() => {startReviewView(movieItem.movieid)}}>
                                 <div className="order-info-text">{movieItem.title}</div>
-                                <div className="order-info-text">Price: ${movieItem.price}</div>
+                                <div className="order-info-text">${movieItem.price}</div>
                             </div>
                         ))}
+
+                        <div className="underline" />
 
                         <div className="order-total-cost">
                             <div>Total price:</div>
@@ -61,7 +75,8 @@ const OrderhistoryView = () => {
                     </div>
                 )
                 :
-                <div>{content}</div>}
+                <div className="order-info-text">{content}</div>
+            }
         </div>
 
     )

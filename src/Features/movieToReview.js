@@ -1,7 +1,6 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { createAction, createReducer } from "@reduxjs/toolkit";
 
-const getMovieID = createAction('get movie id');
-
+const getMovieID = createAction('get movie id for review');
 
 const actions = {
     getMovieID
@@ -13,7 +12,7 @@ const initialState = {
 
 const reducer = createReducer(initialState, {
     [getMovieID]: (state, actions) => (
-        {...state, id: actions.payload }
+        { ...state, id: actions.payload }
     )
 });
 

@@ -61,17 +61,27 @@ const CheckoutView = () => {
         buildBasket();
         if(currentBasket.length === 0){
             setTotalPrice(0);
+<<<<<<< HEAD
         }    
         // eslint-disable-next-line
     }, [currentBasket]); 
+=======
+        } 
+    }, [currentBasket]); // eslint-disable-line react-hooks/exhaustive-deps
+>>>>>>> fc158dc... sending movieid to ReviewView through redux
 
     useEffect(() => {
         if(fsQueryDone) {
             dispatch(actions.emptyBasket());
             dispatch(activeViewActions.purchaseThanks());
+<<<<<<< HEAD
         }
         // eslint-disable-next-line
     }, [fsQueryDone]);
+=======
+        } 
+    }, [fsQueryDone]); // eslint-disable-line react-hooks/exhaustive-deps
+>>>>>>> fc158dc... sending movieid to ReviewView through redux
 
     return (
         <div className='checkoutContainer'>
