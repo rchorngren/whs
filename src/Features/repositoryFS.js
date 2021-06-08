@@ -4,10 +4,12 @@
 /*  A collenction  of useful functionen used to get data from Firestore.              */
 /**************************************************************************************/
 import firebase from 'firebase/app';
+
 import "firebase/firestore";
 import "firebase/auth";
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
+import db from '../firebase.config';
 
 /**************************************************************************************/
 /*                                createOrder() - Async                               */
@@ -50,6 +52,7 @@ export default Test;
 ***************************************************************************************/
 export async function createOrder(movieIDs, titles, done) {
     if (checkMovieIDs(movieIDs)) {
+        console.log('running createOrder 54');
         let noOfQuerys = 1;
         let userId = 'Li4sUlGWF2fYe0Yy8oh7lLSIzpi1';
         if (localStorage.currentUser !== undefined) {
@@ -418,8 +421,10 @@ export async function getUserReviewRating() {
 function checkMovieIDs(arr) {
     if (Array.isArray(arr)) {
         for (let i = 0; i < arr.length; i++) {
+
             if (isNaN(arr[i])) {
-                return false;
+                // console.log('if', arr[i])
+                return true;
             }
         }
         return true;
