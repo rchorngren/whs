@@ -194,7 +194,6 @@ export async function getOrders() {
     }
     jsonString = jsonString.slice(0,-1);
     jsonString += ']}';
-    console.log('jsonString: ', jsonString);
     return jsonString;
 }
 
