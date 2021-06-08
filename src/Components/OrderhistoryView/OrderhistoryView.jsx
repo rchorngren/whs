@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getOrders } from '../../Features/repositoryFS';
 import './OrderhistoryView.css';
 
 const OrderhistoryView = () => {
+
+    const [response, setResponse] = useState('');
+    const [content, setContent] = useState('You have no previous orders');
 
     function createOrderHistory() {
         //loop through all orders - one order-container for each order
@@ -9,12 +13,29 @@ const OrderhistoryView = () => {
     }
 
     useEffect(() => {
-        console.log('fetch order history for user');
+        getOrders().then((resp) => {
+            console.log('resp:', resp);
+            setResponse(JSON.parse(resp));
+            console.log('response: ', response);
+        }); //eslint-disable-next-line;
     }, []);
+
+    useEffect(() => {
+        if (response !== ''){
+            if (response == null){
+                setContent('User not logged in');
+            } else if (response.orders.length === 0){
+                setContent('No orders');
+            } else {
+                setContent('Date of first order: ' + response.orders[0].date);
+            }
+        }
+    }, [response]);
 
     return (
         <div className="orderhistory-container">
-
+            {content}
+{/*             
             <div className="order-container">
                 <div className="order-individual-movie">
                     <div className="order-info-text">The Matrix</div>
@@ -30,7 +51,7 @@ const OrderhistoryView = () => {
                     <div>$9.98</div>
                 </div>
             </div>
-
+ */}
         </div>
     )
 }
