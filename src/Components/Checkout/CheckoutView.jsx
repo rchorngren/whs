@@ -50,8 +50,11 @@ const CheckoutView = () => {
 
     function makePurchase() {
         let orderList = currentBasket;
-        console.log('making purchase with orderList: ', orderList);
-        createOrder(orderList, () => setFsQueryDone(true));
+        let titleList = [];
+        orderList.map((item) => {
+            titleList.push(item.movieTitle);
+        })
+        createOrder(orderList, titleList, () => setFsQueryDone(true));
     }
 
     useEffect (() => {
