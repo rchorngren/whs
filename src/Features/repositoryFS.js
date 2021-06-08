@@ -81,7 +81,8 @@ export async function createOrder(movieIDs, titles, done) {
                         db.collection('Users').doc(userId).collection('Orders').doc(docRef.id).collection('Items')
                             .add({
                                 created: firebase.firestore.FieldValue.serverTimestamp(),
-                                movieID: movieIDs[i].toString(),
+                                // movieID: movieIDs[i].toString(),
+                                movieID: movieIDs[i],
                                 title: titles[i],
                                 price: 4.99
                             })

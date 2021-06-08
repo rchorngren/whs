@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getOrders } from '../../Features/repositoryFS';
 import './OrderhistoryView.css';
 
 const OrderhistoryView = () => {

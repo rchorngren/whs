@@ -51,7 +51,7 @@ const CheckoutView = () => {
     function makePurchase() {
         let orderList = currentBasket;
         let titleList = [];
-        orderList.map((item) => {
+        orderList.forEach((item) => {
             titleList.push(item.movieTitle);
         })
         createOrder(orderList, titleList, () => setFsQueryDone(true));
@@ -70,7 +70,6 @@ const CheckoutView = () => {
             dispatch(activeViewActions.purchaseThanks());
         }
     }, [fsQueryDone]);
-
 
     return (
         <div className='checkoutContainer'>
