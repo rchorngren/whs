@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { getOrders } from '../../Features/repositoryFS';
 import './OrderhistoryView.css';
 import { actions } from '../../Features/activeView';
@@ -8,6 +8,7 @@ const OrderhistoryView = () => {
     const dispatch = useDispatch();
 
     const [response, setResponse] = useState('');
+    const [orders, setOrders] = useState([]);
     const [content, setContent] = useState(null);
 
     useEffect(() => {
@@ -17,22 +18,33 @@ const OrderhistoryView = () => {
     }, []);
 
     useEffect(() => {
-        if (response !== ''){
-            if (response == null){
+        if (response !== '') {
+            if (response == null) {
                 setContent('User not logged in');
-            } else if (response.orders.length === 0){
+            } else if (response.orders.length === 0) {
                 setContent('No orders');
             } else {
-                setContent('Date of first order: ' + response.orders[0].date);
-                console.log('response: ', response.orders);
+                setOrders(response.orders);
             }
         }
     }, [response]);
 
+    useEffect(() => {
+        if (orders !== []) {
+            let i;
+            for (i = 0; i < orders.length; i++) {
+                let singleOrder = { 'date': orders[i].date, 'totalsum': orders[i].totalsum, 'movies': orders[i].movies }
+
+                console.log('singleOrder: ', singleOrder);
+            }
+
+        }
+    }, [orders]);
 
     return (
         <div className="orderhistory-container">
             {content}
+
             {/* <div className="order-container">
                 <div className="order-individual-movie">
                     <div className="order-info-text">The Matrix</div>
