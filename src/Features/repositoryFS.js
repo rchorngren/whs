@@ -113,7 +113,7 @@ export async function createOrder(movieIDs, titles, done) {
 /*                        "date": YYYY-MM-DD,                                         */
 /*                        "totalsum": float,                                          */
 /*                        "movies": [                                                 */
-/*                            {"movieid": int, "title": String "price": float}]       */
+/*                            {"movieid": int, "title": String, "price": float}]      */
 /*                        ]                                                           */
 /*               }                                                                    */
 /*  Usage: 
