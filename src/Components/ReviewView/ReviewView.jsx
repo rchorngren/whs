@@ -47,17 +47,14 @@ function ReviewView() {
 
     const onMouseEnter = (index) => {
         setHoverRating(index);
-        console.log('hovering ' + index + 'stars')
     }
     
     const onMouseLeave = () => {
         setHoverRating(0);
-        console.log('ends hovering')
     }
 
     const onSaveRating = (index) => {
         setRating(index)
-        console.log('clicked star: ' + index)
     }
     if(reviewActive) {
         return (
