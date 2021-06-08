@@ -82,3 +82,17 @@
 .review-terms-text{
     font-size: 10px;
 }
+
+.review-rating-container{
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.w-6 {
+    width: 1.3em;
+}
+
+.h-6 {
+    height: 1.3em;
+}
