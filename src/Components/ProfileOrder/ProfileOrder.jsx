@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ProfileView from '../ProfileView/ProfileView';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../Features/activeView';
+import OrderhistoryView from '../OrderhistoryView/OrderhistoryView';
 import './ProfileOrder.css';
 
 const Profile = () => {
@@ -20,11 +21,11 @@ const Profile = () => {
                 {tabToggle ? (
                     <ProfileView />
                 ) : (
-                    <button onClick={() => {
-                        //send user to ReviewPage
-                        dispatch(actions.review())
-                        
-                    }} style={{width: '50%', margin: 'auto'}}>PLACEHOLDER</button>
+                    <OrderhistoryView />
+                    // <button onClick={() => {
+                    //     //send user to ReviewPage
+                    //     dispatch(actions.review())
+                    // }} style={{width: '50%', margin: 'auto'}}>PLACEHOLDER</button>
                 )}
 
             </div>
