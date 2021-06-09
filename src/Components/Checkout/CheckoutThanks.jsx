@@ -27,7 +27,7 @@ const CheckoutThanks = () => {
                 </div>
                 
                 <div id='link'>A download link will soon be sent to your email</div>
-                <button className={ buttonClicked ? 'goBack clicked' : 'goBack'} 
+                <button className={ buttonClicked ? 'goBack click' : 'goBack'} 
                     onClick={() => {
                         animationOnClick();
                         setButtonClicked(true);

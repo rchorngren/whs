@@ -109,7 +109,7 @@ const CheckoutView = () => {
                     </div>
                 </div>
 
-            <button className={ buttonClicked ? 'payButton clicked' : 'payButton' } 
+            <button className={ buttonClicked ? 'payButton click' : 'payButton' } 
                 onClick={() => {
                     animationOnClick();
                     setButtonClicked(true);
