@@ -410,6 +410,7 @@ export async function searchFlix(dispatch, search, multi, page) {
 
   if (parametersOk) {
     dispatch(loadAnimAction.increase());
+    console.log(url1 + options);
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();

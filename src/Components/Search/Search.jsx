@@ -9,7 +9,7 @@ function Search() {
     const [movie, setMovieData] = useState([]);
     const [searchTerm, SetSearchTerm] = useState([]);
     const [currPage, SetCurrPage] = useState(1)
-    let multi = false
+    let multi = true;
     let search = searchTerm;
     const dispatch = useDispatch();
     const [searching, SetSearching] = useState(false)
