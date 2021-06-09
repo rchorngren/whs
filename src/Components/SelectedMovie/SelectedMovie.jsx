@@ -49,7 +49,6 @@ const SelectedMovie = () => {
 
     useEffect(() => {
         if (reviews.length > 0) {
-            console.log('reviews: ', reviews);
             setReviewsArray(reviews);
         }
     }, [reviews])
