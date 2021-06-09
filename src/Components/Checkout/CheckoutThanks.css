@@ -39,7 +39,7 @@
     max-width: 800px;
 }
 
-#goBack {
+.goBack {
     height: 7vh;
     width: 50vw;
     max-width: 500px;
@@ -50,4 +50,10 @@
     background-color: rgb(64, 192, 201);
     justify-self: center;
     
+}
+
+.click {
+    padding: 1px;
+    font-size: 18px;
+    background-color: #0bd3d3c9;
 }

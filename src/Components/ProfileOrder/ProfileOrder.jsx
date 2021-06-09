@@ -5,8 +5,6 @@ import './ProfileOrder.css';
 
 const Profile = () => {
     const [tabToggle, setTabToggle] = useState(true);
-    
-   
 
     return (
         <div className="profile-component">

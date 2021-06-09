@@ -9,6 +9,7 @@ import{ actions as activeViewActions } from '../../Features/activeView';
 
 const CheckoutView = () => {
  
+    const [buttonClicked, setButtonClicked] = useState(false);
     const [contentOfBasket, setContentOfBasket] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const currentBasket = useSelector(state => state.customerBasket.content);
@@ -57,21 +58,28 @@ const CheckoutView = () => {
         createOrder(orderList, titleList, () => setFsQueryDone(true));
     }
 
+    function animationOnClick() {
+        setTimeout(() => {
+            setButtonClicked(false);
+        }, 150);
+        setTimeout(() => {
+            makePurchase()
+        }, 250);
+    }
+
     useEffect (() => {
         buildBasket();
         if(currentBasket.length === 0){
             setTotalPrice(0);
-        }    
-        // eslint-disable-next-line
-    }, [currentBasket]); 
+        } 
+    }, [currentBasket]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if(fsQueryDone) {
             dispatch(actions.emptyBasket());
             dispatch(activeViewActions.purchaseThanks());
-        }
-        // eslint-disable-next-line
-    }, [fsQueryDone]);
+        } 
+    }, [fsQueryDone]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className='checkoutContainer'>
@@ -101,8 +109,11 @@ const CheckoutView = () => {
                     </div>
                 </div>
 
-            <button className='payButton'  
-                onClick={() => makePurchase()}>Pay</button>
+            <button className={ buttonClicked ? 'payButton click' : 'payButton' } 
+                onClick={() => {
+                    animationOnClick();
+                    setButtonClicked(true);
+                }}>Pay</button>
             </div>
         </div>
     )

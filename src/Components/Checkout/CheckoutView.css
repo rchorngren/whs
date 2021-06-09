@@ -116,3 +116,8 @@
     background-color: rgb(64, 192, 201);
 }
 
+.click {
+    padding: 1px;
+    font-size: 18px;
+    background-color: #0bd3d3c9;
+}

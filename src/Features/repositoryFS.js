@@ -185,7 +185,7 @@ export async function getOrders() {
         for (let ii = 0; ii < itemsData.docs.length; ii++) {
             const item = docRef.doc(data.docs[i].id).collection('Items').doc(itemsData.docs[ii].id);
             const itemData = await item.get();
-            jsonString += '{"movieid":' + itemData.data().movieID;
+            jsonString += '{"movieid":' + itemData.data().movieID.movieId;
             jsonString += ',"title":"' + itemData.data().title;
             jsonString += '","price":' + itemData.data().price + '},';
         }
@@ -194,7 +194,6 @@ export async function getOrders() {
     }
     jsonString = jsonString.slice(0,-1);
     jsonString += ']}';
-    console.log('jsonString: ', jsonString);
     return jsonString;
 }
 
