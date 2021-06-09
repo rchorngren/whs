@@ -17,7 +17,7 @@ const SelectedMovie = () => {
     let id = movieId;
     const urlRating ='http://www.omdbapi.com/?i='
     const apiKey = '&apikey=fbdcb121'
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState([]);
     const [reviewArray, setReviewArray] = useState([]);
 
     useEffect(() => {
@@ -32,25 +32,13 @@ const SelectedMovie = () => {
 
     useEffect(() => {
         getMovieReviewRating(id).then((resp) => {
-           if(JSON.parse(resp) !== ''){
-               console.log(JSON.parse(resp))
-               if(JSON.parse(resp).reviews.length > 0) {
-                   console.log(JSON.parse(resp).reviews)
-               }
-           } 
-            // if(JSON.parse(resp).reviews.length !== 0) {
-            //     console.log(JSON.parse(resp).reviews)
-            //     setResponse(JSON.parse(resp))
-            // } else {
-            //     console.log('no reviews')
-            // }
-            
+           setResponse(JSON.parse(resp))
         })
     }, [])
 
-    // useEffect(() => {
-    //     console.log(response)
-    // }, [response])
+    useEffect(() => {
+        console.log('this is the response: ' + response)
+    }, [response])
 
     function UserReviews () {
 
