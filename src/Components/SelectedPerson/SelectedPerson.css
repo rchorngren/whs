@@ -1,5 +1,4 @@
 .individual-person-component {
-    display: flex;
     flex-direction: column;
     height: 80vh;
     overflow: scroll;
@@ -53,5 +52,6 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    margin-bottom: 10px;
 }
 

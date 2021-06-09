@@ -41,7 +41,7 @@ const SelectedPerson = () => {
 
 
     return (
-        <div>
+        <ScrollContainer className="individual-person-component">
             <div className="person-info">
                 <div className="person-poster">
                     <img src={personDetail.profile_path ? url + personDetail.profile_path : null} alt="" />
@@ -62,7 +62,7 @@ const SelectedPerson = () => {
             <ScrollContainer className='person-movie-row'>
                 {flixContent}
             </ScrollContainer>
-        </div>
+        </ScrollContainer>
     )
 
     function fillList(movie, index) {
