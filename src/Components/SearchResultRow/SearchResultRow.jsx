@@ -14,6 +14,8 @@ const SearchResultRow = (props) => {
         dispatch(actions.getMovieID(id))
         if (movie){
             dispatch(activeViewActions.selectedMovie());
+        } else {
+            dispatch(activeViewActions.selectedPerson());
         }
     }
     

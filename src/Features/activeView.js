@@ -6,6 +6,7 @@ const profile = createAction('profile view');
 const login = createAction('login view');
 const search = createAction('search view');
 const selectedMovie = createAction('selected movie view');
+const selectedPerson = createAction('selected person view')
 const chosenGenre = createAction('chosen genre view');
 const checkoutContinue = createAction('checkout continue view')
 const purchaseThanks = createAction('purchase thanks')
@@ -18,6 +19,7 @@ const actions = {
     login,
     search,
     selectedMovie,
+    selectedPerson,
     chosenGenre,
     checkoutContinue,
     purchaseThanks,
@@ -31,6 +33,7 @@ const ACTIVEVIEW = {
     LOGIN: 'login',
     SEARCH: 'search',
     SELECTEDMOVIE: 'selected movie',
+    SELECTEDPERSON: 'selected person',
     CHOSENGENRE: 'chosen genre',
     CHECKOUTCONTINUE: 'checkout continue',
     PURCHASETHANKS: 'purchase thanks',
@@ -65,6 +68,10 @@ const reducer = createReducer(initialState, {
     [selectedMovie]: (state, action) => ({
         ...state,
         activeView: ACTIVEVIEW.SELECTEDMOVIE
+    }),
+    [selectedPerson]: (state, action) => ({
+        ...state,
+        activeView: ACTIVEVIEW.SELECTEDPERSON
     }),
     [chosenGenre]: (state, action) => ({
         ...state,

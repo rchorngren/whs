@@ -502,23 +502,34 @@ export async function searchFlix(dispatch, search, multi, page) {
 import { getFlixDetail } from "../../Features/repositoryAPI";    
 import { useDispatch, useSelector } from 'react-redux';                            
 import { STATUS } from '../../Features/loadingAnim';                               
+import { useEffect, useState } from 'react';
 
-const status = useSelector(state => state.loadingAnim.status);
-const [currPage, setCurrPage] = useState(1);                                                                 
-const [flixDetail, setFlixDetail] = useState([]);
-const [content, setContent] = useState('');
-const dispatch = useDispatch();
-let id = 603;
+const Test = () => {
+  const status = useSelector(state => state.loadingAnim.status);
+  const [currPage, setCurrPage] = useState(1);                                                                 
+  const [flixDetail, setFlixDetail] = useState([]);
+  const [content, setContent] = useState('');
+  const dispatch = useDispatch();
+  let id = 603;
 
-useEffect(() => {                                                                  
-  getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });                                         
-}, []);
+  useEffect(() => {                                                                  
+    getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp)) });                                         
+  }, []);
 
-useEffect(() => {
-  if (status === STATUS.FINISHED) {
-    setContent(flixDetail.results[0].title);
-  } // eslint-disable-next-line
-}, [searchFlix]);
+  useEffect(() => {
+    if (status === STATUS.FINISHED) {
+      setContent(flixDetail.results[0].title);
+    } // eslint-disable-next-line
+  }, [searchFlix]);
+
+  return (
+      <div>
+          {content}
+      </div>
+  );
+}
+
+export default Test;
 
 ***************************************************************************************/
 export async function getFlixDetail(dispatch, id) {
@@ -543,7 +554,111 @@ export async function getFlixDetail(dispatch, id) {
 }
 
 /**************************************************************************************/
-/*                     returns a date in YYYY-MM-DD forma                             */
+/*                         getPersonDetail() - Async                                  */
+/*  Parameters: (dispatch, id Int, page Int)                                          */
+/*         id: The tmdb id for that perticular person.                                */
+/*         page: the number of the page                                               */
+/*                                                                                    */
+/*  Returns a detail list of a person matching the id from themoviedb.org as JSON     */
+/*                                                                                    */
+/*  JSON format: {"id": Int,                                                          */
+/*                "name": String,                                                     */
+/*                "adult": Bool,                                                      */
+/*                "also_known_as": [String, String, String],                          */
+/*                "biography": String,                                                */
+/*                "birthday": YYYY-MM-DD,                                             */
+/*                "deathday": YYYY-MM-DD, //null if still alive                       */
+/*                "gender": Int,  //0 - female 2 - male                               */
+/*                "homepage": String                                                  */
+/*                "imdb_id": String,      (ex "tt0133093")                            */
+/*                "known_for_department": String,                                     */
+/*                "place_of_birth": String,                                           */
+/*                "popularity": Int,                                                  */
+/*                "profile_path": String,                                             */
+/*                "page": Int,                                                        */
+/*                "total_pages": Int,                                                 */
+/*                "total_results": Int,                                               */
+/*                "results": [                                                        */
+/*                      "id": Int,                                                    */
+/*                      "title": String,                                              */
+/*                      "original_title": String,                                     */
+/*                      "original_language": String,                                  */
+/*                      "overview": String,                                           */
+/*                      "poster_path": String,                                        */
+/*                      "release_date": Date,                                         */
+/*                      "popularity": Int,                                            */
+/*                      "vote_average": Float,                                        */
+/*                      "vote_count": Int,                                            */
+/*                      "video": Bool,                                                */
+/*                      "adult": Bool,                                                */
+/*                      "backdrop_path": String,                                      */
+/*                      "genre_ids": [Int, Int, Int]                                  */
+/*                  ]                                                                 */
+/*               }                                                                    */
+/*                                                                                    */
+/*  Usage:
+
+import { getPersonDetail } from "../../Features/repositoryAPI";    
+import { useDispatch, useSelector } from 'react-redux';                            
+import { STATUS } from '../../Features/loadingAnim';                               
+import { useEffect, useState } from 'react';
+
+const Test = () => {
+  const status = useSelector(state => state.loadingAnim.status);
+  const [currPage, setCurrPage] = useState(1);                                                                 
+  const [personDetail, setPersonDetail] = useState([]);
+  const [content, setContent] = useState('');
+  const dispatch = useDispatch();
+  let id = 1331;
+
+  useEffect(() => {                                                                  
+    getPersonDetail(dispatch, id, currPage).then((resp) => { setPersonDetail(JSON.parse(resp)) });                                         
+  }, []);
+
+  useEffect(() => {
+    if (status === STATUS.FINISHED) {
+      setContent(personDetail.name);
+    } // eslint-disable-next-line
+  }, [personDetail]);
+
+  return (
+      <div>
+          {content}
+      </div>
+  );
+}
+
+export default Test;
+
+***************************************************************************************/
+export async function getPersonDetail(dispatch, id, page) {
+  if (!isNaN(id)) {
+
+    let options = 'person/' + id + '?' + apiKey1Lang;
+    dispatch(loadAnimAction.increase());
+
+    try {
+      let resp = await fetch(url1 + options);
+      let data = await resp.json();
+
+      let r = await fetch(url1 + 'discover/movie?' + apiKey1Lang + '&with_cast=' + id + '&page=' + page);
+      let d = await r.json();
+
+      data['results'] = d.results;
+
+      dispatch(loadAnimAction.decrease());
+      return JSON.stringify(data);
+    }
+    catch (error) {
+      dispatch(loadAnimAction.fail());
+      console.log(error);
+      return false;
+    }
+  }
+}
+
+/**************************************************************************************/
+/*                     returns a date in YYYY-MM-DD format                            */
 /**************************************************************************************/
 function formatDate(date) {
   var d = new Date(date),

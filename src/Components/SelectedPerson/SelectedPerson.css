@@ -1,0 +1,44 @@
+.individual-person-component {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.person-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.person-poster {
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.person-info-container {
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.person-title-text {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.person-info-text {
+    font-size: 12px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.person-price-text {
+    width: 40%;
+    height: 10vh;
+    font-size: 18px;
+    color: white;
+}
