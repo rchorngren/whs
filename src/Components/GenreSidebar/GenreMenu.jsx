@@ -22,6 +22,7 @@ const GenreMenu = () => {
     function animationOnClick() {
         setTimeout(() => {
             dispatch(sideMenuActions.menuClosed());
+            dispatch(activeViewActions.chosenGenre());
         }, 250); 
     }
 
@@ -33,7 +34,6 @@ const GenreMenu = () => {
                 key={genre.id} onClick={() => {
                     dispatch(actions.genreClicked(genre.id));
                     animationOnClick();
-                    dispatch(activeViewActions.chosenGenre());
                     
                 }}>{genre.name}</div>       
         ));
