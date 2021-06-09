@@ -65,13 +65,13 @@ const HomePage = () => {
             <div className='homepage'>
                 <div className='homepage heading first'>
                     Popular
-            </div>
+                </div>
                 <ScrollContainer className='homepage movie-row second'>
                     {popContent}
                 </ScrollContainer>
                 <div className='homepage heading third'>
                     Top Recommendations
-            </div>
+                </div>
                 <ScrollContainer className='homepage movie-row forth'>
                     {recContent}
                 </ScrollContainer>
