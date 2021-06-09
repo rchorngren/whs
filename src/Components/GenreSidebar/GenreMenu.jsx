@@ -11,6 +11,7 @@ import { actions as sideMenuActions } from '../../Features/sideMenu';
 
 const GenreMenu = () => {
     
+    const [buttonClicked, setButtonClicked] = useState(false);
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
     const dispatch = useDispatch();
@@ -19,17 +20,28 @@ const GenreMenu = () => {
        getGenre(dispatch); // eslint-disable-next-line
     }, [])
 
+    function animationOnClick() {
+        setTimeout(() => {
+            setButtonClicked(false);
+        }, 150);
+        setTimeout(() => {
+            dispatch(sideMenuActions.menuClosed());
+            dispatch(activeViewActions.chosenGenre());
+        }, 250);
+    }
+
+
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         genreListMap = genreList.genres.map((genre) => (
-            <div className='genreItems' 
+            <div className='genreItems'
                 key={genre.id} onClick={() => {
                     dispatch(actions.genreClicked(genre.id)); 
-                    dispatch(sideMenuActions.menuClosed());
-                    dispatch(activeViewActions.chosenGenre());
-                }}>{genre.name}</div>
-                
-        ))
+                    
+                    animationOnClick()
+                    setButtonClicked(true)
+                }}>{genre.name}</div>       
+        ));
     }    
     
     return (
