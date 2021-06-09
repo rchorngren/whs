@@ -7,7 +7,7 @@ import { actions as genresListOfAction } from './genresListOf';
 import { actions as loadAnimAction } from './loadingAnim';
 
 const url1 = 'https://api.themoviedb.org/3/';
-const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-U';
+const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-US';
 
 /**************************************************************************************/
 /*                             getImgUrl() - Async                                    */
@@ -20,6 +20,9 @@ const apiKey1Lang = 'api_key=4b112e5196b1623d24a8585c80c32de0&language=en-U';
 /*  posterSmall: Small sized posters                                                  */
 /*  posterMedium: Medium sized posters                                                */
 /*  posterLarge: large sized posters                                                  */
+/*                                                                                    */
+/*  profileSmall: Small sized people image                                            */
+/*  profileMedium: Medium sized people image                                          */
 /*                                                                                    */
 /*  Usage:                                                                            */
 /*     let myPosterUrl = sessionStorage.posterLarge + posterName;                     */
@@ -35,6 +38,8 @@ export async function getImgUrl() {
     sessionStorage.setItem('posterSmall', data.images.secure_base_url + data.images.poster_sizes[0]);
     sessionStorage.setItem('posterMedium', data.images.secure_base_url + data.images.poster_sizes[3]);
     sessionStorage.setItem('posterLarge', data.images.secure_base_url + data.images.poster_sizes[5]);
+    sessionStorage.setItem('profileSmall', data.images.secure_base_url + data.images.profile_sizes[0]);
+    sessionStorage.setItem('profileMedium', data.images.secure_base_url + data.images.profile_sizes[1]);
   }
   catch (error) {
     console.log(error);
@@ -410,10 +415,22 @@ export async function searchFlix(dispatch, search, multi, page) {
 
   if (parametersOk) {
     dispatch(loadAnimAction.increase());
-    console.log(url1 + options);
+
     try {
       let resp = await fetch(url1 + options);
       let data = await resp.json();
+
+      for (let i=0; i < data.results.length; i++){
+        if (data.results[i].gender !== undefined){
+          data.results[i].title = data.results[i].name;
+          data.results[i].overview = 'Known for: ' + data.results[i].known_for_department;
+
+          const r = await fetch(url1 + 'person/' + data.results[i].id + '?' + apiKey1Lang);
+          const d = await r.json();
+          
+          data.results[i].poster_path = d.profile_path;
+        }
+      }
 
       dispatch(loadAnimAction.decrease());
       return JSON.stringify(data);

@@ -7,12 +7,14 @@ import { actions } from '../../Features/movieSelected'
 import { actions as activeViewActions } from '../../Features/activeView';
 
 const SearchResultRow = (props) => {
-    const url = 'https://image.tmdb.org/t/p/w200';
+    const url = sessionStorage.posterMedium;
     const dispatch = useDispatch()
     
-    const setID = (id) => {
+    const setID = (id, movie) => {
         dispatch(actions.getMovieID(id))
-        dispatch(activeViewActions.selectedMovie());
+        if (movie){
+            dispatch(activeViewActions.selectedMovie());
+        }
     }
     
     try {
@@ -33,17 +35,23 @@ const SearchResultRow = (props) => {
                             </tbody>
                         </table> :
                         props.movie.results.map((movie, index) =>
-                            <table className="results" key={index}>
+                            <table className="results" key={index} width="100%">
                                 <tbody>
                                     <tr onClick={() => {
-                                        setID(props.movie.results[index].id)
+                                        // kontrollera om det är en skådis
+                                        console.log(props.movie.results[index].gender);
+                                        if (props.movie.results[index].gender === undefined){
+                                            setID(props.movie.results[index].id, true);
+                                        } else {
+                                            setID(props.movie.results[index].id, false);
+                                        }
                                     }}>
-                                        <td>
+                                        <td align="left">
                                             <img alt="movie poster"
                                                 src={props.movie.results[index].poster_path ? url + props.movie.results[index].poster_path : logo}
                                             />
                                         </td>
-                                        <td>
+                                        <td align="left">
                                             <h3>{props.movie.results[index].title}</h3>
                                             <p>{props.movie.results[index].overview}</p>
                                         </td>
