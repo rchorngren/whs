@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { actions } from '../../Features/genreSelected';
@@ -22,12 +22,12 @@ const GenreMenu = () => {
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         genreListMap = genreList.genres.map((genre) => (
-            <div className='genreItems' key={genre.name} 
-                onClick={() => { 
-                    dispatch(actions.genreClicked(genre.id));
+            <div className='genreItems' 
+                key={genre.id} onClick={() => {
+                    dispatch(actions.genreClicked(genre.id)); 
                     dispatch(sideMenuActions.menuClosed());
                     dispatch(activeViewActions.chosenGenre());
-                } }>{genre.name}</div>
+                }}>{genre.name}</div>
                 
         ))
     }    
