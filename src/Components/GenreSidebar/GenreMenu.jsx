@@ -21,12 +21,8 @@ const GenreMenu = () => {
 
     function animationOnClick() {
         setTimeout(() => {
-            setButtonClicked(false);
-        }, 150);
-        setTimeout(() => {
             dispatch(sideMenuActions.menuClosed());
-            dispatch(activeViewActions.chosenGenre());
-        }, 250);
+        }, 250); 
     }
 
 
@@ -35,9 +31,10 @@ const GenreMenu = () => {
         genreListMap = genreList.genres.map((genre) => (
             <div className='genreItems'
                 key={genre.id} onClick={() => {
-                    dispatch(actions.genreClicked(genre.id)); 
-                    animationOnClick()
-                    setButtonClicked(true)
+                    dispatch(actions.genreClicked(genre.id));
+                    animationOnClick();
+                    dispatch(activeViewActions.chosenGenre());
+                    
                 }}>{genre.name}</div>       
         ));
     }    
