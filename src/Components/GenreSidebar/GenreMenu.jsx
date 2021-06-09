@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { actions } from '../../Features/genreSelected';
@@ -10,8 +10,7 @@ import { actions as sideMenuActions } from '../../Features/sideMenu';
 
 
 const GenreMenu = () => {
-    
-    const [buttonClicked, setButtonClicked] = useState(false);
+ 
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
     const dispatch = useDispatch();
@@ -37,7 +36,6 @@ const GenreMenu = () => {
             <div className='genreItems'
                 key={genre.id} onClick={() => {
                     dispatch(actions.genreClicked(genre.id)); 
-                    
                     animationOnClick()
                     setButtonClicked(true)
                 }}>{genre.name}</div>       
