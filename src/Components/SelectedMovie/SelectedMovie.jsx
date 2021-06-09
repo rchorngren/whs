@@ -18,7 +18,9 @@ const SelectedMovie = () => {
     const urlRating ='http://www.omdbapi.com/?i='
     const apiKey = '&apikey=fbdcb121'
     const [response, setResponse] = useState([]);
-    const [reviewArray, setReviewArray] = useState([]);
+    const [content, setContent] = useState('Loading...');
+    const [reviews, setReviews] = useState([]);
+    const [reviewsArray, setReviewsArray] = useState([]);
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
@@ -30,39 +32,97 @@ const SelectedMovie = () => {
         
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+    //Test method 1
+
     useEffect(() => {
         getMovieReviewRating(id).then((resp) => {
-           setResponse(JSON.parse(resp))
+            setResponse(JSON.parse(resp))
         })
     }, [])
 
     useEffect(() => {
-        console.log('this is the response: ' + response)
+        if(response.length !== 0 ) {
+            for (let i=0; i < response.reviews.length; i++){
+                console.log(response.reviews[i].comment);
+                console.log(response);
+            }  
+        } 
     }, [response])
 
-    function UserReviews () {
+    // function GetUserReview() {
 
-        if(response !== '') {
-            return (
-                response.reviews.map((index) => 
+    //     if (response.length !== 0 ) {
+    //         for (let i=0; i < response.reviews.length; i++) {
+    //             return (
+    //                 <div className="user-review">
+    //                     <div className="user-review-text">
+    //                        {response.reviews[i].comment}
+    //                     </div>
+    //                 </div>
+    //             )
+    //         }
+    //     } 
+    // }
+
+    const GetUserReview = () => {
+        try{
+            if (response.length !== 0) {
+                for (let i=0; i < response.reviews.length; i++) {
+                    return (
+                        
+                        <div className="user-review">
+                                <div className="user-review-text">
+                                    {response.reviews[i].comment}
+                                </div>
+                                <div className="user-review-rating"> 
+                                Rating: {response.reviews[i].rate}
+                                </div>
+                        </div>
+                       
+                    )
+                }
+            } else {
+                return (
                     <div className="user-review">
                         <div className="user-review-text">
-                            {response.reviews[index].comment}
+                            No reviews found
                         </div>
                     </div>
                 )
-                
-            )
-        } else {
-            return (
-                <div className="user-review">
-                <div className="user-review-text">
-                   No reviews found
-                </div>
-            </div>
-            )
+            }
+        } catch(e) {
+            console.log(e)
         }
     }
+
+
+
+    
+    //test method 2
+    // useEffect(() => {
+    //     getMovieReviewRating(id).then((resp) => {
+    //         setResponse(JSON.parse(resp));
+    //     })
+    // }, []);
+
+    // useEffect(() => {
+    //     if(response !== '') {
+    //         if(response == null) {
+    //             setContent('user not logged in')
+    //         } else if (response.reviews.length === 0) {
+    //             setContent('No reviews found')
+    //         } else {
+    //             setReviews(response.reviews)
+    //         }
+    //     }
+    // }, [response])
+
+    // useEffect(() => {
+    //     if(reviews !== []) {
+    //         setReviewsArray(reviews)
+    //     }
+    // }, [reviews])
 
     function buyMovie() {
         const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
@@ -110,6 +170,7 @@ const SelectedMovie = () => {
     useEffect(() => {
         getIMDBRating() // eslint-disable-next-line
     }, [imdbID])
+
     return (
         <ScrollContainer className="individual-movie-component">
 
@@ -142,27 +203,27 @@ const SelectedMovie = () => {
 
             <div className="user-review-container">
                 <div className="user-review-header">User reviews</div>
+                    {/* method 2*/}
+                    {/* {reviewsArray.length > 0 ?
 
-                {/* user-review is generated through mapping of any reviews left by other users */}
-                {/* <div className="user-review">
-                    <div className="user-review-text">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </div>
-                </div>
-
-                <div className="user-review">
-                    <div className="user-review-text">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </div>
-                </div>
-
-                <div className="user-review">
-                    <div className="user-review-text">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </div>
-                </div> */}
-                {/* <UserReviews /> */}
-
+                        reviewsArray.map((item, index) =>
+                            <div className="user-review" key={index}>
+                                <div className="user-review-text">
+                                    {item.comment}
+                                </div>
+                            </div>
+                        )
+                        :
+                        <div className="user-review">
+                            <div className="user-review-text">
+                                {content}
+                            </div>
+                        </div>
+                    } */}
+                
+                {/*test method one */}
+                <GetUserReview />
+                
             </div>
 
 
