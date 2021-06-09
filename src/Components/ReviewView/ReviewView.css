@@ -96,3 +96,8 @@
 .h-6 {
     height: 1.3em;
 }
+
+.review-error-message {
+    font-size: 10px;
+    color: red;
+}
