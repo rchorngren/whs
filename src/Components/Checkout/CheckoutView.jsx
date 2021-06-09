@@ -73,7 +73,7 @@ const CheckoutView = () => {
 
     function verifyInputs() {
         const regEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const regName = /^[a-zA-Z ]{2,30}$/;
+        const regName = /^[\u00C0-\u017Fa-zA-Z'][\u00C0-\u017Fa-zA-Z-' ]+[\u00C0-\u017Fa-zA-Z']?$/;
         const regNumber = /^[0-9]+$/;
         const regDate = /^[\d./-]+$/;
 
