@@ -12,27 +12,44 @@
 }
 
 .person-poster {
-    width: 50%;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.person-poster img {
+    height: 25vh;
+    object-fit: scale-down;
 }
 
 .person-info-container {
-    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.person-title-text {
+    font-size: calc(14px + 1.5vw);
+    color: white;
+    margin-bottom: 10px;
+}
+.person-info-text {
+    font-size: calc(10px + 1.1vw);
+    color: white;
+    margin-bottom: 5px;
+}
+
+.person-bio-container {
+    margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.person-title-text {
-    font-size: 14px;
-    color: white;
-    margin-bottom: 10px;
-}
-
-.person-info-text {
-    font-size: 12px;
+.person-bio-text {
+    font-size: calc(10px + 1.1vw);
     color: white;
     margin-bottom: 5px;
+    text-align: left;
 }
 
 .person-heading {

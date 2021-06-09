@@ -40,8 +40,6 @@ const SearchResultRow = (props) => {
                             <table className="results" key={index} width="100%">
                                 <tbody>
                                     <tr onClick={() => {
-                                        // kontrollera om det är en skådis
-                                        console.log(props.movie.results[index].gender);
                                         if (props.movie.results[index].gender === undefined){
                                             setID(props.movie.results[index].id, true);
                                         } else {

@@ -14,14 +14,16 @@ const SelectedPerson = () => {
     const [personDetail, setPersonDetail] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [flixContent, setFlixContent] = useState('');
+    const [sadDay, setSadDay] = useState('');
     const dispatch = useDispatch();
 
     const setID = (id) => {
         dispatch(actions.getMovieID(id));
         dispatch(activeViewActions.selectedMovie());
     }
-    
+
     useEffect(() => {
+        setCurrPage(1);
         getPersonDetail(dispatch, personId, currPage).then((resp) => {
             setPersonDetail(JSON.parse(resp))
         });
@@ -34,11 +36,15 @@ const SelectedPerson = () => {
             let tempElements = personDetail.results.map((movie, index) => (
                 fillList(movie, index)
             ));
+            if (personDetail.deathday !== null){
+                setSadDay(<div className="person-info-text">&dagger; {personDetail.deathday}</div>
+                );
+            } else {
+                setSadDay('');
+            }
             setFlixContent(tempElements);
         }
-    }, [personDetail]);
-
-
+    }, [personDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <ScrollContainer className="individual-person-component">
@@ -47,13 +53,17 @@ const SelectedPerson = () => {
                     <img src={personDetail.profile_path ? url + personDetail.profile_path : null} alt="" />
                 </div>
 
-                <div className="movie-info-container">
+                <div className="person-info-container">
                     <div className="person-title-text">{personDetail.name}</div>
-                    <div className="person-info-text">{personDetail.birthday}</div>
-                    <div className="person-info-text">{personDetail.deathday ? personDetail.deathday : ''}</div>
+                    <div className="person-info-text">&#x02736; {personDetail.birthday}</div>
                     <div className="person-info-text">{personDetail.place_of_birth}</div>
-                    <div className="person-info-text">{personDetail.biography}</div>
+                    {sadDay}
+                    <div className="person-info-text">(Age: {personDetail.deathday ? getAge(personDetail.birthday, personDetail.deathday) : getAge(personDetail.birthday, '')} )</div>
                 </div>
+            </div>
+            <div className="person-bio-container">
+                <div className="person-bio-text">Biography:</div>
+                <div className="person-bio-text">{personDetail.biography}</div>
             </div>
 
             <div className='person-heading'>
@@ -68,7 +78,7 @@ const SelectedPerson = () => {
     function fillList(movie, index) {
         if (movie.poster_path != null) {
             return (
-                <div key={index}  onClick={() => {
+                <div key={index} onClick={() => {
                     setID(movie.id);
                     // Call selectedMovie via ActiveView
                 }}>
@@ -77,6 +87,16 @@ const SelectedPerson = () => {
             )
         }
         return '';
+    }
+
+    function getAge(birth, death) {
+        if (death === ''){death = Date()}
+        let ageMS = Date.parse(death) - Date.parse(birth);
+        let age = new Date();
+        age.setTime(ageMS);
+        let ageYear = age.getFullYear() - 1970;
+
+        return ageYear;
     }
 }
 
