@@ -8,7 +8,6 @@ import './ReviewView.css'
 
 
 function ReviewView() {
-    const [reviewActive, setreviewActive] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
@@ -62,15 +61,9 @@ function ReviewView() {
 
     useEffect(() => {
         getFlixDetail(dispatch, movieToReviewId).then((resp) => { setMovieReviewID(JSON.parse(resp))})
+        // eslint-disable-next-line
     }, [])  
-
-    useEffect(() => {
-        console.log('movieToReviewId: ', movieToReviewId);
-    }, [movieToReviewId]);
     
-    useEffect(() => {
-        console.log(reviewText)
-    }, [reviewText])
     const onMouseLeave = () => {
         setHoverRating(0);
     }
@@ -79,7 +72,7 @@ function ReviewView() {
         setRating(index)
     }
 
-    if(reviewActive) {
+    if(fsQueryDone) {
         return (
             <div className="review-view-component">
                 <div className="review-view-container">
@@ -88,8 +81,6 @@ function ReviewView() {
                     Thank you!
                     </div>
                     <button className="review-submit" onClick={() => {
-                        // setreviewActive(!reviewActive)
-                        // setIsChecked(false)
                         dispatch(actions.profile())
                     }}>GO BACK</button>
                 </div>
@@ -108,7 +99,6 @@ function ReviewView() {
                     <textarea className="review-input-field" placeholder="Leave your review here..." onChange={(event) => setReviewText(event.target.value)}/>
                 </div>
                 <div className="review-subheader-text">Rate the Movie</div>
-                {/* rating system here */}
                 <div className="review-rating-container">
                     {ratingStars.map((index) => {
                         return (
@@ -132,11 +122,8 @@ function ReviewView() {
                 <button className="review-submit" onClick={() => {
                     if(isChecked && rating > 0) {
                         reviewRate(movieToReviewId, rating, reviewText, () => setFsQueryDone(true))
-                        setreviewActive(!reviewActive)
                     } else {
-                        //return error
                         setErrorMessage('Please make sure you have filled out an review and rated the movie and agreed to terms')
-                        
                     }
                 }}>SUBMIT</button>
             </div>
