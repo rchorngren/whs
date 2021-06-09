@@ -36,7 +36,7 @@ const SelectedPerson = () => {
             ));
             setFlixContent(tempElements);
         }
-    }, [flixContent]);
+    }, [personDetail]);
 
 
 
