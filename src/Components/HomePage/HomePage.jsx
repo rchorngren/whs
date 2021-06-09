@@ -83,7 +83,7 @@ const HomePage = () => {
                     {newContent}
                 </ScrollContainer>
                 <div className='homepage heading seventh'>
-                    Comming
+                    Coming
             </div>
                 <ScrollContainer className='homepage movie-row eightth'>
                     {upContent}

@@ -57,6 +57,12 @@
     background-color: #0BD3D3;
 }
 
+.disabled {
+    color: rgb(119, 119, 119);
+    border: 2px solid rgb(119, 119, 119);
+    background-color: darkgrey;
+}
+
 .clicked {
     padding: 1px;
     font-size: 10px;
