@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import React, { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { actions } from '../../Features/genreSelected';
@@ -10,7 +10,7 @@ import { actions as sideMenuActions } from '../../Features/sideMenu';
 
 
 const GenreMenu = () => {
-    
+ 
     const status = useSelector(state => state.genresListOf.status);
     const genreList = JSON.parse(useSelector(state => state.genresListOf.list));
     const dispatch = useDispatch();
@@ -19,17 +19,24 @@ const GenreMenu = () => {
        getGenre(dispatch); // eslint-disable-next-line
     }, [])
 
+    function animationOnClick() {
+        setTimeout(() => {
+            dispatch(sideMenuActions.menuClosed());
+            dispatch(activeViewActions.chosenGenre());
+        }, 250); 
+    }
+
+
     let genreListMap = [];
     if(status === STATUS.SUCCESS) {
         genreListMap = genreList.genres.map((genre) => (
-            <div className='genreItems' 
+            <div className='genreItems'
                 key={genre.id} onClick={() => {
-                    dispatch(actions.genreClicked(genre.id)); 
-                    dispatch(sideMenuActions.menuClosed());
-                    dispatch(activeViewActions.chosenGenre());
-                }}>{genre.name}</div>
-                
-        ))
+                    dispatch(actions.genreClicked(genre.id));
+                    animationOnClick();
+                    
+                }}>{genre.name}</div>       
+        ));
     }    
     
     return (
