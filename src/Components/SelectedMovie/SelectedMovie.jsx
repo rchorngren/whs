@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { getFlixDetail } from '../../Features/repositoryAPI';
 import { actions } from '../../Features/customerBasket';
+import { getMovieReviewRating } from '../../Features/repositoryFS';
 import './SelectedMovie.css';
 
 const SelectedMovie = () => {
@@ -16,7 +17,8 @@ const SelectedMovie = () => {
     let id = movieId;
     const urlRating ='http://www.omdbapi.com/?i='
     const apiKey = '&apikey=fbdcb121'
-
+    const [response, setResponse] = useState('');
+    const [reviewArray, setReviewArray] = useState([]);
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => { setFlixDetail(JSON.parse(resp))
@@ -27,6 +29,52 @@ const SelectedMovie = () => {
         });
         
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        getMovieReviewRating(id).then((resp) => {
+           if(JSON.parse(resp) !== ''){
+               console.log(JSON.parse(resp))
+               if(JSON.parse(resp).reviews.length > 0) {
+                   console.log(JSON.parse(resp).reviews)
+               }
+           } 
+            // if(JSON.parse(resp).reviews.length !== 0) {
+            //     console.log(JSON.parse(resp).reviews)
+            //     setResponse(JSON.parse(resp))
+            // } else {
+            //     console.log('no reviews')
+            // }
+            
+        })
+    }, [])
+
+    // useEffect(() => {
+    //     console.log(response)
+    // }, [response])
+
+    function UserReviews () {
+
+        if(response !== '') {
+            return (
+                response.reviews.map((index) => 
+                    <div className="user-review">
+                        <div className="user-review-text">
+                            {response.reviews[index].comment}
+                        </div>
+                    </div>
+                )
+                
+            )
+        } else {
+            return (
+                <div className="user-review">
+                <div className="user-review-text">
+                   No reviews found
+                </div>
+            </div>
+            )
+        }
+    }
 
     function buyMovie() {
         const movieToBuy = {"movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99};
@@ -108,7 +156,7 @@ const SelectedMovie = () => {
                 <div className="user-review-header">User reviews</div>
 
                 {/* user-review is generated through mapping of any reviews left by other users */}
-                <div className="user-review">
+                {/* <div className="user-review">
                     <div className="user-review-text">
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                     </div>
@@ -124,7 +172,8 @@ const SelectedMovie = () => {
                     <div className="user-review-text">
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                     </div>
-                </div>
+                </div> */}
+                {/* <UserReviews /> */}
 
             </div>
 
