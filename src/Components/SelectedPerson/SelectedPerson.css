@@ -70,6 +70,8 @@
 }
 
 .person-movie-row {
+    color: white;
+    font-size: 6em;
     display: flex;
     flex-direction: row;
     gap: 2px;
@@ -77,7 +79,6 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: 10px;
 }
 
 /* Stop scaling after width 1000px */

@@ -428,9 +428,16 @@ export async function searchFlix(dispatch, search, multi, page) {
           const r = await fetch(url1 + 'person/' + data.results[i].id + '?' + apiKey1Lang);
           const d = await r.json();
           
-          data.results[i].poster_path = d.profile_path;
+          if (d.birthday === null){
+            data.results[i].title = '';
+          } else {
+            data.results[i].poster_path = d.profile_path;
+          }
         }
       }
+      data.results = data.results.filter((entry) => {
+        return entry.title !== ''
+      }); 
 
       dispatch(loadAnimAction.decrease());
       return JSON.stringify(data);
@@ -577,7 +584,6 @@ export async function getFlixDetail(dispatch, id) {
 /*                "profile_path": String,                                             */
 /*                "page": Int,                                                        */
 /*                "total_pages": Int,                                                 */
-/*                "total_results": Int,                                               */
 /*                "results": [                                                        */
 /*                      "id": Int,                                                    */
 /*                      "title": String,                                              */
@@ -645,6 +651,8 @@ export async function getPersonDetail(dispatch, id, page) {
       let d = await r.json();
 
       data['results'] = d.results;
+      data.page = d.page;
+      data.total_pages = d.total_pages;
 
       dispatch(loadAnimAction.decrease());
       return JSON.stringify(data);
