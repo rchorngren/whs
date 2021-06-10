@@ -428,9 +428,16 @@ export async function searchFlix(dispatch, search, multi, page) {
           const r = await fetch(url1 + 'person/' + data.results[i].id + '?' + apiKey1Lang);
           const d = await r.json();
           
-          data.results[i].poster_path = d.profile_path;
+          if (d.birthday === null){
+            data.results[i].title = '';
+          } else {
+            data.results[i].poster_path = d.profile_path;
+          }
         }
       }
+      data.results = data.results.filter((entry) => {
+        return entry.title !== ''
+      }); 
 
       dispatch(loadAnimAction.decrease());
       return JSON.stringify(data);
