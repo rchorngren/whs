@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { getPersonDetail } from '../../Features/repositoryAPI';
@@ -18,38 +18,42 @@ const SelectedPerson = () => {
     const [pagerRight, setpagerRight] = useState('');
     const [movieElements, setMovieElements] = useState([]);
     const dispatch = useDispatch();
+    const container = useRef(null);
 
     const setID = (id) => {
         dispatch(actions.getMovieID(id));
         dispatch(activeViewActions.selectedMovie());
     }
 
-    console.log('reloading');
     useEffect(() => {
-        getPersonDetail(dispatch, personId, currPage).then((resp) => {
-            setPersonDetail(JSON.parse(resp))
-        });
         setFlixContent('');
+        getPersonDetail(dispatch, personId, currPage).then((resp) => {
+            setPersonDetail(JSON.parse(resp));
+        });
     }, [currPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    if (container.current) {
+        const xCorr = (currPage - 1) * 72 * 20;
+        container.current.getElement().scrollTo(xCorr, 0);
+    }
 
     useEffect(() => {
         if (status === STATUS.FINISHED) {
             let tempElements = movieElements;
-            for (let i=0; i < personDetail.results.length; i++){
+            for (let i = 0; i < personDetail.results.length; i++) {
                 const index = (personDetail.results.length * (currPage - 1)) + i;
                 tempElements.push(fillList(personDetail.results[i], index));
             }
-            console.log(tempElements);
-            if (personDetail.deathday !== null){
+            if (personDetail.deathday !== null) {
                 setSadDay(<div className="person-info-text">&dagger; {personDetail.deathday}</div>);
             } else {
                 setSadDay('');
             }
-            
+
             setFlixContent(tempElements);
             setMovieElements(tempElements);
-            if (personDetail.page < personDetail.total_pages && personDetail.total_pages > 1){
-                setpagerRight(<div onClick={() => setCurrPage(currPage+1)}>&#x025B8;</div>);
+            if (personDetail.page < personDetail.total_pages && personDetail.total_pages > 1) {
+                setpagerRight(<div onClick={() => setCurrPage(currPage + 1)}>&#x025B8;</div>);
             } else {
                 setpagerRight('');
             }
@@ -79,7 +83,7 @@ const SelectedPerson = () => {
             <div className='person-heading'>
                 Movies
             </div>
-            <ScrollContainer className='person-movie-row'>
+            <ScrollContainer className='person-movie-row' ref={container}>
                 {flixContent}
                 {pagerRight}
             </ScrollContainer>
@@ -101,7 +105,7 @@ const SelectedPerson = () => {
     }
 
     function getAge(birth, death) {
-        if (death === ''){death = Date()}
+        if (death === '') { death = Date() }
         let ageMS = Date.parse(death) - Date.parse(birth);
         let age = new Date();
         age.setTime(ageMS);
