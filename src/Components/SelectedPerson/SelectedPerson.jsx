@@ -33,15 +33,16 @@ const SelectedPerson = () => {
     }, [currPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (container.current) {
-        const xCorr = (currPage - 1) * 72 * 20;
+        const xCorr = (currPage - 1) * 75 * 20;
         container.current.getElement().scrollTo(xCorr, 0);
     }
 
     useEffect(() => {
         if (status === STATUS.FINISHED) {
             let tempElements = movieElements;
+            const listLenght = tempElements.length;
             for (let i = 0; i < personDetail.results.length; i++) {
-                const index = (personDetail.results.length * (currPage - 1)) + i;
+                const index = listLenght + i;
                 tempElements.push(fillList(personDetail.results[i], index));
             }
             if (personDetail.deathday !== null) {
@@ -49,7 +50,6 @@ const SelectedPerson = () => {
             } else {
                 setSadDay('');
             }
-
             setFlixContent(tempElements);
             setMovieElements(tempElements);
             if (personDetail.page < personDetail.total_pages && personDetail.total_pages > 1) {
