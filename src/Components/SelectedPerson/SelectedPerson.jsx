@@ -13,8 +13,10 @@ const SelectedPerson = () => {
     const personId = useSelector(state => state.movieSelected.id);;
     const [personDetail, setPersonDetail] = useState([]);
     const [currPage, setCurrPage] = useState(1);
-    const [flixContent, setFlixContent] = useState('');
+    const [flixContent, setFlixContent] = useState([]);
     const [sadDay, setSadDay] = useState('');
+    const [pagerRight, setpagerRight] = useState('');
+    const [movieElements, setMovieElements] = useState([]);
     const dispatch = useDispatch();
 
     const setID = (id) => {
@@ -22,27 +24,35 @@ const SelectedPerson = () => {
         dispatch(activeViewActions.selectedMovie());
     }
 
+    console.log('reloading');
     useEffect(() => {
-        setCurrPage(1);
         getPersonDetail(dispatch, personId, currPage).then((resp) => {
             setPersonDetail(JSON.parse(resp))
         });
-
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+        setFlixContent('');
+    }, [currPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (status === STATUS.FINISHED) {
-            //pop
-            let tempElements = personDetail.results.map((movie, index) => (
-                fillList(movie, index)
-            ));
+            let tempElements = movieElements;
+            for (let i=0; i < personDetail.results.length; i++){
+                const index = (personDetail.results.length * (currPage - 1)) + i;
+                tempElements.push(fillList(personDetail.results[i], index));
+            }
+            console.log(tempElements);
             if (personDetail.deathday !== null){
-                setSadDay(<div className="person-info-text">&dagger; {personDetail.deathday}</div>
-                );
+                setSadDay(<div className="person-info-text">&dagger; {personDetail.deathday}</div>);
             } else {
                 setSadDay('');
             }
+            
             setFlixContent(tempElements);
+            setMovieElements(tempElements);
+            if (personDetail.page < personDetail.total_pages && personDetail.total_pages > 1){
+                setpagerRight(<div onClick={() => setCurrPage(currPage+1)}>&#x025B8;</div>);
+            } else {
+                setpagerRight('');
+            }
         }
     }, [personDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -71,6 +81,7 @@ const SelectedPerson = () => {
             </div>
             <ScrollContainer className='person-movie-row'>
                 {flixContent}
+                {pagerRight}
             </ScrollContainer>
         </div>
     )

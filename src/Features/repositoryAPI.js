@@ -584,7 +584,6 @@ export async function getFlixDetail(dispatch, id) {
 /*                "profile_path": String,                                             */
 /*                "page": Int,                                                        */
 /*                "total_pages": Int,                                                 */
-/*                "total_results": Int,                                               */
 /*                "results": [                                                        */
 /*                      "id": Int,                                                    */
 /*                      "title": String,                                              */
@@ -652,6 +651,8 @@ export async function getPersonDetail(dispatch, id, page) {
       let d = await r.json();
 
       data['results'] = d.results;
+      data.page = d.page;
+      data.total_pages = d.total_pages;
 
       dispatch(loadAnimAction.decrease());
       return JSON.stringify(data);
