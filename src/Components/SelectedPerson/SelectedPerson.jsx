@@ -47,7 +47,7 @@ const SelectedPerson = () => {
     }, [personDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <ScrollContainer className="individual-person-component">
+        <div className="individual-person-component">
             <div className="person-info">
                 <div className="person-poster">
                     <img src={personDetail.profile_path ? url + personDetail.profile_path : null} alt="" />
@@ -61,10 +61,10 @@ const SelectedPerson = () => {
                     <div className="person-info-text">(Age: {personDetail.deathday ? getAge(personDetail.birthday, personDetail.deathday) : getAge(personDetail.birthday, '')} )</div>
                 </div>
             </div>
-            <div className="person-bio-container">
+            <ScrollContainer className="person-bio-container">
                 <div className="person-bio-text">Biography:</div>
                 <div className="person-bio-text">{personDetail.biography}</div>
-            </div>
+            </ScrollContainer>
 
             <div className='person-heading'>
                 Movies
@@ -72,7 +72,7 @@ const SelectedPerson = () => {
             <ScrollContainer className='person-movie-row'>
                 {flixContent}
             </ScrollContainer>
-        </ScrollContainer>
+        </div>
     )
 
     function fillList(movie, index) {
