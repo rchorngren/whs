@@ -9,17 +9,11 @@ const Basket = () => {
     const [buttonClicked, setButtonClicked] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [contentOfBasket, setContentOfBasket] = useState(null);
-
     const currentBasket = useSelector(state => state.customerBasket.content);
 
     let priceArray = [];
 
     const dispatch = useDispatch();
-
-    function goToCheckout() {
-        //to checkout
-        dispatch(activeViewActions.checkoutContinue());
-    }
 
     function trashItem(movieToRemove) {
         dispatch(actions.removeItem(movieToRemove));
@@ -30,7 +24,7 @@ const Basket = () => {
             setButtonClicked(false);
         }, 150);
         setTimeout(() => {
-            goToCheckout();
+            dispatch(activeViewActions.checkoutContinue());
         }, 250);
     }
 
@@ -92,9 +86,14 @@ const Basket = () => {
 
                 </div>
 
-                <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => {
-                    setButtonClicked(true); animationOnClick()
-                }}>Proceed to checkout</div>
+                {currentBasket.length > 0 ? (
+                    <div className={buttonClicked ? "checkout-button clicked" : "checkout-button"} onClick={() => {
+                        setButtonClicked(true); animationOnClick()
+                    }}>Proceed to checkout</div>
+                ) : (
+                    <div className="checkout-button disabled">Your basket is empty</div>
+                )}
+
             </div>
         </div>
     )

@@ -20,6 +20,11 @@
     color: white;
   }
 
+  .genreItems:hover {
+    color: #0bd3d3c9;
+    font-size: 20px;
+  }
+
   .genreSidebar {
     background: rgb(44, 44, 44);
     height: calc(80vh - 8px);

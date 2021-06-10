@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../Features/activeView';
+import { getFlixDetail } from '../../Features/repositoryAPI';
+import { reviewRate } from '../../Features/repositoryFS';
 import './ReviewView.css'
 
 
 function ReviewView() {
-    const [reviewActive, setreviewActive] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const ratingStars = [1, 2, 3, 4, 5]
+    const dispatch = useDispatch();
+    const movieToReviewId = useSelector(state => state.movieToReview.id);
+    const [movieReviewID, setMovieReviewID] = useState([]);
+    const [reviewText, setReviewText] = useState('')
+    const [fsQueryDone, setFsQueryDone] = useState(false);
+    const [errorMessage, setErrorMessage] = useState()
 
     function StarIcon (props) {
         const {fill = 'none'} = props
@@ -50,11 +59,10 @@ function ReviewView() {
         setHoverRating(index);
     }
 
-    const movieToReviewId = useSelector(state => state.movieToReview.id);
-
     useEffect(() => {
-        console.log('movieToReviewId: ', movieToReviewId);
-    }, [movieToReviewId]);
+        getFlixDetail(dispatch, movieToReviewId).then((resp) => { setMovieReviewID(JSON.parse(resp))})
+        // eslint-disable-next-line
+    }, [])  
     
     const onMouseLeave = () => {
         setHoverRating(0);
@@ -63,7 +71,8 @@ function ReviewView() {
     const onSaveRating = (index) => {
         setRating(index)
     }
-    if(reviewActive) {
+
+    if(fsQueryDone) {
         return (
             <div className="review-view-component">
                 <div className="review-view-container">
@@ -72,8 +81,7 @@ function ReviewView() {
                     Thank you!
                     </div>
                     <button className="review-submit" onClick={() => {
-                        setreviewActive(!reviewActive)
-                        setIsChecked(false)
+                        dispatch(actions.profile())
                     }}>GO BACK</button>
                 </div>
                
@@ -86,12 +94,11 @@ function ReviewView() {
         <div className="review-view-component">
             <div className="review-view-container">
                 <div className="review-header-text">Review</div>
-                <div className="review-subheader-text">Submit your review of 'INSERT MOVIE TITLE' here</div>
+                <div className="review-subheader-text">Submit your review of {movieReviewID.title}</div>
                 <div className="review-container">
-                    <textarea className="review-input-field" placeholder="Leave your review here..." />
+                    <textarea className="review-input-field" placeholder="Leave your review here..." onChange={(event) => setReviewText(event.target.value)}/>
                 </div>
                 <div className="review-subheader-text">Rate the Movie</div>
-                {/* rating system here */}
                 <div className="review-rating-container">
                     {ratingStars.map((index) => {
                         return (
@@ -111,12 +118,12 @@ function ReviewView() {
                     <input type="checkbox" className="review-checkbox" onChange={() => setIsChecked(!isChecked)} />
                     <div className="review-terms-text">By checking the box you are agreeing to all terms etc...</div>
                 </div>
+                <div className='review-error-message'>{errorMessage}</div>
                 <button className="review-submit" onClick={() => {
                     if(isChecked && rating > 0) {
-                        setreviewActive(!reviewActive)
+                        reviewRate(movieToReviewId, rating, reviewText, () => setFsQueryDone(true))
                     } else {
-                        //return error
-                        
+                        setErrorMessage('Please make sure you have filled out an review and rated the movie and agreed to terms')
                     }
                 }}>SUBMIT</button>
             </div>
