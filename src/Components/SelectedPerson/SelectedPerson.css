@@ -1,0 +1,96 @@
+.individual-person-component {
+    flex-direction: column;
+    height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.individual-person-component::-webkit-scrollbar {
+    display: none;
+}
+
+.person-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.person-poster {
+    margin-left: auto;
+    margin-right: 3vw;
+}
+
+.person-poster img {
+    height: 25vh;
+    object-fit: scale-down;
+}
+
+.person-info-container {
+    margin-left: 3vw;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.person-title-text {
+    font-size: calc(14px + 1.5vw);
+    color: white;
+    margin-bottom: 10px;
+}
+
+.person-info-text {
+    font-size: calc(12px + 0.90vw);
+    color: white;
+    margin-bottom: 5px;
+}
+
+.person-bio-container {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.person-bio-text {
+    font-size: calc(12px + 0.70vw);
+    color: white;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.person-heading {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 2rem;
+    margin-top: 0.1%;
+    text-align: left;
+}
+
+.person-movie-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+/* Stop scaling after width 1000px */
+@media screen and (min-width: 1000px) {
+    .person-bio-text {
+        font-size: 1.2em;
+    }
+    
+    .person-info-text {
+        font-size: 1.3em;
+    }
+    
+    .person-title-text {
+        font-size: 1.8em;
+    }
+}

@@ -6,6 +6,7 @@ import { actions as loggedInActions } from '../../Features/loggedinUser';
 import { actions as sideMenuActions } from '../../Features/sideMenu';
 import LoginRegistration from '../LoginRegistration/LoginRegistration';
 import SelectedMovie from '../SelectedMovie/SelectedMovie';
+import SelectedPerson from '../SelectedPerson/SelectedPerson';
 import Profile from '../ProfileOrder/ProfileOrder';
 import HomePage from '../HomePage/HomePage';
 import Search from '../Search/Search';
@@ -43,6 +44,8 @@ const ActiveView = () => {
         content = <Search />
     } else if (activeView === ACTIVEVIEW.SELECTEDMOVIE) {
         content = <SelectedMovie />
+    } else if (activeView === ACTIVEVIEW.SELECTEDPERSON) {
+        content = <SelectedPerson />
     } else if (activeView === ACTIVEVIEW.CHOSENGENRE) {
         content = <ChosenGenre />
     } else if (activeView === ACTIVEVIEW.REVIEW) {
