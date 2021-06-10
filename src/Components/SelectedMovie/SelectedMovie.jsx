@@ -23,13 +23,11 @@ const SelectedMovie = () => {
     const [reviewsArray, setReviewsArray] = useState([]);
     const [whsRating, setWhsRating] = useState(null);
 
-    // let ratingsArray = [];
     let ratingsArray = useMemo(() => []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => {
             setFlixDetail(JSON.parse(resp))
-
             if (JSON.parse(resp).imdb_id !== null) {
                 SetImdbId(JSON.parse(resp).imdb_id)
             }
@@ -54,7 +52,6 @@ const SelectedMovie = () => {
     useEffect(() => {
         if (reviews.length > 0) {
             reviews.forEach(element => ratingsArray.push(element.rate));
-            
             setReviewsArray(reviews);
         }
     }, [reviews]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -62,7 +59,9 @@ const SelectedMovie = () => {
     useEffect(() => {
         if (ratingsArray.length > 0) {
             let totalRating = ratingsArray.reduce((a, b) => a + b, 0);
-            setWhsRating(totalRating / ratingsArray.length);
+            let averageRating = totalRating / ratingsArray.length;
+            let roundedTotalRating = Math.round((averageRating + Number.EPSILON) * 100) / 100;
+            setWhsRating(roundedTotalRating);
         }
     }, [ratingsArray]); // eslint-disable-line react-hooks/exhaustive-deps
 

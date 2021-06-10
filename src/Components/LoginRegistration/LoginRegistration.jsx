@@ -45,10 +45,9 @@ const LoginRegistration = () => {
                     loggHimIn(userCredential, 'Welcome back, dear user!');
                 })
                 .catch((error) => {
-                    let errorCode = error.code;
+                    // let errorCode = error.code;
                     let errorMessage = error.message;
                     displayStatus(errorMessage);
-                    console.log('there was an error during signing in: ', errorCode, ' , ', errorMessage);
                 })
         }
 
@@ -62,14 +61,13 @@ const LoginRegistration = () => {
                     toggleLogin();
                 })
                 .catch((error) => {
-                    let errorCode = error.code;
+                    // let errorCode = error.code;
                     let errorMessage = error.message;
                     displayStatus(errorMessage);
-                    console.log('there was an error during registration: ', errorCode, ' , ', errorMessage);
                 });
 
         } else {
-            console.log('password does not match');
+            displayStatus('password does not match');
         }
     }
 
