@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { getFlixDetail } from '../../Features/repositoryAPI';
@@ -21,6 +21,10 @@ const SelectedMovie = () => {
     const [content, setContent] = useState('Loading...');
     const [reviews, setReviews] = useState([]);
     const [reviewsArray, setReviewsArray] = useState([]);
+    const [whsRating, setWhsRating] = useState(null);
+
+    // let ratingsArray = [];
+    let ratingsArray = useMemo(() => []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         getFlixDetail(dispatch, id).then((resp) => {
@@ -49,9 +53,18 @@ const SelectedMovie = () => {
 
     useEffect(() => {
         if (reviews.length > 0) {
+            reviews.forEach(element => ratingsArray.push(element.rate));
+            
             setReviewsArray(reviews);
         }
-    }, [reviews])
+    }, [reviews]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (ratingsArray.length > 0) {
+            let totalRating = ratingsArray.reduce((a, b) => a + b, 0);
+            setWhsRating(totalRating / ratingsArray.length);
+        }
+    }, [ratingsArray]); // eslint-disable-line react-hooks/exhaustive-deps
 
     function buyMovie() {
         const movieToBuy = { "movieId": flixDetail.id, "movieTitle": flixDetail.original_title, "price": 4.99 };
@@ -108,10 +121,17 @@ const SelectedMovie = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
-                <div className="user-rating-container">
-                    IMDB rating<br />
-                    <div className="user-rating-score-text">{imdbRating}</div>
-                </div>
+                {whsRating ? (
+                    <div className="user-rating-container">
+                        WHS rating<br />
+                        <div className="user-rating-score-text">{whsRating}/5</div>
+                    </div>
+                ) : (
+                    <div className="user-rating-container">
+                        IMDB rating<br />
+                        <div className="user-rating-score-text">{imdbRating}</div>
+                    </div>
+                )}
 
                 <div className="movie-price-text">
                     Price <br />
